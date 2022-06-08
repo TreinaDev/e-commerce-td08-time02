@@ -11,7 +11,18 @@
   </head>
 
   <body>
-    <h1>E-Commerce</h1>
+    <ul>
+      <li>E-Commerce</li>
+      <% if admin_signed_in? %>
+        <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
+      <% else %>
+        <li><%= link_to "Login como administrador", new_admin_session_path %></li>
+      <% end %>
+    </ul>
+    <div>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
     <%= yield %>
   </body>
 </html>
