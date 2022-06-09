@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      admin: Administrador
+    attributes:
+      admin:
+        email: E-mail
+        password: Senha
+        name: Nome
+      admin/status:
+        approved: Aprovado
+        pending: Pendente
