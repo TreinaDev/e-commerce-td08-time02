@@ -6,6 +6,8 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
+    @category.admin_id = current_admin.id
+    @categories = Category.all
 
     if @category.save
       redirect_to root_path, notice: 'Categoria Cadastrada com Sucesso!'

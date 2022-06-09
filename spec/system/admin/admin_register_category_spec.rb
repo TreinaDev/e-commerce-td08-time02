@@ -1,18 +1,52 @@
 require 'rails_helper'
 
 describe 'Administrador cria categoria' do
-  it 'com sucesso' do
-    Category.create!(name: 'Alimentos')
+  context 'super categoria' do
+    it 'com sucesso' do
+      admin = Admin.create!(email: 'joão@mercadores.com.br', password: 'joão1234', status: :approved)
 
-    visit root_path
-    click_on 'Criar Categoria'
-    fill_in 'Nome', with: 'Fruta'
-    select 'Alimentos', from: 'Categoria'
-    click_on 'cadastrar'
-    
-    category = Category.where(name: 'Fruta')
-    expect(category.length).to eq 1
-    expect(category[0].category.name).to eq 'Alimentos'
-    expect(page).to have_content 'E-Commerce'
+      login_as(admin, scope: :admin)
+      visit root_path
+      click_on 'Criar Categoria'
+      fill_in 'Nome', with: 'Alimentos'
+      click_on 'cadastrar'
+      category = Category.last
+
+      expect(page).to have_current_path root_path
+      expect(page).to have_content 'Categoria Cadastrada com Sucesso!'
+      expect(category.name).to eq 'Alimentos'
+      expect(category.admin_id).to eq admin.id
+    end
+
+    it 'com campos vazios' do
+      admin = Admin.create!(email: 'joão@mercadores.com.br', password: 'joão1234', status: :approved)
+
+      login_as(admin, scope: :admin)
+      visit root_path
+      click_on 'Criar Categoria'
+      fill_in 'Nome', with: ''
+      click_on 'cadastrar'
+
+      expect(page).to have_current_path categories_path
+      expect(page).to have_content 'Não foi possível cadastrar a categoria'
+    end
+  end
+
+  context 'subcategoria' do
+    it 'com sucesso' do
+      admin = Admin.create!(email: 'joão@mercadores.com.br', password: 'joão1234', status: :approved)
+      category = Category.create!(name: 'Alimentos', admin_id: admin.id)
+
+      login_as(admin, scope: :admin)
+      visit root_path
+      click_on 'Criar Categoria'
+      fill_in 'Nome', with: 'Frutas'
+      select 'Alimentos', from: 'Categoria'
+      click_on 'cadastrar'
+      subcategory = category.categories.last
+
+      expect(subcategory.name).to eq 'Frutas'
+      expect(category.name).to eq 'Alimentos'
+    end
   end
 end

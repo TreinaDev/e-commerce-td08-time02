@@ -5,4 +5,6 @@ class Admin < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   enum status: { pending: 0, approved: 5 }
+
+  has_many :categories
 end
