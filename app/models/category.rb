@@ -6,5 +6,5 @@ class Category < ApplicationRecord
   enum status: { disabled: 0, active: 1 }
 
   validates :name, presence: true
-  validates_uniqueness_of :name, scope: :category
+  validates :name, uniqueness: { scope: :category }
 end

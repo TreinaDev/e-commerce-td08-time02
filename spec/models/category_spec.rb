@@ -2,12 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Category, type: :model do
   describe '#valid' do
-    it 'falso quando nome está vazio' do
-      category = described_class.new
-
-      expect(category).not_to be_valid
-      expect(category.errors).to include :name
-    end
+    it { is_expected.to validate_presence_of(:name) }
 
     it 'falso quando o nome se repete na mesma super categoria' do
       admin = Admin.create!(email: 'joão@mercadores.com.br', password: 'joão1234', status: :approved)
