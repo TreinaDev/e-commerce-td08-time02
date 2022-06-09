@@ -37,6 +37,8 @@ pt-BR:
       send_instructions: Dentro de minutos, você receberá um email com as instruções de confirmação da sua conta.
       send_paranoid_instructions: Se o seu e-mail existir em nosso banco de dados, você receberá um email com instruções sobre como confirmar sua conta em alguns minutos.
     failure:
+      admin:
+        not_approved: Seu cadastro ainda não foi aprovado por outro administrador.
       already_authenticated: Você já está autenticado.
       inactive: A sua conta ainda não foi ativada.
       invalid: "%{authentication_keys} ou senha inválidos."
@@ -50,7 +52,7 @@ pt-BR:
       confirmation_instructions:
         action: Confirmar minha conta
         greeting: Bem-vindo %{recipient}!
-        instruction: 'Você pode confirmar sua conta através do link abaixo:'
+        instruction: "Você pode confirmar sua conta através do link abaixo:"
         subject: Instruções de confirmação
       email_changed:
         greeting: Olá %{recipient}!
@@ -71,7 +73,7 @@ pt-BR:
       unlock_instructions:
         action: Desbloquear minha conta
         greeting: Olá %{recipient}!
-        instruction: 'Clique no link abaixo para desbloquear sua conta:'
+        instruction: "Clique no link abaixo para desbloquear sua conta:"
         message: Sua conta foi bloqueada devido ao excessivo número de tentativas acesso inválidas.
         subject: Instruções de desbloqueio
     omniauth_callbacks:
@@ -96,7 +98,7 @@ pt-BR:
       edit:
         are_you_sure: Você tem certeza?
         cancel_my_account: Cancelar minha conta
-        currently_waiting_confirmation_for_email: 'No momento esperando por: %{email}'
+        currently_waiting_confirmation_for_email: "No momento esperando por: %{email}"
         leave_blank_if_you_don_t_want_to_change_it: deixe em branco caso não queira alterá-la
         title: Editar %{resource}
         unhappy: Não está contente?
@@ -104,19 +106,20 @@ pt-BR:
         we_need_your_current_password_to_confirm_your_changes: precisamos da sua senha atual para confirmar suas mudanças
       new:
         sign_up: Inscrever-se
-      signed_up: Bem vindo! Você realizou seu registro com sucesso.
+      signed_up: Cadastro efetuado com sucesso.
       signed_up_but_inactive: Você se inscreveu com sucesso, porém nós não podemos autenticá-lo porque sua conta ainda não foi ativada.
       signed_up_but_locked: Você se inscreveu com sucesso. Porém nós não podemos autenticá-lo porque sua conta está bloqueada.
       signed_up_but_unconfirmed: Uma mensagem com um link de confirmação foi enviada para o seu e-mail. Por favor, acesse o link para ativar sua conta.
+      signed_up_but_not_approved: Cadastro efetuado com sucesso. Esperando por aprovação por outro Administrador.
       update_needs_confirmation: Sua conta foi atualizada com sucesso, mas nós precisamos verificar o novo endereço de email. Por favor, verifique seu e-mail e clique no link de confirmação para finalizar confirmando o seu novo e-mail.
       updated: A sua conta foi atualizada com sucesso.
       updated_but_not_signed_in: Sua conta foi atualizada com sucesso, uma vez que sua senha foi alterada será necessário realizar o login novamente.
     sessions:
-      already_signed_out: Logout efetuado com sucesso.
+      already_signed_out: Saída efetuada com sucesso.
       new:
         sign_in: Login
-      signed_in: Login efetuado com sucesso.
-      signed_out: Logout efetuado com sucesso.
+      signed_in: Autenticação efetuada com sucesso.
+      signed_out: Saída efetuada com sucesso.
     shared:
       links:
         back: Voltar
@@ -143,5 +146,5 @@ pt-BR:
       not_found: não encontrado
       not_locked: não foi bloqueado
       not_saved:
-        one: 'Não foi possível salvar %{resource}: 1 erro'
-        other: 'Não foi possível salvar %{resource}: %{count} erros.'
+        one: "Não foi possível salvar %{resource}: 1 erro"
+        other: "Não foi possível salvar %{resource}: %{count} erros."

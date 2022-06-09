@@ -16,7 +16,7 @@
       <% if admin_signed_in? %>
         <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
       <% else %>
-        <li><%= link_to "Login como administrador", new_admin_session_path %></li>
+        <li><%= link_to "Entrar como administrador", new_admin_session_path %></li>
       <% end %>
     </ul>
     <div>

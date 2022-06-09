@@ -7,6 +7,8 @@ pt-BR:
         email: E-mail
         password: Senha
         name: Nome
+        log in: Entrar
+        password_confirmation: Confirmar senha
       admin/status:
         approved: Aprovado
         pending: Pendente
