@@ -15,6 +15,8 @@
       <li>E-Commerce</li>
       <% if admin_signed_in? %>
         <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
+        <li><%= button_to 'Sair', destroy_admin_session_path, method: :delete %></li>
+        <li><%= link_to 'Cadastros Pendentes', pending_admins_path %></li>
       <% else %>
         <li><%= link_to "Entrar como administrador", new_admin_session_path %></li>
       <% end %>

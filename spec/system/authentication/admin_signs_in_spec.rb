@@ -17,8 +17,9 @@ describe 'Administrador se autentica' do
   end
 
   it 'com dados incompletos' do
-
     visit(new_admin_session_path)
+    fill_in 'E-mail', with: ''
+    fill_in 'Senha', with: ''
     click_on('Entrar')
 
     expect(page).to have_content('E-mail ou senha inválidos')
