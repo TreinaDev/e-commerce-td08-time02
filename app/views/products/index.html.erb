@@ -1,0 +1,17 @@
+
+
+<%= link_to 'Cadastrar Produto', new_product_path %>
+
+<% @products.each do |product| %>
+<div>
+  <p>Status: <%= product.status %></p>
+  <p>Nome: <%= product.name %> </p>
+  <p>Marca: <%= product.brand %></p>
+  <p>SKU: <%= product.sku %></p>
+  <p>Descrição: <%= product.description %></p>
+  <p>Dimensões: <%= product.width %>x<%= product.height %>x<%= product.depth %></p>
+  <p>Peso: <%= product.weight %></p>
+  <p>Preço do Frete: <%= product.shipping_price %></p>
+  <p>Frágil: <%= product.fragile? ? 'Sim' : 'Não' %></p>
+</div>
+<% end %>

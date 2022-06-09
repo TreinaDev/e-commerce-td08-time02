@@ -1,0 +1,61 @@
+<%= form_with model: @product, data: { turbo: false } do |f|  %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name%>
+  </div>
+
+  <div>
+    <%= f.label :brand %>
+    <%= f.text_field :brand%>
+  </div>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description%>
+  </div>
+
+  <div>
+    <%= f.label :sku %>
+    <%= f.text_field :sku%>
+  </div>
+
+  <div>
+    <%= f.label :width %>
+    <%= f.number_field :width%>
+  </div>
+
+  <div>
+    <%= f.label :height  %>
+    <%= f.number_field :height %>
+  </div>
+
+  <div>
+    <%= f.label :depth  %>
+    <%= f.number_field :depth %>
+  </div>
+
+  <div>
+    <%= f.label :weight  %>
+    <%= f.number_field :weight %>
+  </div>
+
+  <div>
+    <%= f.label :shipping_price  %>
+    <%= f.number_field :shipping_price %>
+  </div>
+
+  <div>
+    <%= f.label :fragile  %>
+    <%= f.check_box :fragile %>
+  </div>
+
+  <div>
+    <%= f.label :manual  %>
+    <%= f.text_field :manual %>
+  </div>
+
+  <div>
+    <%= f.submit 'Cadastrar' %>
+  </div>
+  
+<% end %>
