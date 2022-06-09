@@ -7,4 +7,12 @@ class Category < ApplicationRecord
 
   validates :name, presence: true
   validates_uniqueness_of :name, scope: :category
+
+  def full_name
+    if category
+      "#{category.name} > #{name}"
+    else
+      "#{name}"
+    end
+  end
 end

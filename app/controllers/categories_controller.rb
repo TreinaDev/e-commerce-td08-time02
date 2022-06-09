@@ -1,4 +1,9 @@
 class CategoriesController < ApplicationController
+
+  def index
+    @categories = Category.all
+  end
+
   def new
     @category = Category.new
     @categories = Category.all
@@ -10,7 +15,7 @@ class CategoriesController < ApplicationController
     @categories = Category.all
 
     if @category.save
-      redirect_to root_path, notice: 'Categoria Cadastrada com Sucesso!'
+      redirect_to categories_path, notice: 'Categoria Cadastrada com Sucesso!'
     else
       flash.now[:alert] = 'Não foi possível cadastrar a categoria'
       render 'new'

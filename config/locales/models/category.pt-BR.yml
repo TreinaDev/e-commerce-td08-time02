@@ -1,9 +1,11 @@
 pt-BR:
   activerecord:
     models:
-      category: Category
+      category:
+        one: Categoria
+        other: Categorias
     attributes:
       category:
         name: "Nome"
-        category_id: "Categoria" 
+        category_id: "Categoria"
         category: "Categoria"

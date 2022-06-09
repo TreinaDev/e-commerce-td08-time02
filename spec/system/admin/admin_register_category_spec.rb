@@ -7,15 +7,17 @@ describe 'Administrador cria categoria' do
 
       login_as(admin, scope: :admin)
       visit root_path
+      click_on 'Categorias'
       click_on 'Criar Categoria'
       fill_in 'Nome', with: 'Alimentos'
       click_on 'cadastrar'
       category = Category.last
 
-      expect(page).to have_current_path root_path
+      expect(page).to have_current_path categories_path
       expect(page).to have_content 'Categoria Cadastrada com Sucesso!'
       expect(category.name).to eq 'Alimentos'
       expect(category.admin_id).to eq admin.id
+      expect(page).to have_content 'Alimentos'
     end
 
     it 'com campos vazios' do
@@ -23,6 +25,7 @@ describe 'Administrador cria categoria' do
 
       login_as(admin, scope: :admin)
       visit root_path
+      click_on 'Categorias'
       click_on 'Criar Categoria'
       fill_in 'Nome', with: ''
       click_on 'cadastrar'
@@ -39,6 +42,7 @@ describe 'Administrador cria categoria' do
 
       login_as(admin, scope: :admin)
       visit root_path
+      click_on 'Categorias'
       click_on 'Criar Categoria'
       fill_in 'Nome', with: 'Frutas'
       select 'Alimentos', from: 'Categoria'
@@ -47,6 +51,8 @@ describe 'Administrador cria categoria' do
 
       expect(subcategory.name).to eq 'Frutas'
       expect(category.name).to eq 'Alimentos'
+      expect(page).to have_content 'Alimentos'
+      expect(page).to have_content 'Alimentos > Frutas'
     end
   end
 end

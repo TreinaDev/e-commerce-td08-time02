@@ -1,0 +1,11 @@
+<h2><%= I18n.t('activerecord.models.category.other') %></h2>
+<div>
+  <%= link_to 'Criar Categoria', new_category_path %>
+</div>
+<div class="categories-wrapper">
+  <% @categories.each do |category| %>
+    <div class="category">
+        <%= link_to category.full_name, '#' %>
+    </div>
+  <% end %>
+</div>
