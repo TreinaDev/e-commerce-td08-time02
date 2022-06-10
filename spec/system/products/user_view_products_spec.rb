@@ -27,4 +27,11 @@ describe 'Usuário vê produtos ' do
     expect(page).to have_content('Marca: Samsumg')
     expect(page).to have_content('SKU: MON4K-56792')
   end
+
+  it 'não existe produtos cadastrados' do
+    visit root_path
+    click_on 'Produtos'
+
+    expect(page).to have_content 'Nenhum produto cadastrado'
+  end
 end
