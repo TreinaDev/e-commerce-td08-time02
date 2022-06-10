@@ -1,4 +1,5 @@
 pt-BR:
+  admin_approved: Administrador aprovado com sucesso.
   activerecord:
     models:
       admin: Administrador

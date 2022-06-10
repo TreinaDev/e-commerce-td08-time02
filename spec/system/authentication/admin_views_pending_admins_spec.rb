@@ -20,6 +20,7 @@ describe 'Administrador vê os cadastros de administradores pendentes' do
 
     expect(page).to have_content 'Cadastros de administradores pendentes'
     expect(page).to have_content 'Nome: José'
+    expect(page).to have_content 'Status: Pendente'
     expect(page).to have_content 'E-mail: jose@mercadores.com.br'
     expect(page).to have_content 'Nome: Maria'
     expect(page).to have_content 'E-mail: maria@mercadores.com.br'

@@ -3,6 +3,7 @@
   <div id=<%= admin.id %>>
     <p>Nome: <%= admin.name %></p>
     <p>E-mail: <%= admin.email %></p>
+    <p>Status: <%= Admin.human_attribute_name("status.#{admin.status}") %></p>
     <%= button_to "Aprovar Cadastro", approve_pending_admin_path(admin.id) %>
   </div>
 <% end %>
