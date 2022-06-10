@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe 'Administrador vê os cadastros de administradores pendentes' do
   it 'a partir da tela inicial' do
-    admin = create :admin, email: 'admin@mercadores.com.br', password: 'password', status: :approved
-    create :admin, email: 'fernando@mercadores.com.br', name: 'Fernando', status: :approved
+    admin = create :admin
     create :admin, email: 'jose@mercadores.com.br', name: 'José', status: :pending
     create :admin, email: 'maria@mercadores.com.br', name: 'Maria', status: :pending
+    create :admin, email: 'fernando@mercadores.com.br', name: 'Fernando', status: :approved
 
     login_as admin, scope: :admin
     visit root_path
