@@ -1,0 +1,15 @@
+<div>
+  <%= form_with model: @category do |form| %>
+    <div>
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+    <div>
+      <%= form.label :category_id %>
+      <%= form.collection_select :category_id, @categories, :id, :name %>
+    </div>
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>

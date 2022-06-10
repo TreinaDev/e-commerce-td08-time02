@@ -44,12 +44,12 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'simplecov', require: false
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem 'shoulda-matchers'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'

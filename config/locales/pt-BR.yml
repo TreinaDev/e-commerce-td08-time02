@@ -1,3 +1,4 @@
+---
 pt-BR:
   activerecord:
     errors:
@@ -16,7 +17,7 @@ pt-BR:
     - sex
     - sáb
     abbr_month_names:
-    - 
+    -
     - jan
     - fev
     - mar
@@ -42,7 +43,7 @@ pt-BR:
       long: "%d de %B de %Y"
       short: "%d de %B"
     month_names:
-    - 
+    -
     - janeiro
     - fevereiro
     - março
@@ -147,9 +148,9 @@ pt-BR:
     select:
       prompt: Por favor selecione
     submit:
-      create: Criar %{model}
+      create: cadastrar
       submit: Salvar %{model}
-      update: Atualizar %{model}
+      update: atualizar
   number:
     currency:
       format:
