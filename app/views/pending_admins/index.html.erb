@@ -1,0 +1,9 @@
+<h1>Cadastros de administradores pendentes</h1>
+<% @pending_admins.each do |admin| %>
+  <div id=<%= admin.id %>>
+    <p>Nome: <%= admin.name %></p>
+    <p>E-mail: <%= admin.email %></p>
+    <p>Status: <%= Admin.human_attribute_name("status.#{admin.status}") %></p>
+    <%= button_to "Aprovar Cadastro", approve_pending_admin_path(admin.id) %>
+  </div>
+<% end %>

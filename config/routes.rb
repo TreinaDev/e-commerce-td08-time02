@@ -3,4 +3,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :categories, only: %i[new create]
+  resources :pending_admins, only: %i[index] do
+    post 'approve', on: :member
+  end
 end
