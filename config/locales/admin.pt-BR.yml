@@ -1,0 +1,15 @@
+pt-BR:
+  admin_approved: Administrador aprovado com sucesso.
+  activerecord:
+    models:
+      admin: Administrador
+    attributes:
+      admin:
+        email: E-mail
+        password: Senha
+        name: Nome
+        log in: Entrar
+        password_confirmation: Confirmar senha
+      admin/status:
+        approved: Aprovado
+        pending: Pendente
