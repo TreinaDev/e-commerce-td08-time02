@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_admin!
 
   def index
     @categories = Category.all
@@ -15,9 +16,9 @@ class CategoriesController < ApplicationController
     @categories = Category.all
 
     if @category.save
-      redirect_to categories_path, notice: 'Categoria Cadastrada com Sucesso!'
+      redirect_to categories_path, notice: t('category_created')
     else
-      flash.now[:alert] = 'Não foi possível cadastrar a categoria'
+      flash.now[:alert] = t('category_not_created')
       render 'new'
     end
   end

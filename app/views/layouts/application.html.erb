@@ -11,15 +11,21 @@
   </head>
 
   <body>
-    <ul>
-      <li>E-Commerce</li>
-      <% if admin_signed_in? %>
-        <li><%= link_to 'Categorias', categories_path %></li>
-        <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
-      <% else %>
-        <li><%= link_to "Login como administrador", new_admin_session_path %></li>
-      <% end %>
-    </ul>
+    <h1>E-Commerce</h1>
+    <nav>
+      <ul>
+        <li><%= link_to 'Página Inicial', root_path %></li>
+        <% if admin_signed_in? %>
+          <li><%= link_to 'Categorias', categories_path %></li>
+          <li><%= link_to 'Cadastros Pendentes', pending_admins_path %></li>
+          <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
+          <li><%= button_to 'Sair', destroy_admin_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Entrar como administrador", new_admin_session_path %></li>
+        <% end %>
+      </ul>
+    </nav>
+
     <div>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>

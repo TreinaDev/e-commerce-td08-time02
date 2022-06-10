@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_09_165036) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_10_172847) do
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -34,6 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_165036) do
     t.integer "status", default: 1
     t.index ["admin_id"], name: "index_categories_on_admin_id"
     t.index ["category_id"], name: "index_categories_on_category_id"
+    t.index ["name", "category_id"], name: "index_categories_on_name_and_category_id", unique: true
   end
 
   add_foreign_key "categories", "admins"
