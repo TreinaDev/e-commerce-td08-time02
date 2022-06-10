@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 describe 'Administrador vê os cadastros de administradores pendentes' do
+  it 'sem estar autenticado' do
+    visit pending_admins_path
+
+    expect(page).to have_current_path new_admin_session_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se.'
+  end
+
   it 'a partir da tela inicial' do
     admin = create :admin
     create :admin, email: 'jose@mercadores.com.br', name: 'José', status: :pending
