@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'Administrador cria categoria' do
   context 'super categoria' do
     it 'com sucesso' do
-      admin = Admin.create!(email: 'joão@mercadores.com.br', password: 'joão1234', status: :approved)
-
+      admin = create(:admin)
+      
       login_as(admin, scope: :admin)
       visit root_path
       click_on 'Criar Categoria'
@@ -19,7 +19,7 @@ describe 'Administrador cria categoria' do
     end
 
     it 'com campos vazios' do
-      admin = Admin.create!(email: 'joão@mercadores.com.br', password: 'joão1234', status: :approved)
+      admin = create(:admin)
 
       login_as(admin, scope: :admin)
       visit root_path
@@ -34,7 +34,7 @@ describe 'Administrador cria categoria' do
 
   context 'subcategoria' do
     it 'com sucesso' do
-      admin = Admin.create!(email: 'joão@mercadores.com.br', password: 'joão1234', status: :approved)
+      admin = create(:admin)
       category = Category.create!(name: 'Alimentos', admin_id: admin.id)
 
       login_as(admin, scope: :admin)
