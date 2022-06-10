@@ -1,11 +1,15 @@
 require 'rails_helper'
 
 describe 'Usuário cadastra um produto' do
+  it 'deve estar autenticado' do
+    visit new_product_path
+
+    expect(current_path).to eq new_admin_session_path
+  end
+
   it 'a partir da tela inicial' do
-    # Arrange
-    # user = Admin.create!(name: 'Administrador', email: 'admin@mercadores.com.br', password: 'password', status: 'approved')
-    # Act
-    # login_as(user)
+    user = Admin.create!(name: 'Administrador', email: 'admin@mercadores.com.br', password: 'password', status: 'approved')
+    login_as(user)
     visit root_path
     click_on 'Produtos'
     click_on 'Cadastrar Produto'
@@ -23,8 +27,6 @@ describe 'Usuário cadastra um produto' do
     check   'Frágil'
     click_on 'Cadastrar'
 
-
-    # Assert
     expect(page).to have_content('TV - LG 45')
     expect(current_path).to eq product_path(1)
     expect(page).to have_content('Marca: LG')
@@ -39,6 +41,9 @@ describe 'Usuário cadastra um produto' do
   end
 
   it 'com dados incompletos' do
+    admin = create(:admin)
+    login_as(admin, scope: :admin)
+
     visit root_path
     click_on 'Produtos'
     click_on 'Cadastrar Produto'
