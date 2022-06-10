@@ -1,4 +1,5 @@
 pt-BR:
+  select_category: Selecione categoria relacionada
   category_created: Categoria Cadastrada com Sucesso!
   category_not_created: Não foi possível cadastrar a categoria
   activerecord:
@@ -8,7 +9,7 @@ pt-BR:
         other: Categorias
     attributes:
       category:
-        name: "Nome"
-        category_id: "Categoria"
-        category: "Categoria"
+        name: Nome
+        category_id: Categoria
+        category: Categoria
   
