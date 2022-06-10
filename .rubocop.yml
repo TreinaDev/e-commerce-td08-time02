@@ -1,0 +1,34 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  TargetRubyVersion: 3.1
+  TargetRailsVersion: 7.0
+  NewCops: enable
+  Exclude:
+  - 'bin/**/*'
+  - 'vendor/**/*'
+  - 'db/**/*'
+
+Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context']
+
+RSpec/ExampleLength:
+  Max: 40
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/FilePath:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false

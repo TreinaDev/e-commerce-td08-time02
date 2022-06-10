@@ -1,0 +1,12 @@
+pt-BR:
+  category_created: Categoria Cadastrada com Sucesso!
+  category_not_created: Não foi possível cadastrar a categoria
+  activerecord:
+    models:
+      category: Category
+    attributes:
+      category:
+        name: "Nome"
+        category_id: "Categoria" 
+        category: "Categoria"
+  
