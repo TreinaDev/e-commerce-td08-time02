@@ -12,9 +12,9 @@ class CategoriesController < ApplicationController
     @categories = Category.all
 
     if @category.save
-      redirect_to root_path, notice: f('category_created')
+      redirect_to root_path, notice: t('category_created')
     else
-      flash.now[:alert] = f('category_not_created')
+      flash.now[:alert] = t('category_not_created')
       render 'new'
     end
   end
