@@ -5,8 +5,8 @@
       <%= form.text_field :name %>
     </div>
     <div>
-      <%= form.label t('select_category') %>
-      <%= form.collection_select :category_id, @categories, :id, :name, { prompt: "-Sem categoria relacionada-" } %>
+      <%= form.label :category_id, t('select_category') %>
+      <%= form.collection_select :category_id, @categories, :id, :name, { prompt: '[Sem categoria relacionada]'} %>
     </div>
     <div>
       <%= form.submit %>

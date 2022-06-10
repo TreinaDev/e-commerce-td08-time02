@@ -45,9 +45,9 @@ describe 'Administrador cria categoria' do
       click_on 'Categorias'
       click_on 'Criar Categoria'
       fill_in 'Nome', with: 'Frutas'
-      select 'Alimentos', from: 'Categoria'
+      select 'Alimentos', from: 'Selecione categoria relacionada'
       click_on 'cadastrar'
-      subcategory = category.categories.last
+      subcategory = Category.last
 
       expect(subcategory.name).to eq 'Frutas'
       expect(category.name).to eq 'Alimentos'
