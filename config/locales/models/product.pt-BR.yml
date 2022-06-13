@@ -1,4 +1,6 @@
 pt-BR:
+  product_inactive: 'Produto Inativo'
+  product_active: 'Produto Ativo'
   activerecord:
     models:
       product: 'Produtos'
