@@ -1,6 +1,10 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_admin!
 
+  def index
+    @categories = Category.all
+  end
+
   def new
     @category = Category.new
     @categories = Category.all
@@ -12,7 +16,7 @@ class CategoriesController < ApplicationController
     @categories = Category.all
 
     if @category.save
-      redirect_to root_path, notice: t('category_created')
+      redirect_to categories_path, notice: t('category_created')
     else
       flash.now[:alert] = t('category_not_created')
       render 'new'
