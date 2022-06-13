@@ -18,8 +18,7 @@ describe 'Administrador vê categorias' do
     admin = create(:admin)
 
     login_as(admin, scope: :admin)
-    visit root_path
-    click_on 'Categorias'
+    visit categories_path
 
     expect(page).to have_content 'Não há categorias cadastradas'
   end

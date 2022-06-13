@@ -24,9 +24,7 @@ describe 'Administrador cria categoria' do
       admin = create(:admin)
 
       login_as(admin, scope: :admin)
-      visit root_path
-      click_on 'Categorias'
-      click_on 'Criar Categoria'
+      visit new_category_path
       fill_in 'Nome', with: ''
       click_on 'cadastrar'
 
@@ -41,9 +39,7 @@ describe 'Administrador cria categoria' do
       category = Category.create!(name: 'Alimentos', admin_id: admin.id)
 
       login_as(admin, scope: :admin)
-      visit root_path
-      click_on 'Categorias'
-      click_on 'Criar Categoria'
+      visit new_category_path
       fill_in 'Nome', with: 'Frutas'
       select 'Alimentos', from: 'Selecione categoria relacionada'
       click_on 'cadastrar'

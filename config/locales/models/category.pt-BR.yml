@@ -10,6 +10,5 @@ pt-BR:
     attributes:
       category:
         name: Nome
-        category_id: Categoria
         category: Categoria
   
