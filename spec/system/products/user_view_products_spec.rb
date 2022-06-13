@@ -15,13 +15,7 @@ describe 'Usuário vê produtos ' do
     expect(current_path).to eq products_path
     expect(page).to have_content('Monitor 8k')   
     expect(page).to have_content('Marca: LG')
-    #expect(page).to have_content('Descrição: Monitor de auta qualidade')
     expect(page).to have_content('SKU: MON8K-64792')
-    #expect(page).to have_content('Dimensões: 100x50x12')
-    #expect(page).to have_content('Peso: 12kg')
-    #expect(page).to have_content('Valor do Frete: 23')
-    #expect(page).to have_content('Frágil - Sim')
-    #expect(page).to have_content('Pendente de Pagamento')
 
     expect(page).to have_content('Monitor 4k')
     expect(page).to have_content('Marca: Samsumg')

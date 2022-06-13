@@ -10,7 +10,7 @@ describe 'Usuario vê detalhes de um produto' do
     click_on 'Produtos'
     click_on 'Monitor 8k'
 
-    expect(current_path).to eq product_path(1)
+    expect(current_path).to eq product_path(Product.last.id)
     expect(page).to have_content('Monitor 8k')   
     expect(page).to have_content('Marca: LG')
     expect(page).to have_content('Descrição: Monitor de auta qualidade')

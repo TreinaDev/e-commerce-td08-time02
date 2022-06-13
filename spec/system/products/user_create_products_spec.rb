@@ -28,7 +28,7 @@ describe 'Usuário cadastra um produto' do
     click_on 'Cadastrar'
 
     expect(page).to have_content('TV - LG 45')
-    expect(current_path).to eq product_path(1)
+    expect(current_path).to eq product_path(Product.last.id)
     expect(page).to have_content('Marca: LG')
     expect(page).to have_content('Descrição: TV - LG 45 polegadas')
     expect(page).to have_content('SKU: TVLG45-XKFZ')

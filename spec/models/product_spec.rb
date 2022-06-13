@@ -18,24 +18,25 @@ RSpec.describe Product, type: :model do
     it { is_expected.to validate_presence_of(:depth) }
 
     it { is_expected.to validate_presence_of(:fragile) }
-  end
 
-  it 'falso quando altura menor ou igual a zero' do
+    it { should validate_uniqueness_of(:sku) }
+
+    it 'falso quando altura menor ou igual a zero' do
       should validate_numericality_of(:height).is_greater_than(0.0)
-  end
+    end
 
-  it 'falso quando peso menor ou igual a zero' do
-    should validate_numericality_of(:weight).is_greater_than(0.0)
-  end
+    it 'falso quando peso menor ou igual a zero' do
+      should validate_numericality_of(:weight).is_greater_than(0.0)
+    end
 
-  it 'falso quando largura menor ou igual a zero' do
-    should validate_numericality_of(:width).is_greater_than(0.0)
-  end
+    it 'falso quando largura menor ou igual a zero' do
+      should validate_numericality_of(:width).is_greater_than(0.0)
+    end
 
-  it 'falso quando profundidade menor ou igual a zero' do
-    should validate_numericality_of(:depth).is_greater_than(0.0)
-  end
- 
-  it { should validate_uniqueness_of(:sku) }
+    it 'falso quando profundidade menor ou igual a zero' do
+      should validate_numericality_of(:depth).is_greater_than(0.0)
+    end
+
+  end 
   
 end
