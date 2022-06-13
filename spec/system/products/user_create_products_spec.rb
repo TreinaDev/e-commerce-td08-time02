@@ -36,7 +36,7 @@ describe 'Usuário cadastra um produto' do
     expect(page).to have_content('Peso: 4,00kg')
     expect(page).to have_content('Preço do Frete: R$ 47,00')
     expect(page).to have_content('Frágil - Sim')
-    expect(page).to have_content('Pendente de Pagamento')
+    expect(page).to have_content('Produto Inativo')
     expect(page).to have_content('Produto criado com sucesso')
   end
 

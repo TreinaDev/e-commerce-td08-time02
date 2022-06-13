@@ -19,7 +19,7 @@ describe 'Usuario vê detalhes de um produto' do
     expect(page).to have_content('Peso: 12,00kg')
     expect(page).to have_content('Preço do Frete: R$ 23,00')
     expect(page).to have_content('Frágil - Sim')
-    expect(page).to have_content('Pendente de Pagamento')
+    expect(page).to have_content('Produto Inativo')
   end
 end
 

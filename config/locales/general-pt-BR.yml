@@ -1,4 +1,3 @@
 pt-BR:
-  pending: "Pendente de Pagamento"
-  paid: "Pago"
-  refused: "Recusado"
+  inactive: 'Produto Inativo'
+  active: 'Produto Ativo'
