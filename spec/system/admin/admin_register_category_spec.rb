@@ -50,5 +50,20 @@ describe 'Administrador cria categoria' do
       expect(page).to have_content 'Alimentos'
       expect(page).to have_content 'Alimentos > Frutas'
     end
+
+    it 'a partir da tela de detalhes da categoria' do
+      admin = create(:admin, name: 'André')
+      category = Category.create!(name: 'Eletronicos', admin:)
+
+      login_as(admin, scope: :admin)
+      visit category_path(category)
+      click_on 'Criar subcategoria'
+
+      fill_in 'Nome', with: 'Celulares'
+      select 'Eletronicos', from: 'Selecione categoria relacionada'
+      click_on 'cadastrar'
+
+      expect(page).to have_content 'Eletronicos > Celulares'
+    end
   end
 end

@@ -26,7 +26,6 @@ describe 'Administrador vê detalhes de uma categoria' do
     login_as(admin, scope: :admin)
     visit category_path(category)
 
-    expect(page).not_to have_content 'Subcategorias'
     expect(page).to have_content 'Não há subcategorias'
   end
 

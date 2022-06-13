@@ -12,4 +12,4 @@ Admin.create!(email: 'marco@mercadores.com.br', password: 'password', name: 'Mar
 category = Category.create!(name: 'Eletronicos', admin:)
 Category.create!(name: 'Celulares', admin:, category:)
 other_category = Category.create!(name: 'Roupas', admin:)
-Category.create!(name: 'Camisetas', admin:, other_category:)
+Category.create!(name: 'Camisetas', admin:, category:)
