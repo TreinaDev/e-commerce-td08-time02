@@ -7,15 +7,18 @@ describe 'Usuário cadastra um produto' do
     expect(current_path).to eq new_admin_session_path
   end
 
-  it 'a partir da tela inicial' do
-    user = Admin.create!(name: 'Administrador', email: 'admin@mercadores.com.br', password: 'password', status: 'approved')
-    login_as(user)
+  it 'com sucesso' do
+    admin = Admin.create!(name: 'Administrador', email: 'admin@mercadores.com.br', password: 'password', status: 'approved')
+    first_category = create(:category, admin:)
+    second_category = create(:category, name: 'Periféricos', category: first_category, admin:)
+    
+    login_as(admin)
     visit root_path
     click_on 'Produtos'
     click_on 'Cadastrar Produto'
-
     fill_in 'Nome', with: 'TV - LG 45'
     fill_in 'Marca', with: 'LG'
+    select('Periféricos', from: 'Categorias')
     fill_in 'Descrição', with: 'TV - LG 45 polegadas'
     fill_in 'SKU', with: 'TVLG45-XKFZ'
     fill_in 'Manual', with: ''
@@ -27,9 +30,10 @@ describe 'Usuário cadastra um produto' do
     check   'Frágil'
     click_on 'Cadastrar'
 
-    expect(page).to have_content('TV - LG 45')
     expect(current_path).to eq product_path(Product.last.id)
+    expect(page).to have_content('TV - LG 45')
     expect(page).to have_content('Marca: LG')
+    expect(page).to have_content("Categorias: #{first_category.name} > #{second_category.name}")
     expect(page).to have_content('Descrição: TV - LG 45 polegadas')
     expect(page).to have_content('SKU: TVLG45-XKFZ')
     expect(page).to have_content('Dimensões: 75,00x45,00x10,00')
@@ -51,6 +55,7 @@ describe 'Usuário cadastra um produto' do
     fill_in 'Nome', with: ''
     fill_in 'Marca', with: ''
     fill_in 'Descrição', with: ''
+    select('[Sem categoria relacionada]', from: 'Categorias')
     fill_in 'SKU', with: ''
     fill_in 'Largura', with: ''
     fill_in 'Altura', with: ''

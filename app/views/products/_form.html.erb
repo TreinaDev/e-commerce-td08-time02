@@ -16,6 +16,14 @@
   </div>
 
   <div>
+    <%= f.label :category_id, 'Categorias' %>
+    <%= f.collection_select :category_id, @categories, :id, :name, { prompt: '[Sem categoria relacionada]'} %>
+    <% if @product.errors.any?%>
+      <p class=' text-red-600'><%= @product.errors.full_messages_for(:categories).first %></p>
+    <% end %>
+  </div>
+
+  <div>
     <%= f.label :description %>
     <%= f.text_area :description%>
     <% if @product.errors.any?%>

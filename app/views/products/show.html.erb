@@ -4,6 +4,9 @@
   <h1><%=@product.name%> </h1>
   <p>Status: <%=t @product.status %></p>
   <p>Marca: <%= @product.brand %></p>
+  <% if @product.category %>
+    <p>Categorias: <%= @product.category.full_name %></p>
+  <% end %>
   <p>SKU: <%= @product.sku %></p>
   <p>Descrição: <%= @product.description %></p>
   <p>Dimensões: <%= number_with_precision(@product.width, precision: 2)%>x<%=number_with_precision(@product.height, precision: 2) %>x<%= number_with_precision(@product.depth, precision: 2) %></p>
