@@ -4,7 +4,7 @@ describe 'Administrador cria categoria' do
   context 'super categoria' do
     it 'com sucesso' do
       admin = create(:admin)
-      
+
       login_as(admin, scope: :admin)
       visit root_path
       click_on 'Categorias'

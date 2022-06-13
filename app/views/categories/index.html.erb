@@ -6,7 +6,7 @@
   <div class="categories-wrapper">
     <% @categories.each do |category| %>
       <div class="category">
-          <%= link_to category.full_name, '#' %>
+          <%= link_to category.full_name, category %>
       </div>
     <% end %>
   </div>
