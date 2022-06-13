@@ -1,89 +1,97 @@
-<%= form_with model: @product, data: { turbo: false } do |f|  %>
+<%= form_with model: @product, data: { turbo: false } do |f| %>
   <div>
     <%= f.label :name %>
-    <%= f.text_field :name%>
-    <% if @product.errors.any?%>
-      <p class=' text-red-600'><%= @product.errors.full_messages_for(:name).first %></p>
+    <%= f.text_field :name %>
+    <% if @product.errors.any? %>
+      <p class='text-red-600'><%= @product.errors.full_messages_for(:name).first %></p>
     <% end %>
   </div>
 
   <div>
     <%= f.label :brand %>
-    <%= f.text_field :brand%>
-    <% if @product.errors.any?%>
-      <p class=' text-red-600'><%= @product.errors.full_messages_for(:brand).first %></p>
+    <%= f.text_field :brand %>
+    <% if @product.errors.any? %>
+      <p class='text-red-600'><%= @product.errors.full_messages_for(:brand).first %></p>
     <% end %>
   </div>
 
   <div>
     <%= f.label :description %>
-    <%= f.text_area :description%>
-    <% if @product.errors.any?%>
-      <p class=' text-red-600'><%= @product.errors.full_messages_for(:description).first %></p>
+    <%= f.text_area :description %>
+    <% if @product.errors.any? %>
+      <p class='text-red-600'><%= @product.errors.full_messages_for(:description).first %></p>
     <% end %>
   </div>
 
   <div>
     <%= f.label :sku %>
-    <%= f.text_field :sku%>
-    <% if @product.errors.any?%>
-      <p class=' text-red-600'><%= @product.errors.full_messages_for(:sku).first %></p>
+    <%= f.text_field :sku %>
+    <% if @product.errors.any? %>
+      <p class='text-red-600'><%= @product.errors.full_messages_for(:sku).first %></p>
     <% end %>
   </div>
 
   <div>
     <%= f.label :width %>
-    <%= f.number_field :width%>
-    <% if @product.errors.any?%>
-      <p class=' text-red-600'><%= @product.errors.full_messages_for(:width).first %></p>
+    <%= f.number_field :width %> (em cm)
+    <% if @product.errors.any? %>
+      <p class='text-red-600'><%= @product.errors.full_messages_for(:width).first %></p>
     <% end %>
   </div>
 
   <div>
-    <%= f.label :height  %>
-    <%= f.number_field :height %>
-    <% if @product.errors.any?%>
-      <p class=' text-red-600'><%= @product.errors.full_messages_for(:height).first %></p>
+    <%= f.label :height %>
+    <%= f.number_field :height %> (em cm)
+    <% if @product.errors.any? %>
+      <p class='text-red-600'><%= @product.errors.full_messages_for(:height).first %></p>
     <% end %>
   </div>
 
   <div>
-    <%= f.label :depth  %>
-    <%= f.number_field :depth %>
-    <% if @product.errors.any?%>
-      <p class=' text-red-600'><%= @product.errors.full_messages_for(:depth).first %></p>
+    <%= f.label :depth %>
+    <%= f.number_field :depth %> (em cm)
+    <% if @product.errors.any? %>
+      <p class='text-red-600'><%= @product.errors.full_messages_for(:depth).first %></p>
     <% end %>
   </div>
 
   <div>
-    <%= f.label :weight  %>
-    <%= f.number_field :weight %>
-    <% if @product.errors.any?%>
-      <p class=' text-red-600'><%= @product.errors.full_messages_for(:weight).first %></p>
+    <%= f.label :weight %>
+    <%= f.number_field :weight %> (em kg)
+    <% if @product.errors.any? %>
+      <p class='text-red-600'><%= @product.errors.full_messages_for(:weight).first %></p>
     <% end %>
   </div>
 
   <div>
-    <%= f.label :shipping_price  %>
+    <%= f.label :shipping_price %>
     <%= f.number_field :shipping_price %>
-    <% if @product.errors.any?%>
-      <p class=' text-red-600'><%= @product.errors.full_messages_for(:shipping_price).first %></p>
+    <% if @product.errors.any? %>
+      <p class='text-red-600'><%= @product.errors.full_messages_for(:shipping_price).first %></p>
     <% end %>
   </div>
 
   <div>
-    <%= f.label :fragile  %>
+    <%= f.label :fragile %>
     <%= f.check_box :fragile %>
-    <% if @product.errors.any?%>
-      <p class=' text-red-600'><%= @product.errors.full_messages_for(:fragile).first %></p>
+    <% if @product.errors.any? %>
+      <p class='text-red-600'><%= @product.errors.full_messages_for(:fragile).first %></p>
     <% end %>
   </div>
 
   <div>
-    <%= f.label :manual  %>
-    <%= f.text_field :manual %>
-    <% if @product.errors.any?%>
-      <p class=' text-red-600'><%= @product.errors.full_messages_for(:manual).first %></p>
+    <%= f.label :photo %>
+    <%= f.file_field :photo, multiple: true %>
+    <% if @product.errors.any? %>
+      <p class='text-red-600'><%= @product.errors.full_messages_for(:photo).first %></p>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :manual %>
+    <%= f.file_field :manual %>
+    <% if @product.errors.any? %>
+      <p class='text-red-600'><%= @product.errors.full_messages_for(:manual).first %></p>
     <% end %>
   </div>
 

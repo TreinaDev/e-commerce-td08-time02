@@ -11,21 +11,23 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product_params = params.require(:product).permit(:name, :brand, :description, :sku, :width, :height, :depth, :weight, :shipping_price, :fragile, :status)
     @product = Product.new(product_params)
     if @product.save
       redirect_to @product, notice: 'Produto criado com sucesso'
     else
-      flash.now[:notice] = "Falha ao cadastrar
-       produto"
+      flash.now[:notice] = "Falha ao cadastrar produto"
       render :new
     end
   end
 
   def show; end
 
+  private
 
-  private 
+  def product_params
+    params.require(:product).permit(:name, :brand, :description, :sku, :width, :height, :depth, :weight,
+                                    :shipping_price, :fragile, :manual, :photo)
+  end
 
   def set_product
     @product = Product.find(params[:id])

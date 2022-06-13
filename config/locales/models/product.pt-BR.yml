@@ -1,0 +1,23 @@
+pt-BR:
+  activerecord:
+    models:
+      product:
+          one: Produto
+          other: Produtos
+    attributes:
+      product:
+        name: Nome
+        brand: Marca
+        description: Descrição
+        sku: SKU
+        manual: Manual
+        photo: Foto
+        width: Largura
+        height: Altura
+        depth: Profundidade
+        weight: Peso
+        shipping_price: Preço do Frete
+        fragile: Frágil
+      product/status:
+          inactive: Inativo
+          active: Ativo
