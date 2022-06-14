@@ -43,10 +43,7 @@ describe 'Administrador cadastra um produto' do
     admin = create :admin
     login_as admin, scope: :admin
 
-    visit root_path
-    click_on 'Produtos'
-    click_on 'Cadastrar Produto'
-
+    visit new_product_path
     fill_in 'Nome', with: ''
     fill_in 'Marca', with: ''
     fill_in 'Descrição', with: ''
@@ -56,7 +53,7 @@ describe 'Administrador cadastra um produto' do
     fill_in 'Profundidade', with: ''
     fill_in 'Peso', with: ''
     fill_in 'Preço de frete', with: ''
-    check 'Frágil'
+    uncheck 'Frágil'
     click_on 'Cadastrar'
 
     expect(page).to have_content 'Falha ao cadastrar produto'
@@ -67,6 +64,7 @@ describe 'Administrador cadastra um produto' do
     expect(page).to have_content 'Largura não pode ficar em branco'
     expect(page).to have_content 'Altura não pode ficar em branco'
     expect(page).to have_content 'Profundidade não pode ficar em branco'
+    expect(page).not_to have_content 'Frágil não pode ficar em branco'
     expect(page).to have_content 'Peso não pode ficar em branco'
   end
 end

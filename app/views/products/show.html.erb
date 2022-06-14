@@ -1,7 +1,9 @@
 <div>
   <h1><%=@product.name%> </h1>
-  <% @product.photos.each do |photo| %>
-    <%= image_tag photo %>
+  <% if @product.photos.attached? %>
+    <% @product.photos.each do |photo| %>
+      <%= image_tag photo %>
+    <% end %>
   <% end %>
   <p>Status: <%= Product.human_attribute_name("status.#{@product.status}") %></p>
   <p>Marca: <%= @product.brand %></p>

@@ -16,9 +16,9 @@ RSpec.describe Product, type: :model do
 
     it { is_expected.to validate_presence_of(:depth) }
 
-    it { is_expected.to validate_presence_of(:fragile) }
-
     it { is_expected.to validate_uniqueness_of(:sku) }
+
+    it { is_expected.to have_many_attached(:photos) }
 
     it { is_expected.to validate_numericality_of(:height).is_greater_than(0.0) }
 
