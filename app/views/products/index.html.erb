@@ -1,20 +1,22 @@
-
-
 <%= link_to 'Cadastrar Produto', new_product_path %>
+
 <% if @products.any? %>
-<% @products.each do |product| %>
-<div>
-  <p>Status: <%=t product.status %></p>
-  <p>Nome: <%= link_to product.name, product_path(product) %> </p>
-  <p>Marca: <%= product.brand %></p>
-  <p>SKU: <%= product.sku %></p>
-  <p>Descrição: <%= product.description %></p>
-  <p>Dimensões: <%= number_with_precision(product.width, precision: 2)%>x<%=number_with_precision(product.height, precision: 2) %>x<%= number_with_precision(product.depth, precision: 2) %></p>
-  <p>Peso: <%= number_with_precision(product.weight, precision: 2) %>kg</p>
-  <p>Preço do Frete: <%= number_to_currency(product.shipping_price, unit: "R$ ") %></p>
-  <p>Frágil: <%= product.fragile? ? 'Sim' : 'Não' %></p>
-</div>
-<% end %>
+  <% @products.each do |product| %>
+  <div>
+    <p>Nome: <%= link_to product.name, product_path(product) %> </p>
+    <p>Status: <%= Product.human_attribute_name("status.#{product.status}") %></p>
+    <p>Marca: <%= product.brand %></p>
+    <p>SKU: <%= product.sku %></p>
+    <p>Descrição: <%= product.description %></p>
+    <p>Dimensões: <%= number_with_precision(product.width, precision: 2)%> x
+                  <%=number_with_precision(product.height, precision: 2) %> x
+                  <%= number_with_precision(product.depth, precision: 2) %></p>
+    <p>Peso: <%= number_with_precision(product.weight, precision: 2) %> kg</p>
+    <p>Preço de frete: <%= number_to_currency(product.shipping_price, unit: "R$ ") %></p>
+    <p>Frágil: <%= product.fragile? ? 'Sim' : 'Não' %></p>
+  </div>
+  <% end %>
+
 <% else %>
   <p>Nenhum produto cadastrado</p>
 <% end %>

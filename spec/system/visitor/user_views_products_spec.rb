@@ -1,19 +1,18 @@
 require 'rails_helper'
 
-describe 'Usuário vê produtos ' do
+describe 'Usuário vê produtos' do
   it 'a partir da tela inicial' do
-    Product.create!(name: 'Monitor 8k', brand: 'LG', sku: 'MON8K-64792',
-                      description: 'Monitor de auta qualidade', width: '100', height: '50',
-                      weight: '12', shipping_price: '23', depth: '12', fragile: true)
+    Product.create!(name: 'Monitor 8k', brand: 'LG', sku: 'MON8K-64792', description: 'Monitor de alta qualidade',
+                    width: '100', height: '50', weight: '12', shipping_price: '23', depth: '12', fragile: true)
     Product.create!(name: 'Monitor 4k', brand: 'Samsumg', sku: 'MON4K-56792',
-                      description: 'Monitor 4k de auta qualidade', width: '110', height: '60',
-                      weight: '20', shipping_price: '26', depth: '12', fragile: true)
+                    description: 'Monitor 4k de auta qualidade', width: '110', height: '60', weight: '20',
+                    shipping_price: '26', depth: '12', fragile: true)
 
     visit root_path
     click_on 'Produtos'
 
-    expect(current_path).to eq products_path
-    expect(page).to have_content('Monitor 8k')   
+    expect(page).to have_current_path products_path
+    expect(page).to have_content('Monitor 8k')
     expect(page).to have_content('Marca: LG')
     expect(page).to have_content('SKU: MON8K-64792')
 

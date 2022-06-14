@@ -6,5 +6,5 @@ class Product < ApplicationRecord
   validates :weight, :width, :height, :depth, numericality: { greater_than: 0.0 }
 
   has_one_attached :manual
-  has_one_attached :photo
+  has_many_attached :photos
 end

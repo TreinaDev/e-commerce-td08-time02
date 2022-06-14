@@ -22,32 +22,32 @@ describe 'Administrador cadastra um produto' do
     fill_in 'Altura', with: '45'
     fill_in 'Profundidade', with: '10'
     fill_in 'Peso', with: '4'
-    fill_in 'Preço do Frete', with: '47'
+    fill_in 'Preço de frete', with: '47'
     check 'Frágil'
-    attach_file 'Manual', Rails.root.join('spec/support/placeholder-manual.pdf')
-    attach_file 'Foto', Rails.root.join('spec/support/placeholder-image-1.png')
-    # attach_file 'Foto', Rails.root.join('spec/support/placeholder-image-2.png')
+    attach_file 'Fotos', [Rails.root.join('spec/support/files/placeholder-image-1.png'),
+                          Rails.root.join('spec/support/files/placeholder-image-2.png')]
+    attach_file 'Manual', Rails.root.join('spec/support/files/placeholder-manual.pdf')
     click_on 'Cadastrar'
 
     expect(page).to have_current_path product_path(Product.last.id)
     expect(page).to have_content('Produto criado com sucesso')
     expect(page).to have_content('TV - LG 45')
+    expect(page).to have_css("img[src*='placeholder-image-1.png']")
+    expect(page).to have_css("img[src*='placeholder-image-2.png']")
     expect(page).to have_content('Status: Inativo')
     expect(page).to have_content('Marca: LG')
     expect(page).to have_content('SKU: TVLG45-XKFZ')
     expect(page).to have_content('Descrição: TV - LG 45 polegadas')
     expect(page).to have_content('Dimensões: 75,00 x 45,00 x 10,00')
-    expect(page).to have_content('Peso: 4,00kg')
+    expect(page).to have_content('Peso: 4,00 kg')
     expect(page).to have_content('Preço do Frete: R$ 47,00')
     expect(page).to have_content('Frágil - Sim')
     expect(page).to have_link('Manual')
-    # expect(page).to have_xpath("//img[contains(@src,'placeholder-image-1.')]")
-    expect(page).to have_css "img[src*='placeholder-image-1.png']"
   end
 
   it 'com dados incompletos' do
-    admin = create(:admin)
-    login_as(admin, scope: :admin)
+    admin = create :admin
+    login_as admin, scope: :admin
 
     visit root_path
     click_on 'Produtos'
@@ -61,8 +61,8 @@ describe 'Administrador cadastra um produto' do
     fill_in 'Altura', with: ''
     fill_in 'Profundidade', with: ''
     fill_in 'Peso', with: ''
-    fill_in 'Preço do Frete', with: ''
-    check   'Frágil'
+    fill_in 'Preço de frete', with: ''
+    check 'Frágil'
     click_on 'Cadastrar'
 
     expect(page).to have_content 'Falha ao cadastrar produto'

@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show]
-  before_action :authenticate_admin!, only: [:new, :create]
+  before_action :authenticate_admin!, only: %i[new create]
 
   def index
     @products = Product.all
@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to @product, notice: 'Produto criado com sucesso'
     else
-      flash.now[:notice] = "Falha ao cadastrar produto"
+      flash.now[:notice] = 'Falha ao cadastrar produto'
       render :new
     end
   end
@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :brand, :description, :sku, :width, :height, :depth, :weight,
-                                    :shipping_price, :fragile, :manual, :photo)
+                                    :shipping_price, :fragile, :manual, photos: [])
   end
 
   def set_product

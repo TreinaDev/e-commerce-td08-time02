@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-
-  describe "#valid" do
+  describe '#valid' do
     it { is_expected.to validate_presence_of(:name) }
 
     it { is_expected.to validate_presence_of(:brand) }
@@ -19,24 +18,14 @@ RSpec.describe Product, type: :model do
 
     it { is_expected.to validate_presence_of(:fragile) }
 
-    it { should validate_uniqueness_of(:sku) }
+    it { is_expected.to validate_uniqueness_of(:sku) }
 
-    it 'falso quando altura menor ou igual a zero' do
-      should validate_numericality_of(:height).is_greater_than(0.0)
-    end
+    it { is_expected.to validate_numericality_of(:height).is_greater_than(0.0) }
 
-    it 'falso quando peso menor ou igual a zero' do
-      should validate_numericality_of(:weight).is_greater_than(0.0)
-    end
+    it { is_expected.to validate_numericality_of(:weight).is_greater_than(0.0) }
 
-    it 'falso quando largura menor ou igual a zero' do
-      should validate_numericality_of(:width).is_greater_than(0.0)
-    end
+    it { is_expected.to validate_numericality_of(:width).is_greater_than(0.0) }
 
-    it 'falso quando profundidade menor ou igual a zero' do
-      should validate_numericality_of(:depth).is_greater_than(0.0)
-    end
-
-  end 
-  
+    it { is_expected.to validate_numericality_of(:depth).is_greater_than(0.0) }
+  end
 end

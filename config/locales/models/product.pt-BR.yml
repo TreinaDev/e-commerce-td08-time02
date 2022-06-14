@@ -11,12 +11,12 @@ pt-BR:
         description: Descrição
         sku: SKU
         manual: Manual
-        photo: Foto
+        photos: Fotos
         width: Largura
         height: Altura
         depth: Profundidade
         weight: Peso
-        shipping_price: Preço do Frete
+        shipping_price: Preço de frete
         fragile: Frágil
       product/status:
           inactive: Inativo
