@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :admins, path: 'admins'
   root 'home#index'
-
+  resources :products, only: %i[index new create show]
   resources :categories, only: %i[new create index]
   resources :pending_admins, only: %i[index] do
     post 'approve', on: :member
