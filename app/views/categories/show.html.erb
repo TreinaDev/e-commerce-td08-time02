@@ -17,5 +17,10 @@
         <p>Não há subcategorias</p>
       <% end %>
     <%= link_to 'Criar subcategoria', new_category_path %>
+    <% if @supercategory %>
+      | <%= link_to 'Voltar', category_path(@supercategory) %>
+    <% else %>
+      | <%= link_to 'Voltar', categories_path %>
+    <% end %>
   </div>
 </div>

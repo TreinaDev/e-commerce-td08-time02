@@ -36,7 +36,7 @@ describe 'Administrador cria categoria' do
   context 'subcategoria' do
     it 'com sucesso' do
       admin = create(:admin)
-      category = Category.create!(name: 'Alimentos', admin_id: admin.id)
+      category = create(:category, name: 'Alimentos', admin_id: admin.id)
 
       login_as(admin, scope: :admin)
       visit new_category_path
@@ -50,7 +50,7 @@ describe 'Administrador cria categoria' do
 
     it 'a partir da tela de detalhes da categoria' do
       admin = create(:admin, name: 'André')
-      category = Category.create!(name: 'Eletronicos', admin:)
+      category = create(:category, name: 'Eletronicos', admin:)
 
       login_as(admin, scope: :admin)
       visit category_path(category)

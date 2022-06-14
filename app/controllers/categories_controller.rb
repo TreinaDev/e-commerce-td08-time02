@@ -7,6 +7,9 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
+    if @category.category
+      @supercategory = @category.category
+    end
   end
 
   def new
