@@ -1,0 +1,14 @@
+<%= link_to 'Cadastrar Produto', new_product_path %>
+
+<% if @products.any? %>
+  <% @products.each do |product| %>
+  <div>
+    <p>Nome: <%= link_to product.name, product_path(product) %> </p>
+    <p>Marca: <%= product.brand %></p>
+    <%= image_tag product.photos.last if product.photos.attached? %>
+  </div>
+  <% end %>
+
+<% else %>
+  <p>Nenhum produto cadastrado</p>
+<% end %>

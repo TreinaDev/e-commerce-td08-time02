@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Administrador cria categoria' do
-  context 'super categoria' do
+describe 'Administrador cria' do
+  context 'supercategoria' do
     it 'com sucesso' do
       admin = create(:admin)
 

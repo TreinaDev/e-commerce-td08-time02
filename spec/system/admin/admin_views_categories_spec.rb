@@ -3,14 +3,14 @@ require 'rails_helper'
 describe 'Administrador vê categorias' do
   it 'com sucesso' do
     admin = create(:admin)
-    create(:category, name: 'Eletronicos', admin:)
+    create(:category, name: 'Eletrônicos', admin:)
     create(:category, name: 'Alimentos', admin:)
 
     login_as(admin, scope: :admin)
     visit root_path
     click_on 'Categorias'
 
-    expect(page).to have_link 'Eletronicos'
+    expect(page).to have_link 'Eletrônicos'
     expect(page).to have_link 'Alimentos'
   end
 

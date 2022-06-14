@@ -15,6 +15,7 @@
     <nav>
       <ul>
         <li><%= link_to 'Página Inicial', root_path %></li>
+        <li><%= link_to 'Produtos', products_path %></li>
         <% if admin_signed_in? %>
           <li><%= link_to 'Categorias', categories_path %></li>
           <li><%= link_to 'Cadastros Pendentes', pending_admins_path %></li>
