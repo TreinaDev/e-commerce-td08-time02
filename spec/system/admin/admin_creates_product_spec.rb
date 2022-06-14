@@ -1,12 +1,6 @@
 require 'rails_helper'
 
 describe 'Administrador cadastra um produto' do
-  it 'e deve estar autenticado' do
-    visit new_product_path
-
-    expect(page).to have_current_path new_admin_session_path
-  end
-
   it 'a partir da tela inicial' do
     admin = create :admin
 
