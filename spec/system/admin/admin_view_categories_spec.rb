@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'Administrador vê categorias' do
   it 'com sucesso' do
     admin = create(:admin)
-    Category.create!(name: 'Eletronicos', admin: admin)
-    Category.create!(name: 'Alimentos', admin: admin)
+    Category.create!(name: 'Eletronicos', admin:)
+    Category.create!(name: 'Alimentos', admin:)
 
     login_as(admin, scope: :admin)
     visit root_path

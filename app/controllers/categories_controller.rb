@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @categories = Category.all
+    @categories = Category.where(category: nil)
   end
 
   def show

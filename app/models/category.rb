@@ -7,11 +7,4 @@ class Category < ApplicationRecord
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :category }
-
-  def full_name(curr_category = self, string = '')
-    string.insert(0, curr_category.name)
-    return full_name(curr_category.category, " > #{string}") if curr_category.category
-
-    string
-  end
 end

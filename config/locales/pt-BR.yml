@@ -1,7 +1,5 @@
 ---
 pt-BR:
-  active: Ativo
-  disabled: Inativo
   activerecord:
     errors:
       messages:

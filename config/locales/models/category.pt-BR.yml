@@ -11,4 +11,6 @@ pt-BR:
       category:
         name: Nome
         category: Categoria
-  
+      category/status:
+        active: Ativo
+        disabled: Inativo

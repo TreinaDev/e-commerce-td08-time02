@@ -2,19 +2,20 @@
   <h1><%= @category.name %></h1>
 
   <div>
-    <p>Status: <%=t @category.status %></p>
+    <p>Status: <%= Category.human_attribute_name("status.#{@category.status}") %></p>
     <p>Criado por: <%= @category.admin.name %></p>
   </div>
 
   <div>
     <h2>Subcategorias</h2>
-    <% if @category.categories.any?%>
-      <%= @category.categories.each do |subcategory| %>
-        <p><%= link_to subcategory.name, subcategory %></p>
+      <% @category.categories.each do |subcategory| %>
+        <ul>
+          <li><%= link_to subcategory.name, subcategory %></li>
+        </ul>
       <% end %>
-    <% else %>
-      <p>Não há subcategorias</p>
-    <% end %>
+      <% if @category.categories.empty? %>
+        <p>Não há subcategorias</p>
+      <% end %>
     <%= link_to 'Criar subcategoria', new_category_path %>
   </div>
 </div>
