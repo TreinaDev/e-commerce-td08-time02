@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-describe 'Administrador cria categoria' do
-  context 'super categoria' do
+describe 'Administrador cria' do
+  context 'supercategoria' do
     it 'com sucesso' do
       admin = create(:admin)
-      
+
       login_as(admin, scope: :admin)
       visit root_path
       click_on 'Categorias'
