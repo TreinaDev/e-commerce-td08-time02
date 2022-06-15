@@ -24,8 +24,11 @@
         #{number_to_currency(price.value, unit: "R$ ")} - Cadastrado por: #{price.admin.name}"%>
       </p>
     <% end %>
-
-    <%= button_to 'Ativar', activate_product_path(@product) %>
+    <% if @product.inactive? %>
+      <%= button_to 'Ativar', activate_product_path(@product) %>
+    <% else %>
+      <%= button_to 'Desativar', deactivate_product_path(@product) %>
+    <% end %>
   <% end %>
   <p><%= link_to 'Manual', @product.manual if @product.manual.attached? %></p>
 </div>

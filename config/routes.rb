@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :products, only: %i[index new create show] do
     post 'activate', on: :member
+    post 'deactivate', on: :member
   end
 
   resources :pending_admins, only: %i[index] do
