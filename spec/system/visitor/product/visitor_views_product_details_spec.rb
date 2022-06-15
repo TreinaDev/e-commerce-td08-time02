@@ -5,7 +5,7 @@ describe 'Visitante vê detalhes de um produto' do
     admin = create :admin, name: 'João'
     product = create(:product, name: 'Monitor 8k', brand: 'LG', description: 'Monitor de alta qualidade',
                                sku: 'MON8K-64792', height: 50, width: 100, depth: 12, weight: 12,
-                               shipping_price: 23, fragile: true, status: :inactive)
+                               shipping_price: 23, fragile: true, status: :active)
     create(:price, product: product, admin: admin, start_date: Time.zone.today,
                    end_date: 1.week.from_now, value: 50.00)
     create(:price, product: product, admin: admin, start_date: 1.week.from_now + 1,
@@ -27,7 +27,7 @@ describe 'Visitante vê detalhes de um produto' do
     expect(page).to have_content('Preço do Frete: R$ 23,00')
     expect(page).to have_content('Frágil - Sim')
     expect(page).to have_content 'Preço: R$ 50,00'
-    expect(page).not_to have_content('Inativo')
+    expect(page).not_to have_content('Ativo')
     expect(page).not_to have_content(
       "Preço para #{I18n.l(Time.zone.today)} - #{I18n.l(1.week.from_now)}: R$ 50,00 - " \
       "Cadastrado por: #{admin.name}"

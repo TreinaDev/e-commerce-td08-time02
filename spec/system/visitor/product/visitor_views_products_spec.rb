@@ -22,10 +22,23 @@ describe 'Visitante vê todos os produtos' do
     expect(page).to have_css("img[src*='placeholder-image-2.png']")
   end
 
-  it 'não existem produtos cadastrados' do
+  it 'e não existem produtos cadastrados' do
     visit root_path
     click_on 'Produtos'
 
     expect(page).to have_content 'Nenhum produto cadastrado'
+  end
+
+  it 'e não vê produtos inativos' do
+    create :admin
+    create :product, name: 'Monitor 8k', brand: 'LG', status: :active
+    create :product, name: 'Notebook', brand: 'Samsung', status: :inactive
+
+    visit products_path
+
+    expect(page).to have_content 'Monitor 8k'
+    expect(page).to have_content 'LG'
+    expect(page).not_to have_content 'Notebook'
+    expect(page).not_to have_content 'Samsung'
   end
 end

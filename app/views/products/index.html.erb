@@ -2,10 +2,11 @@
 
 <% if @products.any? %>
   <% @products.each do |product| %>
-  <div>
+  <div id=<%= product.name %>>
     <p>Nome: <%= link_to product.name, product_path(product) %> </p>
     <p>Marca: <%= product.brand %></p>
     <%= image_tag product.photos.last if product.photos.attached? %>
+    <%= Product.human_attribute_name("status.#{product.status}") %>
   </div>
   <% end %>
 

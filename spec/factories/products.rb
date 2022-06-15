@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :product do
     name { 'TV 45' }
     brand { 'LG' }
-    description { 'TV 4k de 45 polegadas ' }
+    description { 'TV 4k de 45 polegadas' }
     width { '99.99' }
     height { '20.99' }
     depth { '5.99' }
