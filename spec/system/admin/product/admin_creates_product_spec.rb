@@ -33,7 +33,7 @@ describe 'Administrador cadastra um produto' do
     expect(page).to have_css("img[src*='placeholder-image-2.png']")
     expect(page).to have_content('Status: Inativo')
     expect(page).to have_content('Marca: LG')
-    expect(page).to have_content("Categorias: #{first_category.name} > #{second_category.name}")
+    expect(page).to have_content("Categoria: #{second_category.name}")
     expect(page).to have_content('SKU: TVLG45-XKFZ')
     expect(page).to have_content('Descrição: TV - LG 45 polegadas')
     expect(page).to have_content('Dimensões: 75,00 x 45,00 x 10,00')

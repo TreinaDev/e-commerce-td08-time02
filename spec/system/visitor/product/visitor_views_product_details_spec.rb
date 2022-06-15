@@ -17,7 +17,7 @@ describe 'Visitante vê detalhes de um produto' do
     expect(page).to have_content('Monitor 8k')
     expect(page).to have_css("img[src*='placeholder-image-1.png']")
     expect(page).to have_content('Inativo')
-    expect(page).to have_content('Categorias: Alimentos')
+    expect(page).to have_content('Categoria: Alimentos')
     expect(page).to have_content('Marca: LG')
     expect(page).to have_content('Descrição: Monitor de alta qualidade')
     expect(page).to have_content('SKU: MON8K-64792')

@@ -4,7 +4,7 @@ class Admin < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :categories
+  has_many :categories, dependent: :nullify
   enum status: { pending: 0, approved: 5 }, _default: :pending
 
   validates :name, presence: true

@@ -1,0 +1,26 @@
+<div>
+  <h1><%= @category.name %></h1>
+
+  <div>
+    <p>Status: <%= Category.human_attribute_name("status.#{@category.status}") %></p>
+    <p>Criado por: <%= @category.admin.name %></p>
+  </div>
+
+  <div>
+    <h2>Subcategorias</h2>
+      <% @category.categories.each do |subcategory| %>
+        <ul>
+          <li><%= link_to subcategory.name, subcategory %></li>
+        </ul>
+      <% end %>
+      <% if @category.categories.empty? %>
+        <p>Não há subcategorias</p>
+      <% end %>
+    <%= link_to 'Criar subcategoria', new_category_path %>
+    <% if @supercategory %>
+      | <%= link_to 'Voltar', category_path(@supercategory) %>
+    <% else %>
+      | <%= link_to 'Voltar', categories_path %>
+    <% end %>
+  </div>
+</div>
