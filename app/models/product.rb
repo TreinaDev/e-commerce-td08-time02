@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  belongs_to :category, optional: true
+  belongs_to :category
   enum status: { inactive: 0, active: 5 }
 
   validates :name, :brand, :description, :sku, :width, :height, :depth, :weight, presence: true

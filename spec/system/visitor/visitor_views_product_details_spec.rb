@@ -2,9 +2,11 @@ require 'rails_helper'
 
 describe 'Visitante vê detalhes de um produto' do
   it 'a partir da tela inicial' do
+    admin = create(:admin)
+    category = Category.create!(name: 'Alimentos', admin_id: admin.id)
     product = create(:product, name: 'Monitor 8k', brand: 'LG', description: 'Monitor de alta qualidade',
-                               sku: 'MON8K-64792', height: 50, width: 100, depth: 12, weight: 12,
-                               shipping_price: 23, fragile: true, status: :inactive)
+                     category:, sku: 'MON8K-64792', height: 50, width: 100, depth: 12, weight: 12,
+                     shipping_price: 23, fragile: true, status: :inactive)
     product.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-1.png')),
                           filename: 'placeholder-image-1.png', content_type: 'image/png')
 
@@ -15,6 +17,7 @@ describe 'Visitante vê detalhes de um produto' do
     expect(page).to have_content('Monitor 8k')
     expect(page).to have_css("img[src*='placeholder-image-1.png']")
     expect(page).to have_content('Inativo')
+    expect(page).to have_content('Categorias: Alimentos')
     expect(page).to have_content('Marca: LG')
     expect(page).to have_content('Descrição: Monitor de alta qualidade')
     expect(page).to have_content('SKU: MON8K-64792')
