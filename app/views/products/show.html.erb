@@ -7,6 +7,7 @@
   <% end %>
   <p>Status: <%= Product.human_attribute_name("status.#{@product.status}") %></p>
   <p>Marca: <%= @product.brand %></p>
+  <p>Categoria: <%= @product.category.name %></p>
   <p>SKU: <%= @product.sku %></p>
   <p>Descrição: <%= @product.description %></p>
   <p>Dimensões: <%= number_with_precision(@product.width, precision: 2) %> x
