@@ -1,4 +1,4 @@
-<%= link_to 'Cadastrar Produto', new_product_path %>
+<%= link_to 'Cadastrar Produto', new_product_path if admin_signed_in? %>
 
 <% if @products.any? %>
   <% @products.each do |product| %>

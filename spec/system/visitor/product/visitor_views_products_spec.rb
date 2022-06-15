@@ -13,6 +13,7 @@ describe 'Visitante vê todos os produtos' do
     click_on 'Produtos'
 
     expect(page).to have_current_path products_path
+    expect(page).not_to have_link('Cadastrar Produto')
     expect(page).to have_content('Monitor 8k')
     expect(page).to have_content('Marca: LG')
     expect(page).to have_css("img[src*='placeholder-image-1.png']")
@@ -21,7 +22,7 @@ describe 'Visitante vê todos os produtos' do
     expect(page).to have_css("img[src*='placeholder-image-2.png']")
   end
 
-  it 'não existe produtos cadastrados' do
+  it 'não existem produtos cadastrados' do
     visit root_path
     click_on 'Produtos'
 
