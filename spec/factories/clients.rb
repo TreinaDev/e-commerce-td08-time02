@@ -12,5 +12,9 @@ FactoryBot.define do
     trait :another_code do
       email { '122.333.977-00' }
     end
+
+    trait :code_is_cnpj do
+      code { '82.425.181/0001-62' }
+    end
   end
 end

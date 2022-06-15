@@ -5,6 +5,8 @@ ruby '3.1.0'
 
 gem 'devise'
 
+gem "cpf_cnpj"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.3'
 

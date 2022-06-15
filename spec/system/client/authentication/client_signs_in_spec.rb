@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Cliente se autentica' do
   it 'com sucesso' do
-    cliente = Client.create!(name: 'Nicolas', code: '111.222.333-45', email: 'cliente@email.com', password: 'password')
+    cliente = Client.create!(name: 'Nicolas', code: '623.809.720-52', email: 'cliente@email.com', password: 'password')
 
     visit root_path
     click_on 'Entrar como Cliente'
@@ -22,7 +22,7 @@ describe 'Cliente se autentica' do
     visit(new_client_session_path)
     fill_in('E-mail', with: '')
     fill_in('Senha', with: '')
-    within('.actions') do
+    within('.actions') do 
       click_on 'Entrar'
     end
 
@@ -33,7 +33,7 @@ describe 'Cliente se autentica' do
   end
 
   it 'com dados incorretos' do
-    Client.create!(email: 'cliente@email.com', password: 'password', name: 'Nicolas')
+    Client.create!(email: 'cliente@email.com', password: 'password', name: 'Nicolas', code: '623.809.720-52')
 
     visit(new_client_session_path)
     fill_in 'E-mail', with: 'cliente@email.com'
