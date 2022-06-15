@@ -13,9 +13,9 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to @product, notice: 'Produto criado com sucesso'
+      redirect_to @product, notice: t('product_creation_succeeded')
     else
-      flash.now[:notice] = 'Falha ao cadastrar produto'
+      flash.now[:notice] = t('product_creation_failed')
       render :new
     end
   end

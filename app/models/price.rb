@@ -21,7 +21,7 @@ class Price < ApplicationRecord
   def start_date_greater_than_today
     return unless start_date
 
-    return if start_date >= Date.today
+    return if start_date >= Time.zone.today
 
     errors.add :start_date, message: 'não pode ser anterior a hoje'
   end
@@ -29,13 +29,15 @@ class Price < ApplicationRecord
   def not_previously_registered
     return unless product && start_date && end_date
 
-    product.prices.each do |price|
-      next if price == self
-
+    previous_prices.each do |price|
       interval = (price.start_date..price.end_date)
       message = 'não pode estar inclusa em intervalo já cadastrado'
-      errors.add(:start_date, message) if interval.include? start_date
-      errors.add(:end_date, message) if interval.include? end_date
+      errors.add :start_date, message if interval.include? start_date
+      errors.add :end_date, message if interval.include? end_date
     end
+  end
+
+  def previous_prices
+    product.prices - [self]
   end
 end
