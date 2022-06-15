@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_14_165856) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_15_125446) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -65,6 +65,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_14_165856) do
     t.index ["name", "category_id"], name: "index_categories_on_name_and_category_id", unique: true
   end
 
+  create_table "prices", force: :cascade do |t|
+    t.integer "admin_id", null: false
+    t.integer "product_id", null: false
+    t.decimal "value"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_prices_on_admin_id"
+    t.index ["product_id"], name: "index_prices_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "brand"
@@ -79,10 +91,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_14_165856) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["sku"], name: "index_products_on_sku", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "admins"
   add_foreign_key "categories", "categories"
+  add_foreign_key "prices", "admins"
+  add_foreign_key "prices", "products"
 end

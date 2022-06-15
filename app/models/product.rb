@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   validates :sku, uniqueness: true
   validates :weight, :width, :height, :depth, numericality: { greater_than: 0.0 }
 
+  has_many :prices, dependent: :nullify
   has_one_attached :manual
   has_many_attached :photos
 end
