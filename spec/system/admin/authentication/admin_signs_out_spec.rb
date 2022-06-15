@@ -11,6 +11,6 @@ describe 'Administrador sai do sistema' do
     expect(page).to have_current_path root_path
     expect(page).to have_content 'Saída efetuada com sucesso.'
     expect(page).not_to have_content 'João (admin@mercadores.com.br)'
-    expect(page).to have_link 'Entrar como administrador'
+    expect(page).to have_link 'Entrar como Administrador'
   end
 end
