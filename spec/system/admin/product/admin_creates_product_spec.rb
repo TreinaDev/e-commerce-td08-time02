@@ -50,7 +50,7 @@ describe 'Administrador cadastra um produto' do
     login_as admin, scope: :admin
 
     visit new_product_path
-    fill_in 'Nome', with: ''
+    fill_in 'Nome', with: 'Computador'
     fill_in 'Marca', with: ''
     fill_in 'Descrição', with: ''
     fill_in 'SKU', with: ''
@@ -60,17 +60,48 @@ describe 'Administrador cadastra um produto' do
     fill_in 'Peso', with: ''
     fill_in 'Preço de frete', with: ''
     uncheck 'Frágil'
+    fill_in 'Valor', with: ''
     click_on 'Cadastrar'
 
     expect(page).to have_content 'Falha ao cadastrar produto'
-    expect(page).to have_content 'Nome não pode ficar em branco'
+    expect(page).to have_field 'Nome', with: 'Computador'
     expect(page).to have_content 'Marca não pode ficar em branco'
     expect(page).to have_content 'Descrição não pode ficar em branco'
     expect(page).to have_content 'SKU não pode ficar em branco'
     expect(page).to have_content 'Largura não pode ficar em branco'
     expect(page).to have_content 'Altura não pode ficar em branco'
     expect(page).to have_content 'Profundidade não pode ficar em branco'
-    expect(page).not_to have_content 'Frágil não pode ficar em branco'
     expect(page).to have_content 'Peso não pode ficar em branco'
+    expect(page).to have_content 'Preço de frete não pode ficar em branco'
+    expect(page).not_to have_content 'Frágil não pode ficar em branco'
+    expect(page).to have_field 'Data inicial', with: Time.zone.today
+    expect(page).to have_content 'Valor não pode ficar em branco'
+  end
+
+  it 'com dados incorretos' do
+    admin = create :admin
+    create :product, sku: 'ABCD-1234'
+    login_as admin, scope: :admin
+
+    visit new_product_path
+    fill_in 'SKU', with: 'ABCD-1234'
+    fill_in 'Largura', with: '-1.0'
+    fill_in 'Altura', with: '-1.0'
+    fill_in 'Profundidade', with: '-1.0'
+    fill_in 'Peso', with: '-1.0'
+    fill_in 'Preço de frete', with: '-1.0'
+    fill_in 'Data final', with: 1.day.ago
+    fill_in 'Valor', with: '-1.0'
+    click_on 'Cadastrar'
+
+    expect(page).to have_content 'Falha ao cadastrar produto'
+    expect(page).to have_content 'SKU já está em uso'
+    expect(page).to have_content 'Largura deve ser maior que 0'
+    expect(page).to have_content 'Altura deve ser maior que 0'
+    expect(page).to have_content 'Profundidade deve ser maior que 0'
+    expect(page).to have_content 'Peso deve ser maior que 0'
+    expect(page).to have_content 'Preço de frete deve ser maior que 0'
+    expect(page).to have_content 'Data inicial não pode ser maior que a data final'
+    expect(page).to have_content 'Valor deve ser maior que 0'
   end
 end

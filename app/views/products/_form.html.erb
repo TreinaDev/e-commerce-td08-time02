@@ -66,6 +66,7 @@
 
         <%= price_f.label :start_date %>
         <%= price_f.date_field :start_date, value: @start_date, readonly: true %>
+        <p><%= price.errors.full_messages_for(:start_date).first if price.errors.any? %></p>
 
         <%= price_f.label :end_date %>
         <%= price_f.date_field :end_date %>
@@ -73,7 +74,7 @@
 
         <%= price_f.label :value %>
         <%= price_f.number_field :value %>
-        <p><%= price.errors.full_messages_for(:end_date).first if price.errors.any? %></p>
+        <p><%= price.errors.full_messages_for(:value).first if price.errors.any? %></p>
       <% end %>
     <% end %>
   </div>
