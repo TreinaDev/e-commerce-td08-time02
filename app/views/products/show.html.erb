@@ -17,12 +17,15 @@
   <p>Preço: <%= number_to_currency(@product.current_price, unit: "R$ ") %></p>
   <% if admin_signed_in? %>
     <p>Status: <%= Product.human_attribute_name("status.#{@product.status}") %></p>
+
     <% @product.prices.each do |price| %>
       <p>
         <%= "Preço para #{I18n.l(price.start_date)} - #{I18n.l(price.end_date)}:
         #{number_to_currency(price.value, unit: "R$ ")} - Cadastrado por: #{price.admin.name}"%>
       </p>
     <% end %>
+
+    <%= button_to 'Ativar', activate_product_path(@product) %>
   <% end %>
   <p><%= link_to 'Manual', @product.manual if @product.manual.attached? %></p>
 </div>

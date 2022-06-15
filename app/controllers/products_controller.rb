@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show]
-  before_action :authenticate_admin!, only: %i[new create]
+  before_action :set_product, only: %i[show activate]
+  before_action :authenticate_admin!, only: %i[new create activate]
 
   def index
     @products = Product.all
@@ -23,6 +23,12 @@ class ProductsController < ApplicationController
   end
 
   def show; end
+
+  def activate
+    @product.active!
+
+    redirect_to @product, notice: t('product_activation_succeeded')
+  end
 
   private
 

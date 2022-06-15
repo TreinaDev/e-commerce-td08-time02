@@ -1,6 +1,7 @@
 pt-BR:
   product_creation_succeeded: Produto criado com sucesso
   product_creation_failed: Falha ao cadastrar produto
+  product_activation_succeeded: Produto ativado com sucesso
   activerecord:
     models:
       product:
