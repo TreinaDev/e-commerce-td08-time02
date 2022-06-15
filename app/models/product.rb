@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   validates :weight, :width, :height, :depth, numericality: { greater_than: 0.0 }
 
   has_many :prices, dependent: :nullify
+  accepts_nested_attributes_for :prices
   has_one_attached :manual
   has_many_attached :photos
 end

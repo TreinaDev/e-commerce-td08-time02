@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Administrador cadastra um produto' do
   it 'a partir da tela inicial' do
-    admin = create :admin
+    admin = create :admin, name: 'João'
 
     login_as admin, scope: :admin
     visit root_path
@@ -18,6 +18,8 @@ describe 'Administrador cadastra um produto' do
     fill_in 'Peso', with: '4'
     fill_in 'Preço de frete', with: '47'
     check 'Frágil'
+    fill_in 'Data final', with: 1.week.from_now
+    fill_in 'Valor', with: '201.89'
     attach_file 'Fotos', [Rails.root.join('spec/support/files/placeholder-image-1.png'),
                           Rails.root.join('spec/support/files/placeholder-image-2.png')]
     attach_file 'Manual', Rails.root.join('spec/support/files/placeholder-manual.pdf')
@@ -36,6 +38,10 @@ describe 'Administrador cadastra um produto' do
     expect(page).to have_content('Peso: 4,00 kg')
     expect(page).to have_content('Preço do Frete: R$ 47,00')
     expect(page).to have_content('Frágil - Sim')
+    expect(page).to have_content(
+      "Preço para #{I18n.l(Time.zone.today)} - #{I18n.l(1.week.from_now.to_date)}: R$ 201,89 " \
+      "- Cadastrado por: #{admin.name}"
+    )
     expect(page).to have_link('Manual')
   end
 

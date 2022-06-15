@@ -8,6 +8,8 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @start_date = @product.prices.empty? ? Time.zone.today : @product.prices.last.start_date + 1
+    @product.prices.build
   end
 
   def create
@@ -25,8 +27,9 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :brand, :description, :sku, :width, :height, :depth, :weight,
-                                    :shipping_price, :fragile, :manual, photos: [])
+    params.require(:product).permit(:name, :brand, :description, :sku, :width, :height,
+                                    :depth, :weight, :shipping_price, :fragile, :manual,
+                                    photos: [], prices_attributes: %i[id admin_id start_date end_date value])
   end
 
   def set_product

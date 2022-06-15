@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      price: Preço
+    attributes:
+      price:
+        product: Produto
+        admin: Administrador
+        start_date: Data inicial
+        end_date: Data final
+        value: Valor
