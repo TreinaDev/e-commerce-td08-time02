@@ -2,7 +2,14 @@ class CategoriesController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @categories = Category.all
+    @categories = Category.where(category: nil)
+  end
+
+  def show
+    @category = Category.find(params[:id])
+    if @category.category
+      @supercategory = @category.category
+    end
   end
 
   def new
