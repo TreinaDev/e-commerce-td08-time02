@@ -1,22 +1,22 @@
 pt-BR:
   activerecord:
     models:
-      product: "Produtos"
+      product: Produtos
     attributes:
       product:
-        name: "Nome"
-        brand: "Marca"
-        description: "Descrição"
-        sku: "SKU"
-        manual: "Manual"
-        width: "Largura"
-        height: "Altura"
-        depth: "Profundidade"
-        weight: "Peso"
-        shipping_price: "Preço de frete"
-        fragile: "Frágil"
-        status: "Status"
-        photos: "Fotos"
+        name: Nome
+        brand: Marca
+        description: Descrição
+        sku: SKU
+        manual: Manual
+        width: Largura
+        height: Altura
+        depth: Profundidade
+        weight: Peso
+        shipping_price: Preço de frete
+        fragile: Frágil
+        status: Status
+        photos: Fotos
       product/status:
         inactive: Inativo
         active: Ativo

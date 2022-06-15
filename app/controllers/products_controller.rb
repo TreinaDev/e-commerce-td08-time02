@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
       redirect_to @product, notice: 'Produto criado com sucesso'
     else
       @categories = Category.all
-      flash.now[:notice] = "Falha ao cadastrar produto"
+      flash.now[:notice] = 'Falha ao cadastrar produto'
       render :new
     end
   end
