@@ -1,0 +1,11 @@
+<div>
+  <h1><%= t('my_cart') %></h1>
+  <div>
+    <% @product_items.each do |item| %>
+      <div>
+        <p><%= item.product.name %></p>
+        <p>Quantidade: <%= item.quantity %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
