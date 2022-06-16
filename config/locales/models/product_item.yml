@@ -1,0 +1,9 @@
+pt-BR:
+  added_to_cart: adicionado ao carrinho!
+  add_to_cart_failed: Não foi possível adicionar ao carrinho
+  activerecord:
+    models:
+      product_item: Item
+    attributes:
+      product_id: Produto
+      quantity: quantidade
