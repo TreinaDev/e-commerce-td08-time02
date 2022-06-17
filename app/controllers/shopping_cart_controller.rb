@@ -1,9 +1,6 @@
 class ShoppingCartController < ApplicationController
   def index
-    @product_items = []
-
-    session[:product_item_id].each do |item_id|
-      @product_items << ProductItem.find(item_id)
-    end
+    client = current_client.id
+    @product_items = ProductItem.where(client_id: client)
   end
 end

@@ -1,11 +1,13 @@
 require 'rails_helper'
 
-describe 'Visitante vê carrinho' do
+describe 'Cliente vê carrinho' do
   it 'e vê produtos adicionados ao carrinho' do
+    client = create :client
     admin = create(:admin)
     category = create(:category, admin:)
     create(:product, name: 'Monitor 8k', status: :active, category:)
 
+    login_as client, scope: :client
     visit products_path
     click_on 'Monitor 8k'
     click_on 'Adicionar ao carrinho'

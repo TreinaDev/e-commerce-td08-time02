@@ -7,6 +7,8 @@ class Client < ApplicationRecord
   validates :name, :code, presence: true
   validate :code_is_valid
 
+  has_many :product_items, dependent: :nullify
+
   private
 
   def code_is_valid
