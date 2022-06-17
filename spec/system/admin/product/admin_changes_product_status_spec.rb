@@ -4,7 +4,8 @@ describe 'Administrador altera status do produto' do
   context 'para ativo' do
     it 'com sucesso' do
       admin = create :admin
-      product = create :product, status: :inactive
+      category = create :category, admin: admin
+      product = create :product, category: category, status: :inactive
       create :price, product: product, admin: admin
 
       login_as(admin, scope: :admin)
@@ -22,7 +23,8 @@ describe 'Administrador altera status do produto' do
   context 'para inativo' do
     it 'com sucesso' do
       admin = create :admin
-      product = create :product, status: :active
+      category = create :category, admin: admin
+      product = create :product, category: category, status: :active
       create :price, product: product, admin: admin
 
       login_as(admin, scope: :admin)

@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'Administrador cadastra um produto' do
   it 'a partir da tela inicial' do
     admin = create :admin, name: 'João'
-    first_category = create(:category, admin:)
-    second_category = create(:category, name: 'Periféricos', category: first_category, admin:)
+    first_category = create(:category, admin: admin)
+    second_category = create(:category, name: 'Periféricos', category: first_category, admin: admin)
 
     login_as admin, scope: :admin
     visit root_path
@@ -51,8 +51,8 @@ describe 'Administrador cadastra um produto' do
 
   it 'com dados incompletos' do
     admin = create :admin
-    login_as admin, scope: :admin
 
+    login_as admin, scope: :admin
     visit new_product_path
     fill_in 'Nome', with: 'Computador'
     fill_in 'Marca', with: ''
@@ -85,9 +85,10 @@ describe 'Administrador cadastra um produto' do
 
   it 'com dados incorretos' do
     admin = create :admin
-    create :product, sku: 'ABCD-1234'
-    login_as admin, scope: :admin
+    category = create :category, admin: admin
+    create :product, category: category, sku: 'ABCD-1234'
 
+    login_as admin, scope: :admin
     visit new_product_path
     fill_in 'SKU', with: 'ABCD-1234'
     fill_in 'Largura', with: '-1.0'

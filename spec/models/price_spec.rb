@@ -47,8 +47,8 @@ RSpec.describe Price, type: :model do
 
   it 'false se intervalo já estiver cadastrado' do
     admin = create(:admin, email: 'admin2@mercadores.com.br')
-    category = create(:category, admin:)
-    product = create(:product, category:)
+    category = create(:category, admin: admin)
+    product = create(:product, category: category)
     create :price, product: product, start_date: Time.zone.today, end_date: 1.week.from_now
     price = described_class.new(product: product, start_date: 1.day.from_now, end_date: 3.days.from_now)
 
@@ -61,8 +61,8 @@ RSpec.describe Price, type: :model do
 
   it 'true se intervalo ainda não estiver cadastrado' do
     admin = create(:admin, email: 'admin2@mercadores.com.br')
-    category = create(:category, admin:)
-    product = create(:product, category:)
+    category = create(:category, admin: admin)
+    product = create(:product, category: category)
     create :price, product: product, start_date: Time.zone.today, end_date: 1.week.from_now
     price = described_class.new(product: product, start_date: 8.days.from_now, end_date: 2.weeks.from_now)
 

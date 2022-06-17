@@ -3,8 +3,9 @@ require 'rails_helper'
 describe 'Administrador vê todos os produtos' do
   it 'e vê produtos inativos' do
     admin = create :admin
-    create :product, name: 'Monitor 8k', brand: 'LG', status: :active
-    create :product, name: 'Notebook', brand: 'Samsung', status: :inactive
+    category = create :category, admin: admin
+    create :product, category: category, name: 'Monitor 8k', brand: 'LG', status: :active
+    create :product, category: category, name: 'Notebook', brand: 'Samsung', status: :inactive
 
     login_as admin, scope: :admin
     visit products_path
