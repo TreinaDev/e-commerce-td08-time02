@@ -18,8 +18,15 @@ Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/HashSyntax:
+  Enabled: false
+
 Metrics/BlockLength:
   IgnoredMethods: ['describe', 'context']
+
+Layout/LineLength:
+  Exclude:
+    - 'config/initializers/devise.rb'
 
 RSpec/ExampleLength:
   Max: 40

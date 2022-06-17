@@ -1,9 +1,9 @@
 pt-BR:
+  product_creation_succeeded: Produto criado com sucesso
+  product_creation_failed: Falha ao cadastrar produto
   activerecord:
     models:
-      product:
-          one: Produto
-          other: Produtos
+      product: Produtos
     attributes:
       product:
         name: Nome
@@ -11,13 +11,14 @@ pt-BR:
         description: Descrição
         sku: SKU
         manual: Manual
-        photos: Fotos
         width: Largura
         height: Altura
         depth: Profundidade
         weight: Peso
         shipping_price: Preço de frete
         fragile: Frágil
+        status: Status
+        photos: Fotos
       product/status:
-          inactive: Inativo
-          active: Ativo
+        inactive: Inativo
+        active: Ativo

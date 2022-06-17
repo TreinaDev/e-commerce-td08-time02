@@ -14,7 +14,7 @@ describe 'Visitante não autenticado tenta acessar' do
     expect(page).to have_current_path new_admin_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se.'
   end
-  
+
   it 'a tela de detalhes de uma categoria' do
     category = create(:category, admin: create(:admin))
 

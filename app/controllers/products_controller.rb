@@ -8,14 +8,16 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @categories = Category.all
   end
 
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to @product, notice: 'Produto criado com sucesso'
+      redirect_to @product, notice: t('product_creation_succeeded')
     else
-      flash.now[:notice] = 'Falha ao cadastrar produto'
+      @categories = Category.all
+      flash.now[:notice] = t('product_creation_failed')
       render :new
     end
   end
@@ -25,7 +27,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :brand, :description, :sku, :width, :height, :depth, :weight,
+    params.require(:product).permit(:name, :brand, :category_id, :description, :sku, :width, :height, :depth, :weight,
                                     :shipping_price, :fragile, :manual, photos: [])
   end
 
