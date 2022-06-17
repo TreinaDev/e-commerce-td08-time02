@@ -2,10 +2,12 @@ require 'rails_helper'
 
 describe 'Visitante vê todos os produtos' do
   it 'a partir da tela inicial' do
-    product1 = create :product, name: 'Monitor 8k', brand: 'LG'
+    admin = create(:admin)
+    category = Category.create!(name: 'Alimentos', admin_id: admin.id)
+    product1 = create :product, name: 'Monitor 8k', brand: 'LG', category: category
     product1.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-1.png')),
                            filename: 'placeholder-image-1.png', content_type: 'image/png')
-    product2 = create :product, name: 'Monitor 4k', brand: 'Samsung'
+    product2 = create :product, name: 'Monitor 4k', brand: 'Samsung', category: category
     product2.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-2.png')),
                            filename: 'placeholder-image-2.png', content_type: 'image/png')
 

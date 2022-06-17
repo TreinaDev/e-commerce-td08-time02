@@ -10,6 +10,7 @@ class ProductsController < ApplicationController
     @product = Product.new
     @start_date = @product.prices.empty? ? Time.zone.today : @product.prices.last.start_date + 1
     @product.prices.build
+    @categories = Category.all
   end
 
   def create
@@ -17,6 +18,7 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to @product, notice: t('product_creation_succeeded')
     else
+      @categories = Category.all
       flash.now[:notice] = t('product_creation_failed')
       render :new
     end
@@ -39,7 +41,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :brand, :description, :sku, :width, :height,
+    params.require(:product).permit(:name, :brand, :category_id, :description, :sku, :width, :height,
                                     :depth, :weight, :shipping_price, :fragile, :manual,
                                     photos: [], prices_attributes: %i[id admin_id start_date end_date value])
   end

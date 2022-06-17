@@ -3,6 +3,8 @@ require 'rails_helper'
 describe 'Administrador cadastra um produto' do
   it 'a partir da tela inicial' do
     admin = create :admin, name: 'João'
+    first_category = create(:category, admin:)
+    second_category = create(:category, name: 'Periféricos', category: first_category, admin:)
 
     login_as admin, scope: :admin
     visit root_path
@@ -10,6 +12,7 @@ describe 'Administrador cadastra um produto' do
     click_on 'Cadastrar Produto'
     fill_in 'Nome', with: 'TV - LG 45'
     fill_in 'Marca', with: 'LG'
+    select('Periféricos', from: 'Categorias')
     fill_in 'Descrição', with: 'TV - LG 45 polegadas'
     fill_in 'SKU', with: 'TVLG45-XKFZ'
     fill_in 'Largura', with: '75'
@@ -32,6 +35,7 @@ describe 'Administrador cadastra um produto' do
     expect(page).to have_css("img[src*='placeholder-image-2.png']")
     expect(page).to have_content('Status: Inativo')
     expect(page).to have_content('Marca: LG')
+    expect(page).to have_content("Categoria: #{second_category.name}")
     expect(page).to have_content('SKU: TVLG45-XKFZ')
     expect(page).to have_content('Descrição: TV - LG 45 polegadas')
     expect(page).to have_content('Dimensões: 75,00 x 45,00 x 10,00')
@@ -53,6 +57,7 @@ describe 'Administrador cadastra um produto' do
     fill_in 'Nome', with: 'Computador'
     fill_in 'Marca', with: ''
     fill_in 'Descrição', with: ''
+    select('[Sem categoria relacionada]', from: 'Categorias')
     fill_in 'SKU', with: ''
     fill_in 'Largura', with: ''
     fill_in 'Altura', with: ''

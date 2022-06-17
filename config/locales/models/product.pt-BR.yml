@@ -5,9 +5,7 @@ pt-BR:
   product_deactivation_succeded: Produto desativado com sucesso
   activerecord:
     models:
-      product:
-          one: Produto
-          other: Produtos
+      product: Produtos
     attributes:
       product:
         name: Nome
@@ -15,13 +13,14 @@ pt-BR:
         description: Descrição
         sku: SKU
         manual: Manual
-        photos: Fotos
         width: Largura
         height: Altura
         depth: Profundidade
         weight: Peso
         shipping_price: Preço de frete
         fragile: Frágil
+        status: Status
+        photos: Fotos
       product/status:
-          inactive: Inativo
-          active: Ativo
+        inactive: Inativo
+        active: Ativo
