@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
-    @start_date = @product.prices.empty? ? Time.zone.today : @product.prices.last.start_date + 1
+    @start_date = Time.zone.today
     @product.prices.build
     @categories = Category.all
   end
@@ -24,12 +24,21 @@ class ProductsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @price = Price.new
+    @start_date = @product.prices.last.end_date + 1
+  end
 
   def activate
-    @product.active!
-
-    redirect_to @product, notice: t('product_activation_succeeded')
+    if @product.prices.last.end_date - Time.zone.today >= 90
+      @product.active!
+      redirect_to @product, notice: t('product_activation_succeeded')
+    else
+      @price = Price.new
+      @start_date = @product.prices.last.end_date + 1
+      flash.now[:notice] = t('product_activation_failed')
+      render :show
+    end
   end
 
   def deactivate

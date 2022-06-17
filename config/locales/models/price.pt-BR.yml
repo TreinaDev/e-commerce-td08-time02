@@ -1,4 +1,5 @@
 pt-BR:
+  price_registered: Preço cadastrado com sucesso
   activerecord:
     models:
       price: Preço

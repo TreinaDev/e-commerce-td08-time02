@@ -25,6 +25,29 @@
         #{number_to_currency(price.value, unit: "R$ ")} - Cadastrado por: #{price.admin.name}"%>
       </p>
     <% end %>
+
+    <div>
+    Cadastrar novo preço:
+    <%= form_with model: @price do |f| %>
+      <%= f.hidden_field :admin_id, value: current_admin.id %>
+      <%= f.hidden_field :product_id, value: @product.id %>
+  
+      <%= f.label :start_date %>
+      <%= f.date_field :start_date, value: @start_date, readonly: true %>
+      <p><%= @price.errors.full_messages_for(:start_date).first if @price.errors.any? %></p>
+
+      <%= f.label :end_date %>
+      <%= f.date_field :end_date %>
+      <p><%= @price.errors.full_messages_for(:end_date).first if @price.errors.any? %></p>
+
+      <%= f.label :value %>
+      <%= f.number_field :value %>
+      <p><%= @price.errors.full_messages_for(:value).first if @price.errors.any? %></p>
+
+      <%= f.submit 'Cadastrar preço' %>
+    <% end %>
+    </div>
+
     <% if @product.inactive? %>
       <%= button_to 'Ativar', activate_product_path(@product) %>
     <% else %>

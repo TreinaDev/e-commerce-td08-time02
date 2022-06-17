@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     post 'deactivate', on: :member
   end
 
+  resources :prices, only: :create
+
   resources :pending_admins, only: %i[index] do
     post 'approve', on: :member
   end
