@@ -1,20 +1,21 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
 
+## Admins
 admin = Admin.create!(email: 'arthur@mercadores.com.br', password: 'password', name: 'Arthur', status: :approved)
 Admin.create!(email: 'marco@mercadores.com.br', password: 'password', name: 'Marco')
 
+## Clientes
+first_client = Client.create!(email: 'marquinhos@hotmail.com', password: 'password', name: 'Marquinhos', code: '61.887.261/0001-60')
+second_client = Client.create!(email: 'juliana@hotmail.com', password: 'password', name: 'Juliana', code: '622.894.020-10')
+third_client = Client.create!(email: 'jadson@hotmail.com', password: 'password', name: 'Jadson', code: '59641220004')
+
+## Categorias
 first_category = Category.create!(name: 'Eletronicos', admin:)
 second_category = Category.create!(name: 'Roupas', admin:)
 third_category = Category.create!(name: 'Celulares', admin:, category: first_category)
 fourth_category = Category.create!(name: 'Camisetas', admin:, category: second_category)
 fifth_category = Category.create!(name: 'Jardinagem', admin:)
 
+## Produtos
 first_product = Product.create!(name: 'Monitor 8k', brand: 'LG', category: first_category, description: 'Monitor de alta qualidade',
                         sku: 'MON8K-64792', height: 50, width: 100, depth: 12, weight: 12,
                         shipping_price: 23, fragile: true, status: :active)

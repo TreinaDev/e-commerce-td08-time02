@@ -8,7 +8,7 @@ describe 'Administrador cria produto' do
                 description: 'Monitor de alta qualidade', width: '100', height: '50',
                 weight: '12', shipping_price: '23', depth: '12', fragile: true }
 
-    login_as admin
+    login_as admin, scope: :admin
     post products_path, params: { product: }
 
     expect(response).to redirect_to product_path(Product.last.id)

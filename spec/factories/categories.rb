@@ -4,7 +4,7 @@ FactoryBot.define do
   end
 
   factory :subcategory do
-    name { 'Celular'}
+    name { 'Celular' }
     association :category, factory: :category
   end
 end
