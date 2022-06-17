@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      client: Cliente
+    attributes:
+      client:
+        email: E-mail
+        password: Senha
+        name: Nome
+        log in: Entrar
+        code: CPF/CNPJ
+        password_confirmation: Confirmar senha

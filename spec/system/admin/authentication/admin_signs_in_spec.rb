@@ -5,7 +5,7 @@ describe 'Administrador se autentica' do
     Admin.create!(email: 'admin@mercadores.com.br', password: 'password', name: 'João', status: :approved)
 
     visit root_path
-    click_on 'Entrar como administrador'
+    click_on 'Entrar como Administrador'
     fill_in 'E-mail', with: 'admin@mercadores.com.br'
     fill_in 'Senha', with: 'password'
     click_on 'Entrar'
@@ -13,7 +13,7 @@ describe 'Administrador se autentica' do
     expect(page).to have_current_path root_path
     expect(page).to have_content 'Autenticação efetuada com sucesso.'
     expect(page).to have_content 'João (admin@mercadores.com.br)'
-    expect(page).not_to have_link 'Entrar como administrador'
+    expect(page).not_to have_link 'Entrar como Administrador'
   end
 
   it 'com dados incompletos' do
@@ -25,7 +25,7 @@ describe 'Administrador se autentica' do
     expect(page).to have_content('E-mail ou senha inválidos')
     expect(page).to have_current_path new_admin_session_path
     expect(page).not_to have_content 'Autenticação efetuada com sucesso.'
-    expect(page).to have_link 'Entrar como administrador'
+    expect(page).to have_link 'Entrar como Administrador'
   end
 
   it 'com dados incorretos' do
@@ -39,7 +39,7 @@ describe 'Administrador se autentica' do
     expect(page).to have_content('E-mail ou senha inválidos')
     expect(page).to have_current_path new_admin_session_path
     expect(page).not_to have_content 'Autenticação efetuada com sucesso.'
-    expect(page).to have_link 'Entrar como administrador'
+    expect(page).to have_link 'Entrar como Administrador'
   end
 
   it 'e seu cadastro não foi aprovado por outro Administrador' do

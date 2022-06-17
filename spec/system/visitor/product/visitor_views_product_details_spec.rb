@@ -4,9 +4,9 @@ describe 'Visitante vê detalhes de um produto' do
   it 'a partir da tela inicial' do
     admin = create(:admin)
     category = Category.create!(name: 'Alimentos', admin_id: admin.id)
-    product = create(:product, name: 'Monitor 8k', brand: 'LG', description: 'Monitor de alta qualidade',
-                     category:, sku: 'MON8K-64792', height: 50, width: 100, depth: 12, weight: 12,
-                     shipping_price: 23, fragile: true, status: :inactive)
+    product = create(:product, name: 'Monitor 8k', brand: 'LG', description: 'Monitor de alta qualidade', category:,
+                               sku: 'MON8K-64792', height: 50, width: 100, depth: 12, weight: 12, shipping_price: 23,
+                               fragile: true, status: :inactive)
     product.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-1.png')),
                           filename: 'placeholder-image-1.png', content_type: 'image/png')
 
