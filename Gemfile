@@ -5,6 +5,8 @@ ruby '3.1.0'
 
 gem 'devise'
 
+gem 'faraday'
+
 gem 'cpf_cnpj'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
@@ -52,6 +54,7 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'webmock'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'
