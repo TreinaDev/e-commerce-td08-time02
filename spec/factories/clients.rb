@@ -3,7 +3,7 @@ FactoryBot.define do
     email { 'cliente@email.com' }
     password { 'password' }
     name { 'João' }
-    code { '510.309.910-14' } 
+    code { '510.309.910-14' }
 
     trait :another_email do
       email { 'outroemail@email.com' }

@@ -10,7 +10,7 @@ describe 'Administrador cria produto' do
 
     login_as admin, scope: :admin
     post products_path, params: { product: }
-        
+
     expect(response).to redirect_to product_path(Product.last.id)
     expect(Product.count).to eq 1
   end
