@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :categories, only: %i[new create index show]
 
   resources :products, only: %i[index new create show] do
-    resources :product_items, only: %i[create]
+    resources :product_items, only: %i[create update]
   end
 
   resources :pending_admins, only: %i[index] do

@@ -3,8 +3,11 @@ class ProductItemsController < ApplicationController
   rescue_from ActiveRecord::ActiveRecordError, with: :return_fail
   def create
     @product = Product.find(params[:product_id])
-    product_item = @product.product_items.new(client_id: current_client.id)
-    product_item.save
+    @client_id = current_client.id
+    unless IncrementItemService.new(@product, @client_id).call
+      product_item = @product.product_items.new(client_id: current_client.id)
+      product_item.save
+    end
     redirect_to @product, notice: "#{@product.name} #{t('added_to_cart')}"
   end
 
