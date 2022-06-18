@@ -1,14 +1,10 @@
 class IncrementItemService
-  def initialize(product, client_id)
-    @product = product
-    @client_id = client_id
-    @list = ProductItem.where(client_id: @client_id, product_id: @product.id)
+  def initialize(product, client)
+    @item = ProductItem.find_by(client_id: client, product_id: product)
   end
 
-  def call
-    return false unless @list.first
-
-    @list.first.quantity += 1
-    @list.first.save
+  def edit_quantity
+    @item&.quantity += 1
+    @item&.save
   end
 end
