@@ -15,6 +15,7 @@
             <%= item.quantity %>
             <%= button_to '+', sum_quantity_product_product_item_path(item.product, item), method: 'patch' %>
           </div>
+          <%= button_to 'Remover Produto', product_product_item_path(item.product, item), method: 'delete' %>
         </div>
       <% end %>
     </div>

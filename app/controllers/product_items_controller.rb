@@ -13,9 +13,15 @@ class ProductItemsController < ApplicationController
     redirect_to @product, notice: "#{@product.name} #{t('added_to_cart')}"
   end
 
+  def destroy
+    product_item = ProductItem.find(params[:id])
+    product_item.destroy
+
+    redirect_to shopping_cart_path, notice: t('product_removed')
+  end
+
   def sum_quantity
     product_item = ProductItem.find(params[:id])
-
     product_item.quantity += 1
     product_item.save
 

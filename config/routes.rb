@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :categories, only: %i[new create index show]
 
   resources :products, only: %i[index new create show] do
-    resources :product_items, only: %i[create] do
+    resources :product_items, only: %i[create destroy] do
       patch 'sum_quantity', on: :member
       patch 'dec_quantity', on: :member
     end
