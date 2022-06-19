@@ -13,6 +13,24 @@ class ProductItemsController < ApplicationController
     redirect_to @product, notice: "#{@product.name} #{t('added_to_cart')}"
   end
 
+  def sum_quantity
+    product_item = ProductItem.find(params[:id])
+
+    product_item.quantity += 1
+    product_item.save
+
+    redirect_to shopping_cart_path
+  end
+
+  def dec_quantity
+    product_item = ProductItem.find(params[:id])
+
+    product_item.quantity -= 1
+    product_item.save
+
+    redirect_to shopping_cart_path
+  end
+
   private
 
   def return_fail

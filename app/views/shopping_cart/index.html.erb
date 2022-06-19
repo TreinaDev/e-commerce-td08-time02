@@ -5,7 +5,14 @@
       <h4>Produtos</h4>
       <% @product_items.each do |item| %>
         <div>
-          <p><%= "#{item.product.name} - Quantidade: #{item.quantity}" %></p>
+          <div>
+            <%= item.product.name %>
+          </div>
+          <div>
+            <%= button_to '-', dec_quantity_product_product_item_path(item.product, item), method: 'patch' %>
+            <%= item.quantity %>
+            <%= button_to '+', sum_quantity_product_product_item_path(item.product, item), method: 'patch' %>
+          </div>
         </div>
       <% end %>
     </div>
