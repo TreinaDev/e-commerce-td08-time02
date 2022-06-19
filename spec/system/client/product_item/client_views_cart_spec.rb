@@ -18,7 +18,7 @@ describe 'Cliente vê carrinho' do
 
     expect(page).to have_content 'Meu Carrinho'
     expect(page).to have_content 'Monitor 8k'
-    expect(page).to have_content 'Quantidade: 1'
+    expect(page).to have_content '1'
     expect(page).to have_content 'Mouse'
   end
 
@@ -35,7 +35,7 @@ describe 'Cliente vê carrinho' do
     click_on 'Carrinho'
 
     expect(page).to have_content 'Mouse'
-    expect(page).to have_content 'Quantidade: 2'
+    expect(page).to have_content '2'
     expect(ProductItem.count).to eq 1
   end
 
