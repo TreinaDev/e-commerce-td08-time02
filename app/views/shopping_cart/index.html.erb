@@ -1,11 +1,17 @@
 <div>
-  <h1><%= t('my_cart') %></h1>
-  <div>
-    <% @product_items.each do |item| %>
-      <div>
-        <p><%= item.product.name %></p>
-        <p>Quantidade: <%= item.quantity %></p>
-      </div>
-    <% end %>
-  </div>
+  <% unless @product_items.empty? %>
+    <h1><%= t('my_cart') %></h1>
+    <div>
+      <h4>Produtos</h4>
+      <% @product_items.each do |item| %>
+        <div>
+          <p><%= "#{item.product.name} - Quantidade: #{item.quantity}" %></p>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div>
+      <p>Não há produtos no carrinho</p>
+    </div>
+  <% end %>
 </div>

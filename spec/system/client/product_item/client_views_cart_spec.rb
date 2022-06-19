@@ -38,4 +38,14 @@ describe 'Cliente vê carrinho' do
     expect(page).to have_content 'Quantidade: 2'
     expect(ProductItem.count).to eq 1
   end
+
+  it 'e não há produtos no carrinho' do
+    client = create :client
+
+    login_as client, scope: :client
+    visit root_path
+    click_on 'Carrinho'
+
+    expect(page).to have_content 'Não há produtos no carrinho'
+  end
 end
