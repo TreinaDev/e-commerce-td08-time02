@@ -3,9 +3,7 @@ require 'rails_helper'
 describe 'Cliente remove item do carrinho' do
   it 'com sucesso' do
     client = create :client
-    admin = create(:admin)
-    category = create(:category, admin:)
-    product = create(:product, name: 'Mouse', status: :active, category:)
+    product = create(:product, name: 'Mouse', status: :active)
     create(:product_item, client:, product:)
 
     login_as client, scope: :client

@@ -3,8 +3,7 @@ require 'rails_helper'
 describe 'Cliente vê carrinho' do
   it 'e vê produtos adicionados ao carrinho' do
     client = create :client
-    admin = create(:admin)
-    category = create(:category, admin:)
+    category = create(:category)
     create(:product, name: 'Monitor 8k', status: :active, category:)
     product = create(:product, name: 'Mouse', status: :active, category:)
 
@@ -24,8 +23,7 @@ describe 'Cliente vê carrinho' do
 
   it 'e não há produtos duplicados' do
     client = create :client
-    admin = create(:admin)
-    category = create(:category, admin:)
+    category = create(:category)
     product = create(:product, name: 'Mouse', status: :active, category:)
 
     login_as client, scope: :client

@@ -2,9 +2,7 @@ require 'rails_helper'
 
 describe 'Cliente adiciona um item ao carrinho' do
   it 'sem estar autenticado' do
-    admin = create :admin
-    category = create(:category, admin:)
-    create(:product, name: 'Monitor 8k', status: :active, category:)
+    create(:product, name: 'Monitor 8k', status: :active)
 
     visit products_path
     click_on 'Monitor 8k'
@@ -15,9 +13,7 @@ describe 'Cliente adiciona um item ao carrinho' do
 
   it 'com sucesso' do
     client = create :client
-    admin = create :admin
-    category = create(:category, admin:)
-    create(:product, name: 'Monitor 8k', status: :active, category:)
+    create(:product, name: 'Monitor 8k', status: :active)
 
     login_as client, scope: :client
     visit products_path
@@ -29,9 +25,7 @@ describe 'Cliente adiciona um item ao carrinho' do
 
   it 'com falha' do
     client = create :client
-    admin = create :admin
-    category = create(:category, admin:)
-    product = create(:product, name: 'Monitor 8k', status: :active, category:)
+    product = create(:product, name: 'Monitor 8k', status: :active)
     allow(ProductItem).to receive(:new).and_raise(ActiveRecord::ActiveRecordError)
 
     login_as client, scope: :client
