@@ -4,6 +4,8 @@ class Client < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :product_items, dependent: :nullify
+  
   validates :name, :code, presence: true
   validate :code_is_valid
 

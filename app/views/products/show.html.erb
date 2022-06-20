@@ -9,6 +9,9 @@
   <p>Marca: <%= @product.brand %></p>
   <p>Categoria: <%= @product.category.name %></p>
   <p>SKU: <%= @product.sku %></p>
+  <% unless admin_signed_in? %>
+    <%= button_to 'Adicionar ao carrinho ', product_product_items_path(@product.id), method: 'post' %>
+  <% end %>
   <p>Descrição: <%= @product.description %></p>
   <p>Dimensões: <%= number_with_precision(@product.width, precision: 2) %> x
                 <%= number_with_precision(@product.height, precision: 2) %> x

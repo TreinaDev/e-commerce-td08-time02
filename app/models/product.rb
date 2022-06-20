@@ -9,4 +9,5 @@ class Product < ApplicationRecord
   has_many :prices, dependent: :nullify
   has_one_attached :manual
   has_many_attached :photos
+  has_many :product_items, dependent: :nullify
 end
