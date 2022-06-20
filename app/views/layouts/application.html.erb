@@ -25,6 +25,8 @@
           <li><%= link_to 'Cadastros Pendentes', pending_admins_path %></li>
           <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
           <li><%= button_to 'Sair', destroy_admin_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to 'Carrinho', shopping_cart_path %></li>
         <% end %>
         <% if !admin_signed_in? && !client_signed_in? %>
           <li><%= link_to "Entrar como Administrador", new_admin_session_path %></li>

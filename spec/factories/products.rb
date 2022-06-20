@@ -10,7 +10,7 @@ FactoryBot.define do
     shipping_price { '90.99' }
     status { :active }
     sequence(:sku) { |number| "TLT4#{number}-NCK9832" }
-
+    category
     after(:build) do |product|
       product.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-1.png')),
                             filename: 'placeholder-image-1.png', content_type: 'image/png')

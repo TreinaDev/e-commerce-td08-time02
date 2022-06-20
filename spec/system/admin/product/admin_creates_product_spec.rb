@@ -41,6 +41,7 @@ describe 'Administrador cadastra um produto' do
     expect(page).to have_content('Preço do Frete: R$ 47,00')
     expect(page).to have_content('Frágil - Sim')
     expect(page).to have_link('Manual')
+    expect(page).not_to have_button 'Adicionar ao Carrinho'
   end
 
   it 'com dados incompletos' do
