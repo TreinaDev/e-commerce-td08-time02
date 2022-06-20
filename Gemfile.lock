@@ -252,6 +252,8 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.4.3)
     strscan (3.0.3)
+    tailwindcss-rails (2.0.10-x86_64-linux)
+      railties (>= 6.0.0)
     thor (1.2.1)
     timeout (0.3.0)
     tzinfo (2.0.4)
@@ -294,6 +296,7 @@ DEPENDENCIES
   simplecov
   sprockets-rails
   sqlite3 (~> 1.4)
+  tailwindcss-rails (~> 2.0)
   tzinfo-data
   webdrivers
 
