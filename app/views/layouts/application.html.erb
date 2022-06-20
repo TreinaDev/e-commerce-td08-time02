@@ -15,7 +15,7 @@
     <nav class=' bg-blue-600 p-5'>
       <ul class= 'flex text-white justify-between'>
         <div class= 'flex font-semibold items-baseline'>
-          <li class= 'mr-4 font-extrabold text-xl'><h1>E-Commerce</h1></li>
+          <li class= 'mr-4 font-extrabold text-xl text-yellow-400'><h1>E-Commerce</h1></li>
           <li class= 'mr-4'><%= link_to 'Página Inicial', root_path %></li>
           <li class= 'mr-4'><%= link_to 'Produtos', products_path %></li>
         </div>
@@ -23,13 +23,13 @@
           <% if client_signed_in? %>
             <div class= 'flex'>
               <li class= 'mr-4'><%= current_client.name %> (<%= current_client.email %>)</li>
-              <li class= 'mr-4'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
+              <li class= 'mr-4 text-red-500'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
             </div>
           <% end %>
           <% if !admin_signed_in? && !client_signed_in? %>
             <div class= 'flex'>
-              <li class= 'mr-4'><%= link_to "Entrar como Administrador", new_admin_session_path %></li>
-              <li class= 'mr-4'><%= link_to "Entrar como Cliente", new_client_session_path %></li>
+              <li class= 'mr-4 border px-2 py-1 border-gray-400'><%= link_to "Entrar como Administrador", new_admin_session_path %></li>
+              <li class= 'mr-4 border px-2 py-1 border-gray-400'><%= link_to "Entrar como Cliente", new_client_session_path %></li>
             </div>
           <% end %>
           <% if admin_signed_in? %>
@@ -39,7 +39,7 @@
             </div>
             <div class= 'flex'>
               <li class= 'mr-4'><%= current_admin.name %> (<%= current_admin.email %>)</li>
-              <li class= 'mr-4'><%= button_to 'Sair', destroy_admin_session_path, method: :delete %></li>
+              <li class= 'mr-4 text-red-500'><%= button_to 'Sair', destroy_admin_session_path, method: :delete %></li>
             </div>
           <% else %>
             <div class= 'flex'>
