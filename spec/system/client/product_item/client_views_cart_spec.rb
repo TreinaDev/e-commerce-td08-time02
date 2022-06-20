@@ -48,4 +48,20 @@ describe 'Cliente vê carrinho' do
 
     expect(page).to have_content 'Não há produtos no carrinho'
   end
+
+  it 'e pode ver detalhes do produto adicionado' do
+    client = create :client
+    admin = create(:admin)
+    category = create(:category, admin:)
+    create(:product, name: 'Monitor 8k', status: :active, category:)
+    product = create(:product, name: 'Mouse', status: :active, category:)
+    create(:product_item, client:, product:)
+
+    login_as client, scope: :client
+    visit shopping_cart_path
+    click_on 'Mouse'
+
+    expect(page).to have_current_path product_path(product)
+    expect(page).to have_content 'Mouse'
+  end
 end

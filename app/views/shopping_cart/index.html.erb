@@ -6,7 +6,7 @@
       <% @product_items.each do |item| %>
         <div>
           <div>
-            <%= item.product.name %>
+            <%= link_to item.product.name, item.product %>
           </div>
           <div>
             <% if item.quantity != 1 %>
