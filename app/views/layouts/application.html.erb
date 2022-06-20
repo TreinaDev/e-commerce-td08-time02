@@ -17,6 +17,7 @@
         <li><%= link_to 'Página Inicial', root_path %></li>
         <li><%= link_to 'Produtos', products_path %></li>
         <% if client_signed_in? %>
+          <li><%= @balance %> Rubis</li>
           <li><%= current_client.name %> (<%= current_client.email %>)</li>
           <li><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
         <% end %>

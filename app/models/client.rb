@@ -4,10 +4,24 @@ class Client < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :product_items, dependent: :nullify
+  
   validates :name, :code, presence: true
   validate :code_is_valid
 
-  has_many :product_items, dependent: :nullify
+  def balance
+    begin
+      response = Faraday.get("http://localhost:4000/api/v1/balance/#{self.code_numbers}")
+      body = JSON.parse(response.body)
+      return body["balance"]
+    rescue => exception
+      return 0
+    end
+  end
+
+  def code_numbers
+    code.split('-').join.split('.').join.split('/').join
+  end
 
   private
 
