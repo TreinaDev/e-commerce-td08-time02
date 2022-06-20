@@ -8,4 +8,13 @@ class Category < ApplicationRecord
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :category }
+
+  def all_products(all_products = [], category = self)
+    all_products.concat(category.products)
+    category.categories.each do |children|
+      all_products(all_products, children)
+    end
+
+    all_products
+  end
 end

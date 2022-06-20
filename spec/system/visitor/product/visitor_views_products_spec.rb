@@ -27,6 +27,6 @@ describe 'Visitante vê todos os produtos' do
     visit root_path
     click_on 'Produtos'
 
-    expect(page).to have_content 'Nenhum produto cadastrado'
+    expect(page).to have_content 'Nenhum produto encontrado'
   end
 end

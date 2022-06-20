@@ -22,6 +22,14 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    @product_name = params[:product_name]
+    @products = Product.where("name LIKE ? OR description LIKE ? OR sku LIKE ?",
+                              "%#{@product_name}%", "%#{@product_name}%", "%#{@product_name}%")
+
+    render :index
+  end
+
   def show; end
 
   private
