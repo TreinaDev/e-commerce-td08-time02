@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def get_balance
-    @saldo = GetBalance.get_balance(current_client.code)
+    @balance = current_client.balance
   end
 
   def configure_permitted_parameters
