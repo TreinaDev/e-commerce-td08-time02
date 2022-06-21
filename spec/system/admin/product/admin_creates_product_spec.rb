@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'Administrador cadastra um produto' do
   it 'a partir da tela inicial' do
     admin = create :admin, name: 'João'
-    first_category = create(:category, admin: admin)
-    second_category = create(:category, name: 'Periféricos', category: first_category, admin: admin)
+    category = create :category, admin: admin
+    create :subcategory, name: 'TVs', category: category, admin: admin
 
     login_as admin, scope: :admin
     visit root_path
@@ -12,7 +12,7 @@ describe 'Administrador cadastra um produto' do
     click_on 'Cadastrar Produto'
     fill_in 'Nome', with: 'TV - LG 45'
     fill_in 'Marca', with: 'LG'
-    select('Periféricos', from: 'Categorias')
+    select 'TVs', from: 'Categorias'
     fill_in 'Descrição', with: 'TV - LG 45 polegadas'
     fill_in 'SKU', with: 'TVLG45-XKFZ'
     fill_in 'Largura', with: '75'
@@ -28,24 +28,22 @@ describe 'Administrador cadastra um produto' do
     attach_file 'Manual', Rails.root.join('spec/support/files/placeholder-manual.pdf')
     click_on 'Cadastrar'
 
-    expect(page).to have_current_path product_path(Product.last.id)
+    expect(page).to have_current_path product_path(Product.last)
     expect(page).to have_content('Produto criado com sucesso')
     expect(page).to have_content('TV - LG 45')
     expect(page).to have_css("img[src*='placeholder-image-1.png']")
     expect(page).to have_css("img[src*='placeholder-image-2.png']")
     expect(page).to have_content('Status: Inativo')
     expect(page).to have_content('Marca: LG')
-    expect(page).to have_content("Categoria: #{second_category.name}")
+    expect(page).to have_content('Categoria: TVs')
     expect(page).to have_content('SKU: TVLG45-XKFZ')
     expect(page).to have_content('Descrição: TV - LG 45 polegadas')
     expect(page).to have_content('Dimensões: 75,00 x 45,00 x 10,00')
     expect(page).to have_content('Peso: 4,00 kg')
     expect(page).to have_content('Preço do Frete: R$ 47,00')
     expect(page).to have_content('Frágil - Sim')
-    expect(page).to have_content(
-      "Preço para #{I18n.l(Time.zone.today)} - #{I18n.l(1.week.from_now.to_date)}: R$ 201,89 " \
-      "- Cadastrado por: #{admin.name}"
-    )
+    expect(page).to have_content("Preço para #{I18n.l(Time.zone.today)} - #{I18n.l(1.week.from_now.to_date)}: " \
+                                 'R$ 201,89 - Cadastrado por: João')
     expect(page).to have_link('Manual')
   end
 
@@ -84,11 +82,9 @@ describe 'Administrador cadastra um produto' do
   end
 
   it 'com dados incorretos' do
-    admin = create :admin
-    category = create :category, admin: admin
-    create :product, category: category, sku: 'ABCD-1234'
+    product = create :product, sku: 'ABCD-1234'
 
-    login_as admin, scope: :admin
+    login_as product.category.admin, scope: :admin
     visit new_product_path
     fill_in 'SKU', with: 'ABCD-1234'
     fill_in 'Largura', with: '-1.0'

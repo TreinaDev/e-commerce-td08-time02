@@ -1,12 +1,12 @@
 FactoryBot.define do
   factory :category do
-    name { 'Eletronicos' }
+    name { 'Eletrônicos' }
     association :admin
-  end
 
-  factory :subcategory do
-    name { 'Celular' }
-    association :category, factory: :category
-    association :admin
+    factory :subcategory do
+      name { 'Celular' }
+      association :category, factory: :category
+      admin { category.admin }
+    end
   end
 end
