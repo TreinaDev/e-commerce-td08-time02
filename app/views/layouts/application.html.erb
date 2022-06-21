@@ -22,6 +22,7 @@
         <div class= 'flex font-semibold'>
           <% if client_signed_in? %>
             <div class= 'flex'>
+              <li class= 'mr-4'><%= @balance %> Rubis</li>
               <li class= 'mr-4'><%= current_client.name %> (<%= current_client.email %>)</li>
               <li class= 'mr-4 text-red-500'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
             </div>
