@@ -1,13 +1,15 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show]
-  before_action :authenticate_admin!, only: %i[new create]
+  before_action :set_product, only: %i[show activate deactivate]
+  before_action :authenticate_admin!, only: %i[new create activate deactivate]
 
   def index
-    @products = Product.all
+    @products = admin_signed_in? ? Product.all : Product.active
   end
 
   def new
     @product = Product.new
+    @start_date = Time.zone.today
+    @product.prices.build
     @categories = Category.all
   end
 
@@ -22,16 +24,46 @@ class ProductsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    unless @product && (@product.active? || admin_signed_in?)
+      return redirect_to root_path, notice: t('inactive_or_inexistent_product')
+    end
+
+    set_new_price
+  end
+
+  def activate
+    if @product.prices.last.end_date - Time.zone.today >= 90
+      @product.active!
+      return redirect_to @product, notice: t('product_activation_succeeded')
+    end
+
+    set_new_price
+    flash.now[:notice] = t('product_activation_failed')
+    render :show
+  end
+
+  def deactivate
+    @product.inactive!
+    redirect_to @product, notice: t('product_deactivation_succeeded')
+  end
 
   private
 
   def product_params
-    params.require(:product).permit(:name, :brand, :category_id, :description, :sku, :width, :height, :depth, :weight,
-                                    :shipping_price, :fragile, :manual, photos: [])
+    params.require(:product).permit(:name, :brand, :category_id, :description, :sku, :width, :height,
+                                    :depth, :weight, :shipping_price, :fragile, :manual,
+                                    photos: [], prices_attributes: %i[id admin_id start_date end_date value])
   end
 
   def set_product
     @product = Product.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    @product = nil
+  end
+
+  def set_new_price
+    @price = Price.new
+    @start_date = @product.prices.last.end_date + 1
   end
 end

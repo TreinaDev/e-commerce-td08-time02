@@ -1,12 +1,11 @@
-<% if current_admin %>
-  <%= link_to 'Cadastrar Produto', new_product_path %>
-<% end %>
+<%= link_to 'Cadastrar Produto', new_product_path if admin_signed_in? %>
 
 <% if @products.any? %>
   <% @products.each do |product| %>
-  <div>
+  <div id=<%= product.name %>>
     <p>Nome: <%= link_to product.name, product_path(product) %> </p>
     <p>Marca: <%= product.brand %></p>
+    <p><%= Product.human_attribute_name("status.#{product.status}") if admin_signed_in? %></p>
     <%= image_tag product.photos.last if product.photos.attached? %>
   </div>
   <% end %>
