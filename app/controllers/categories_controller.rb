@@ -28,6 +28,18 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def activate
+    @category = Category.find(params[:id])
+    @category.active!
+    redirect_to @category, notice: t('category_activation_succeeded')
+  end
+
+  def deactivate
+    @category = Category.find(params[:id])
+    @category.disabled!
+    redirect_to @category, notice: t('category_deactivation_succeeded')
+  end
+
   private
 
   def category_params
