@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
+    @categories = Category.all
   end
 
   def new
@@ -26,12 +27,21 @@ class ProductsController < ApplicationController
     @product_name = params[:product_name]
     @products = Product.where("name LIKE ? OR description LIKE ? OR sku LIKE ?",
                               "%#{@product_name}%", "%#{@product_name}%", "%#{@product_name}%")
+    @categories = Category.all
 
     render :index
   end
 
-  def show; end
+  def filter
+    @category = Category.find(params[:format])
+    @products = @category.all_products
+    @categories = Category.all
 
+    render :index
+  end
+  
+  def show; end
+  
   private
 
   def product_params
