@@ -25,7 +25,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    unless @product.active? || admin_signed_in?
+    unless @product && (@product.active? || admin_signed_in?)
       return redirect_to root_path, notice: t('inactive_or_inexistent_product')
     end
 
@@ -45,7 +45,7 @@ class ProductsController < ApplicationController
 
   def deactivate
     @product.inactive!
-    redirect_to @product, notice: t('product_deactivation_succeded')
+    redirect_to @product, notice: t('product_deactivation_succeeded')
   end
 
   private
@@ -58,6 +58,8 @@ class ProductsController < ApplicationController
 
   def set_product
     @product = Product.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    @product = nil
   end
 
   def set_new_price

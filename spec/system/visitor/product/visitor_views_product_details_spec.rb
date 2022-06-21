@@ -44,4 +44,11 @@ describe 'Visitante vê detalhes de um produto' do
     expect(page).to have_current_path root_path
     expect(page).to have_content 'Produto inativo ou inexistente'
   end
+
+  it 'e produto não existe' do
+    visit product_path(999)
+
+    expect(page).to have_current_path root_path
+    expect(page).to have_content 'Produto inativo ou inexistente'
+  end
 end
