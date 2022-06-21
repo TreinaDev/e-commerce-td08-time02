@@ -5,7 +5,6 @@
       <%= image_tag photo %>
     <% end %>
   <% end %>
-  <p>Status: <%= Product.human_attribute_name("status.#{@product.status}") %></p>
   <p>Marca: <%= @product.brand %></p>
   <p>Categoria: <%= @product.category.name %></p>
   <p>SKU: <%= @product.sku %></p>
@@ -19,5 +18,44 @@
   <p>Peso: <%= number_with_precision(@product.weight, precision: 2) %> kg</p>
   <p>Preço do Frete: <%= number_to_currency(@product.shipping_price, unit: "R$ ") %></p>
   <p>Frágil - <%= @product.fragile? ? 'Sim' : 'Não' %></p>
+  <p>Preço: <%= number_to_currency(@product.current_price, unit: "R$ ") %></p>
+  <% if admin_signed_in? %>
+    <p>Status: <%= Product.human_attribute_name("status.#{@product.status}") %></p>
+
+    <% @product.prices.each do |price| %>
+      <p>
+        <%= "Preço para #{I18n.l(price.start_date)} - #{I18n.l(price.end_date)}:
+        #{number_to_currency(price.value, unit: "R$ ")} - Cadastrado por: #{price.admin.name}"%>
+      </p>
+    <% end %>
+
+    <div>
+    Cadastrar novo preço:
+    <%= form_with model: @price do |f| %>
+      <%= f.hidden_field :admin_id, value: current_admin.id %>
+      <%= f.hidden_field :product_id, value: @product.id %>
+  
+      <%= f.label :start_date %>
+      <%= f.date_field :start_date, value: @start_date, readonly: true %>
+      <p><%= @price.errors.full_messages_for(:start_date).first if @price.errors.any? %></p>
+
+      <%= f.label :end_date %>
+      <%= f.date_field :end_date %>
+      <p><%= @price.errors.full_messages_for(:end_date).first if @price.errors.any? %></p>
+
+      <%= f.label :value %>
+      <%= f.number_field :value %>
+      <p><%= @price.errors.full_messages_for(:value).first if @price.errors.any? %></p>
+
+      <%= f.submit 'Cadastrar preço' %>
+    <% end %>
+    </div>
+
+    <% if @product.inactive? %>
+      <%= button_to 'Ativar', activate_product_path(@product) %>
+    <% else %>
+      <%= button_to 'Desativar', deactivate_product_path(@product) %>
+    <% end %>
+  <% end %>
   <p><%= link_to 'Manual', @product.manual if @product.manual.attached? %></p>
 </div>
