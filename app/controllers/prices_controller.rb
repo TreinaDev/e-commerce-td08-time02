@@ -1,8 +1,11 @@
 class PricesController < ApplicationController
   def create
     @product = Product.find(price_params[:product_id])
-    @product.prices.create(price_params)
-    redirect_to @product, notice: t('price_registered')
+    @price = Price.new(price_params)
+    return redirect_to @product, notice: t('price_registered') if @price.save
+
+    flash.now[:notice] = t('price_registration_failed')
+    render 'products/show'
   end
 
   private

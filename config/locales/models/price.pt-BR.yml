@@ -1,5 +1,6 @@
 pt-BR:
   price_registered: Preço cadastrado com sucesso
+  price_registration_failed: Falha ao cadastrar preço
   activerecord:
     models:
       price: Preço
