@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_15_125446) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_17_211620) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -65,6 +65,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_15_125446) do
     t.index ["name", "category_id"], name: "index_categories_on_name_and_category_id", unique: true
   end
 
+  create_table "clients", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_clients_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
+  end
+
   create_table "prices", force: :cascade do |t|
     t.integer "admin_id", null: false
     t.integer "product_id", null: false
@@ -75,6 +89,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_15_125446) do
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_prices_on_admin_id"
     t.index ["product_id"], name: "index_prices_on_product_id"
+  end
+
+  create_table "product_items", force: :cascade do |t|
+    t.integer "quantity", default: 1
+    t.integer "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "client_id", null: false
+    t.index ["client_id"], name: "index_product_items_on_client_id"
+    t.index ["product_id"], name: "index_product_items_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -102,5 +126,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_15_125446) do
   add_foreign_key "categories", "categories"
   add_foreign_key "prices", "admins"
   add_foreign_key "prices", "products"
+  add_foreign_key "product_items", "clients"
+  add_foreign_key "product_items", "products"
   add_foreign_key "products", "categories"
 end

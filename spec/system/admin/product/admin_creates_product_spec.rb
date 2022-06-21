@@ -45,6 +45,7 @@ describe 'Administrador cadastra um produto' do
     expect(page).to have_content("Preço para #{I18n.l(Time.zone.today)} - #{I18n.l(1.week.from_now.to_date)}: " \
                                  'R$ 201,89 - Cadastrado por: João')
     expect(page).to have_link('Manual')
+    expect(page).not_to have_button 'Adicionar ao Carrinho'
   end
 
   it 'com dados incompletos' do
