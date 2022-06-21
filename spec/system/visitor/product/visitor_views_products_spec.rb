@@ -2,11 +2,10 @@ require 'rails_helper'
 
 describe 'Visitante vê todos os produtos' do
   it 'a partir da tela inicial' do
-    category = create :category, name: 'Alimentos'
-    product1 = create :product, category: category, name: 'Monitor 8k', brand: 'LG'
+    product1 = create :product, name: 'Monitor 8k', brand: 'LG'
     product1.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-1.png')),
                            filename: 'placeholder-image-1.png', content_type: 'image/png')
-    product2 = create :product, category: category, name: 'Monitor 4k', brand: 'Samsung'
+    product2 = create :product, category: product1.category, name: 'Monitor 4k', brand: 'Samsung'
     product2.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-2.png')),
                            filename: 'placeholder-image-2.png', content_type: 'image/png')
 
@@ -31,9 +30,8 @@ describe 'Visitante vê todos os produtos' do
   end
 
   it 'e não vê produtos inativos' do
-    category = create :category
-    create :product, category: category, name: 'Monitor 8k', brand: 'LG', status: :active
-    create :product, category: category, name: 'Notebook', brand: 'Samsung', status: :inactive
+    first_product = create :product, name: 'Monitor 8k', brand: 'LG', status: :active
+    create :product, category: first_product.category, name: 'Notebook', brand: 'Samsung', status: :inactive
 
     visit products_path
 

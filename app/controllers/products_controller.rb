@@ -25,29 +25,26 @@ class ProductsController < ApplicationController
   end
 
   def show
-    if @product.inactive? && admin_signed_in? == false
-      redirect_to root_path, notice: t('product_visualization_failed')
-    else
-      @price = Price.new
-      @start_date = @product.prices.last.end_date + 1
+    unless @product.active? || admin_signed_in?
+      return redirect_to root_path, notice: t('inactive_or_inexistent_product')
     end
+
+    set_new_price
   end
 
   def activate
     if @product.prices.last.end_date - Time.zone.today >= 90
       @product.active!
-      redirect_to @product, notice: t('product_activation_succeeded')
-    else
-      @price = Price.new
-      @start_date = @product.prices.last.end_date + 1
-      flash.now[:notice] = t('product_activation_failed')
-      render :show
+      return redirect_to @product, notice: t('product_activation_succeeded')
     end
+
+    set_new_price
+    flash.now[:notice] = t('product_activation_failed')
+    render :show
   end
 
   def deactivate
     @product.inactive!
-
     redirect_to @product, notice: t('product_deactivation_succeded')
   end
 
@@ -61,5 +58,10 @@ class ProductsController < ApplicationController
 
   def set_product
     @product = Product.find(params[:id])
+  end
+
+  def set_new_price
+    @price = Price.new
+    @start_date = @product.prices.last.end_date + 1
   end
 end

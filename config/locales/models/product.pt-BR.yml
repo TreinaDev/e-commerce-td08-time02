@@ -4,7 +4,7 @@ pt-BR:
   product_activation_succeeded: Produto ativado com sucesso
   product_activation_failed: Para ser ativado, um produto precisa ter preços cadastrados para os próximos 90 dias
   product_deactivation_succeded: Produto desativado com sucesso
-  product_visualization_failed: Favor registrar-se para acessar essa área
+  inactive_or_inexistent_product: Produto inativo ou inexistente
   activerecord:
     models:
       product: Produtos
