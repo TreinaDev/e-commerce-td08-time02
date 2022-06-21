@@ -4,6 +4,11 @@
   <div>
     <p>Status: <%= Category.human_attribute_name("status.#{@category.status}") %></p>
     <p>Criado por: <%= @category.admin.name %></p>
+    <% if @category.disabled? %>
+      <%= button_to 'Ativar', activate_category_path(@category) %>
+    <% else %>
+      <%= button_to 'Desativar', deactivate_category_path(@category) %>
+    <% end %>
   </div>
 
   <div>

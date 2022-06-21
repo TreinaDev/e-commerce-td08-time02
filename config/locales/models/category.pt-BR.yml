@@ -1,4 +1,6 @@
 pt-BR:
+  category_activation_succeeded: Categoria ativada com sucesso
+  category_deactivation_succeeded: Categoria desativada com sucesso
   select_category: Selecione categoria relacionada
   category_created: Categoria Cadastrada com Sucesso!
   category_not_created: Não foi possível cadastrar a categoria
@@ -13,4 +15,4 @@ pt-BR:
         category: Categoria
       category/status:
         active: Ativo
-        disabled: Inativo
+        disabled: Desativada

@@ -27,5 +27,7 @@ RSpec.describe Product, type: :model do
     it { is_expected.to validate_numericality_of(:width).is_greater_than(0.0) }
 
     it { is_expected.to validate_numericality_of(:depth).is_greater_than(0.0) }
+
+    it { is_expected.to belong_to(:category) }
   end
 end
