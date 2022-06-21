@@ -2,15 +2,21 @@
   <%= link_to 'Cadastrar Produto', new_product_path %>
 <% end %>
 
+<%= form_with url: search_products_path, method: :get do |form| %>
+  <%= form.label :product_name, "Buscar" %>
+  <%= form.text_field :product_name %>
+  <%= form.submit "Buscar" %>
+<% end %>
+
 <% if @products.any? %>
   <% @products.each do |product| %>
-  <div>
-    <p>Nome: <%= link_to product.name, product_path(product) %> </p>
-    <p>Marca: <%= product.brand %></p>
-    <%= image_tag product.photos.last if product.photos.attached? %>
-  </div>
+    <div>
+      <p>Nome: <%= link_to product.name, product_path(product) %> </p>
+      <p>Marca: <%= product.brand %></p>
+      <%= image_tag product.photos.last if product.photos.attached? %>
+    </div>
   <% end %>
 
 <% else %>
-  <p>Nenhum produto cadastrado</p>
+  <p>Nenhum produto encontrado</p>
 <% end %>
