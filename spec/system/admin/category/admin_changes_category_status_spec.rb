@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Administrador modifica status da categoria' do
   it 'para desativado' do
     admin = create(:admin)
-    category = create :category, admin: admin
+    category = create :category, admin: admin, status: :active
 
     login_as(admin, scope: :admin)
     visit root_path
@@ -21,7 +21,7 @@ describe 'Administrador modifica status da categoria' do
 
   it 'para ativado' do
     admin = create(:admin)
-    category = create :category, admin: admin, status: :disabled
+    category = create :category, admin: admin
 
     login_as(admin, scope: :admin)
     visit root_path
