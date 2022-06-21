@@ -25,8 +25,12 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @price = Price.new
-    @start_date = @product.prices.last.end_date + 1
+    if @product.inactive? && admin_signed_in? == false
+      redirect_to root_path, notice: t('product_visualization_failed')
+    else
+      @price = Price.new
+      @start_date = @product.prices.last.end_date + 1
+    end
   end
 
   def activate

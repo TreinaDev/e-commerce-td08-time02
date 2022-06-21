@@ -39,4 +39,12 @@ describe 'Visitante não autenticado' do
     expect(response).to redirect_to new_admin_session_path
     expect(product).to be_active
   end
+
+  it 'tenta visualizar produto inativo' do
+    product = create :product, status: :inactive
+
+    get product_path(product)
+
+    expect(response).to redirect_to root_path
+  end
 end
