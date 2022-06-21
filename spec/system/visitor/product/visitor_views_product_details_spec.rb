@@ -34,4 +34,14 @@ describe 'Visitante vê detalhes de um produto' do
     expect(page).not_to have_content("Preço para #{I18n.l(8.days.from_now)} - #{I18n.l(2.weeks.from_now)}: " \
                                      "R$ 100,00 - Cadastrado por: #{category.admin.name}")
   end
+
+  it 'e produto está inativo' do
+    product = create :product, status: :inactive
+    create :price, product: product, admin: product.category.admin
+
+    visit product_path(product)
+
+    expect(page).to have_current_path root_path
+    expect(page).to have_content 'Produto inativo ou inexistente'
+  end
 end
