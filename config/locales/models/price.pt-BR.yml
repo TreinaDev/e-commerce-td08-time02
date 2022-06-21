@@ -1,0 +1,13 @@
+pt-BR:
+  price_registered: Preço cadastrado com sucesso
+  price_registration_failed: Falha ao cadastrar preço
+  activerecord:
+    models:
+      price: Preço
+    attributes:
+      price:
+        product: Produto
+        admin: Administrador
+        start_date: Data inicial
+        end_date: Data final
+        value: Valor
