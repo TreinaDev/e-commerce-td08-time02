@@ -4,6 +4,6 @@ FactoryBot.define do
     association :product
     value { 9.99 }
     start_date { Time.zone.today }
-    end_date { 1.week.from_now }
+    end_date { 90.days.from_now }
   end
 end

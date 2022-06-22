@@ -4,21 +4,46 @@ describe 'Visitante não autenticado' do
   it 'tenta autorizar cadastro pendente' do
     admin = create :admin, status: :pending
 
-    post approve_pending_admin_path(admin.id)
+    post approve_pending_admin_path(admin)
 
     expect(response).to redirect_to new_admin_session_path
   end
 
   it 'tenta criar produto' do
-    admin = create :admin
-    category = create(:category, admin:)
-    product = { name: 'Monitor 8k', brand: 'LG', sku: 'MON8K-64792', category_id: category.id,
-                description: 'Monitor de auta qualidade', width: 100, height: 50,
-                weight: 12, shipping_price: 23, depth: 12, fragile: true }
+    category = create :category
+    product = { name: 'Monitor 8k', brand: 'LG', sku: 'MON8K-64792', category: category,
+                description: 'Monitor de alta qualidade', width: 100, height: 50, weight: 12, depth: 12,
+                shipping_price: 23, fragile: true }
 
-    post products_path, params: { product: }
+    post products_path, params: { product: product }
 
     expect(response).to redirect_to new_admin_session_path
     expect(Product.count).to eq 0
+  end
+
+  it 'tenta ativar produto' do
+    product = create :product, status: :inactive
+
+    post activate_product_path(product)
+
+    expect(response).to redirect_to new_admin_session_path
+    expect(product).to be_inactive
+  end
+
+  it 'tenta desativar produto' do
+    product = create :product, status: :active
+
+    post deactivate_product_path(product)
+
+    expect(response).to redirect_to new_admin_session_path
+    expect(product).to be_active
+  end
+
+  it 'tenta visualizar produto inativo' do
+    product = create :product, status: :inactive
+
+    get product_path(product)
+
+    expect(response).to redirect_to root_path
   end
 end
