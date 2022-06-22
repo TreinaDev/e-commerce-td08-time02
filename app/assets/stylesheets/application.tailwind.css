@@ -3,10 +3,10 @@
 @tailwind utilities;
 @layer components {
     .btn-primary {
-        @apply py-1 my-1 px-3 rounded-md bg-[#222831] text-[#FFD369] font-semibold cursor-pointer;
+        @apply py-1 my-1 px-3 rounded-md bg-[#222831] text-[#FFD369] font-semibold cursor-pointer inline-block text-center;
     }
     .btn-second {
-        @apply py-1 my-1 px-3 rounded-md bg-[#FFD369] text-[#393E46] font-semibold cursor-pointer inline-block;
+        @apply py-1 my-1 px-3 rounded-md bg-[#FFD369] text-[#393E46] font-semibold cursor-pointer inline-block text-center;
     }
     .form {
         @apply h-[100%] items-center flex;

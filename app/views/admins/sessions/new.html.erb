@@ -6,7 +6,7 @@
             <%= f.label :email %><br />
             <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
           </div>
-          <div class="field py-3">
+          <div class="field py-3 pb-5">
             <%= f.label :password %><br />
             <%= f.password_field :password, autocomplete: "current-password"%>
           </div>
@@ -20,10 +20,10 @@
           <% end %>
           -->
           
-          <div class="btn-primary self-start actions">
+          <div class="btn-primary self-start actions w-full">
             <%= f.submit "Entrar", class: 'cursor-pointer' %>
           </div>
-          <div class="btn-second self-start actions">
+          <div class="btn-second self-start actions w-full">
             <%= render "admins/shared/links", class: 'cursor-pointer' %>
           </div>
             
