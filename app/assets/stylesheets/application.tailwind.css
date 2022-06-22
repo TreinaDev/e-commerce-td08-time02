@@ -1,13 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/*
-
 @layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
-  }
+    .btn-primary {
+        @apply py-1 my-1 px-3 rounded-md bg-[#222831] text-[#FFD369] font-semibold cursor-pointer;
+    }
+    .btn-second {
+        @apply py-1 my-1 px-3 rounded-md bg-[#FFD369] text-[#393E46] font-semibold cursor-pointer inline-block;
+    }
+    .form {
+        @apply h-[100%] items-center flex;
+    }
+    .form>div {
+        @apply flex flex-col text-black justify-center items-center p-10 m-auto rounded-md
+    }
 }
 
-*/
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 15px;
+}
