@@ -9,9 +9,11 @@ class Client < ApplicationRecord
   validates :name, :code, presence: true
   validate :code_is_valid
 
+  after_create :create_wallet
+
   def balance
     begin
-      response = Faraday.get("http://localhost:4000/api/v1/balance/#{self.code_numbers}")
+      response = Faraday.get("http://localhost:4000/api/v1/client_wallet/balance", { client_wallet: { registered_number: code }})
       body = JSON.parse(response.body)
       return body["balance"]
     rescue => exception
@@ -24,6 +26,11 @@ class Client < ApplicationRecord
   end
 
   private
+
+  def create_wallet
+    params = { client_wallet: { email:, registered_number: code } }
+    Faraday.post('http://localhost:4000/api/v1/client_wallets', params)
+  end
 
   def code_is_valid
     return unless code
