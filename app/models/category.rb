@@ -4,7 +4,7 @@ class Category < ApplicationRecord
   belongs_to :admin
   has_many :products, dependent: :nullify
 
-  enum status: { disabled: 0, active: 1 }
+  enum status: { active: 0, disabled: 1 }
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :category }
