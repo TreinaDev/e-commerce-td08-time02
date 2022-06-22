@@ -3,14 +3,15 @@ require 'rails_helper'
 describe 'Cliente confirma compra' do
   it 'com sucesso' do
     client = create :client, code: '510.309.910-14'
-    first_product = create :product
+    first_product = create :product, shipping_price: 15.00
     create :price, admin: first_product.category.admin, product: first_product, value: 50.00
-    second_product = create :product, category: first_product.category
+    second_product = create :product, category: first_product.category, shipping_price: 20.00
     create :price, admin: second_product.category.admin, product: second_product, value: 35.89
-    create :product_item, client: client, product: first_product, quantity: 2
+    create :product_item, client: client, product: first_product, quantity: 1
     create :product_item, client: client, product: second_product, quantity: 1
-    fake_response = instance_double Faraday::Response, status: 200, body: 'Compra Recebida!'
-    json_data = { code: client.code, value: '135.89' }.to_json
+    response_data = { transaction: { status: 'accepted' } }.to_json
+    fake_response = instance_double Faraday::Response, status: :created, body: response_data
+    json_data = { transaction: { registered_number: client.code, value: '120.89' } }.to_json
     allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/transactions', json_data,
                                           content_type: 'application/json').and_return(fake_response)
 
