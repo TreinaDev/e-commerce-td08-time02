@@ -1,0 +1,25 @@
+require 'rails_helper'
+
+describe 'Cliente confirma compra' do
+  it 'com sucesso' do
+    client = create :client, code: '510.309.910-14'
+    first_product = create :product
+    create :price, admin: first_product.category.admin, product: first_product, value: 50.00
+    second_product = create :product, category: first_product.category
+    create :price, admin: second_product.category.admin, product: second_product, value: 35.89
+    create :product_item, client: client, product: first_product, quantity: 2
+    create :product_item, client: client, product: second_product, quantity: 1
+    fake_response = instance_double Faraday::Response, status: 200, body: 'Compra Recebida!'
+    json_data = { code: client.code, value: '135.89' }.to_json
+    allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/transactions', json_data,
+                                          content_type: 'application/json').and_return(fake_response)
+
+    login_as client, scope: :client
+    visit shopping_cart_path
+    click_on 'Confirmar Compra'
+
+    expect(page).to have_current_path root_path
+    expect(Purchase.count).to eq 1
+    expect(page).to have_content 'Compra Recebida!'
+  end
+end
