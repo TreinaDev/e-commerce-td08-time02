@@ -14,11 +14,28 @@ describe 'Cliente vê carrinho' do
     visit product_path(second_product)
     click_on 'Adicionar ao carrinho'
     click_on 'Carrinho'
+    within("#{first_product.name}") do
+    
+    end
 
     expect(page).to have_content 'Meu Carrinho'
-    expect(page).to have_content 'Monitor 8k'
-    expect(page).to have_content '1'
-    expect(page).to have_content 'Mouse'
+    within("#{first_product.name}") do
+      expect(page).to have_content 'Monitor 8k'
+      expect(page).to have_content '1'
+      expect(page).to have_content "Preço Unitário: #{first_product.current_price}"
+      expect(page).to have_content "Frete: #{ShippingCartController.get_product_shipping_price(first_product)}"
+      expect(page).to have_content "Subtotal: #{ShippingCartController.get_product_total_price(first_product)}"
+    end
+    within("#{second_product.name}") do
+      expect(page).to have_content 'Mouse'
+      expect(page).to have_content '2'
+      expect(page).to have_content "Preço Unitário: #{second_product.current_price}"
+      expect(page).to have_content "Frete: #{ShippingCartController.get_product_shipping_price(second_product)}"
+      expect(page).to have_content "Subtotal: #{ShippingCartController.get_product_total_price(second_product)}"
+    end
+    expect(page).to have_content "Total frete: #{ShippingCartController.get_total_frete(client)}"
+    expect(page).to have_content "Total produtos: #{ShippingCartController.get_total_product(client)}"
+    expect(page).to have_content "Total: #{ShippingCartController.get_total(client)}"
   end
 
   it 'e não há produtos duplicados' do

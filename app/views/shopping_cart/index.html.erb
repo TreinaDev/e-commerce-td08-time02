@@ -4,9 +4,14 @@
     <div>
       <h4>Produtos</h4>
       <% @product_items.each do |item| %>
-        <div>
+        <div id=<% item.product.name %>>
           <div>
             <%= link_to item.product.name, item.product %>
+          </div>
+          <div>
+            <p>Preço Unitário: <%= number_to_currency(item.product.current_price, unit: "R$")%></p>
+            <p>Subtotal: <%= number_to_currency(ShippingCartController.get_product_total_price(item), unit: "R$")%></p>
+            <p>Frete: <%= number_to_currency(ShippingCartController.get_product_shipping_price(item), unit: "R$")%></p>
           </div>
           <div>
             <% if item.quantity != 1 %>
@@ -18,6 +23,11 @@
           <%= button_to 'Remover Produto', product_product_item_path(item.product, item), method: 'delete' %>
         </div>
       <% end %>
+      <div>
+        <p>Total produtos<%= number_to_currency(@total_products, unit: "R$")%></p>
+        <p>Total frete:<%= number_to_currency(@total_frete, unit: "R$")%></p>
+        <p>Total:<%= number_to_currency(@total, unit: "R$")%></p>       
+      </div>
     </div>
   <% else %>
     <div>
