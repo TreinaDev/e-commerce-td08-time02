@@ -28,9 +28,9 @@ class ProductsController < ApplicationController
 
   def search
     @query = params[:query]
+    @categories = Category.all
     @products = Product.where("name LIKE :query OR description LIKE :query OR sku LIKE :query",
                               query: "%#{@query}%")
-
     render :index
   end
 
@@ -65,7 +65,7 @@ class ProductsController < ApplicationController
     @product.inactive!
     redirect_to @product, notice: t('product_deactivation_succeeded')
   end
-  
+
   private
 
   def product_params
