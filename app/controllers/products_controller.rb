@@ -27,10 +27,10 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @product_name = params[:product_name]
-    @products = Product.where("name LIKE ? OR description LIKE ? OR sku LIKE ?",
-                              "%#{@product_name}%", "%#{@product_name}%", "%#{@product_name}%")
-    @categories = Category.all
+    @query = params[:query]
+    @products = Product.where("name LIKE :query OR description LIKE :query OR sku LIKE :query",
+                              query: "%#{@query}%")
+
     render :index
   end
 

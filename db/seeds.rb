@@ -51,11 +51,5 @@ fourth_product = Product.create!(name: 'Camiseta do Flamengo', brand: 'Flamengo'
 fourth_product.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-2.png')),
                         filename: 'placeholder-image-2.png', content_type: 'image/png')
 
-sixth_product = Product.create!(name: 'Tablet  SAMSUNG', brand: 'SAMSUNG', category: third_category, description: 'Tablet Grande',
-                        sku: 'TABLE8KU-99996', height: 15, width: 12, depth: 2, weight: 1.0,
-                        shipping_price: 30, fragile: true, status: :active)
-sixth_product.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-2.png')),
-                        filename: 'placeholder-image-2.png', content_type: 'image/png')
-                        
 Price.create!(admin: admin, product: fourth_product, start_date: Time.zone.today, end_date: 60.days.from_now,
               value: 140.00)
