@@ -1,5 +1,11 @@
 <%= link_to 'Cadastrar Produto', new_product_path if admin_signed_in? %>
 
+<%= form_with url: search_products_path, method: :get do |form| %>
+  <%= form.label :query, "Buscar" %>
+  <%= form.text_field :query %>
+  <%= form.submit "Buscar" %>
+<% end %>
+
 <% if @products.any? %>
   <% @products.each do |product| %>
   <div id=<%= product.name %>>
@@ -11,5 +17,5 @@
   <% end %>
 
 <% else %>
-  <p>Nenhum produto cadastrado</p>
+  <p>Nenhum produto encontrado</p>
 <% end %>

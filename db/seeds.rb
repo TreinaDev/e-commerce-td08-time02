@@ -49,6 +49,7 @@ fourth_product = Product.create!(name: 'Camiseta do Flamengo', brand: 'Flamengo'
                                  description: 'Camisa Mengão 2022', sku: 'MENP8KU-99999', height: 55, width: 120,
                                  depth: 8, weight: 0.5, shipping_price: 30, fragile: false, status: :inactive)
 fourth_product.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-2.png')),
-                             filename: 'placeholder-image-2.png', content_type: 'image/png')
+                        filename: 'placeholder-image-2.png', content_type: 'image/png')
+
 Price.create!(admin: admin, product: fourth_product, start_date: Time.zone.today, end_date: 60.days.from_now,
               value: 140.00)
