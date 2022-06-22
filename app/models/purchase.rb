@@ -10,7 +10,7 @@ class Purchase < ApplicationRecord
   def calculate_value
     self.value = 0
     product_items.each do |item|
-      self.value += item.product.current_price * item.quantity
+      self.value += (item.product.current_price * item.quantity) + item.product.shipping_price
     end
   end
 end
