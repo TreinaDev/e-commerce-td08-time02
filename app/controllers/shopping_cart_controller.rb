@@ -5,7 +5,7 @@ class ShoppingCartController < ApplicationController
     @product_items = ProductItem.where(client_id: current_client.id)
     @total = get_total(current_client)
     @total_frete = get_total_frete(current_client)
-    @total_products = get_total_produtos(current_client)
+    @total_products = get_total_product(current_client)
   end
 
   def get_total(current_client)
