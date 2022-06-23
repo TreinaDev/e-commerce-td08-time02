@@ -1,4 +1,5 @@
 class PromotionsController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_promotion, only: %i[show]
 
   def index

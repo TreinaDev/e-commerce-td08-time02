@@ -8,6 +8,7 @@ describe 'Administrador vê detalhes de uma promoção' do
                        admin: admin, discount_max: 100
     create :category, name: 'Celulares', admin: admin, promotion: promotion
 
+    login_as admin, scope: :admin
     visit promotions_path
     click_on 'BlackFriday'
 

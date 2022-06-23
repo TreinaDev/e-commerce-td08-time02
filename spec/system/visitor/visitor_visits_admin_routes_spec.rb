@@ -30,4 +30,19 @@ describe 'Visitante não autenticado tenta acessar' do
     expect(page).to have_current_path new_admin_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se.'
   end
+
+  it 'a tela de listagem de promoções' do
+    visit promotions_path
+
+    expect(page).to have_current_path new_admin_session_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se.'
+  end
+
+  it 'a tela de detalhes de promoção' do
+    promotion = create :promotion
+    visit promotion_path(promotion.id)
+
+    expect(page).to have_current_path new_admin_session_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se.'
+  end
 end

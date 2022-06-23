@@ -1,4 +1,7 @@
 <h2>Lista de Promoções</h2>
+<div>
+  <%# <%= link_to 'Criar Promoção', new_promotion_path %>
+</div>
 <% if @promotions.any? %>
   <div class="promotions-wrapper">
     <% @promotions.each do |promotion| %>
@@ -16,6 +19,3 @@
 <% else %>
   <div>Não há promoções cadastradas</div>
 <% end %>
-<div>
-  <%# <%= link_to 'Criar Promoção', new_promotion_path %>
-</div>
