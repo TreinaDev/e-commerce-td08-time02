@@ -27,7 +27,6 @@ describe 'Administrador se cadastra' do
 
     expect(page).to have_current_path admin_registration_path
     expect(page).not_to have_content 'Cadastro efetuado com sucesso. Esperando por aprovação por outro Administrador.'
-    expect(page).to have_content 'Não foi possível registrar administrador'
     expect(page).to have_content 'E-mail não é válido'
   end
 
@@ -39,7 +38,6 @@ describe 'Administrador se cadastra' do
     fill_in 'Nome', with: ''
     click_on('Registrar')
 
-    expect(page).to have_content 'Não foi possível registrar administrador'
     expect(page).to have_content 'Nome não pode ficar em branco'
     expect(page).to have_content 'E-mail não pode ficar em branco'
     expect(page).to have_content 'Senha não pode ficar em branco'

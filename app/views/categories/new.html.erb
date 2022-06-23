@@ -1,15 +1,17 @@
-<div>
-  <%= form_with model: @category do |form| %>
-    <div>
-      <%= form.label :name %>
-      <%= form.text_field :name %>
-    </div>
-    <div>
-      <%= form.label :category_id, t('select_category') %>
-      <%= form.collection_select :category_id, @categories, :id, :name, { prompt: '[Sem categoria relacionada]'} %>
-    </div>
-    <div>
-      <%= form.submit %>
-    </div>
-  <% end %>
-</div>
+<section class="h-[450px]">
+  <div>
+    <%= form_with model: @category, html: { class:  'form'} do |form| %>
+      <div>
+        <%= form.label :name %>
+        <%= form.text_field :name %>
+      </div>
+      <div>
+        <%= form.label :category_id, t('select_category') %>
+        <%= form.collection_select :category_id, @categories, :id, :name, { prompt: '[Sem categoria relacionada]'} %>
+      </div>
+      <div>
+        <%= form.submit %>
+      </div>
+    <% end %>
+  </div>
+</section>
