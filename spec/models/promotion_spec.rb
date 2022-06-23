@@ -14,11 +14,7 @@ RSpec.describe Promotion, type: :model do
 
     it { is_expected.to validate_presence_of(:used_times) }
 
-    it { is_expected.to validate_presence_of(:coupon) }
-
     it { is_expected.to validate_presence_of(:usage_limit) }
-
-    it { is_expected.to validate_length_of(:coupon).is_equal_to(8) }
 
     it { is_expected.to validate_numericality_of(:discount_max).is_greater_than(0) }
 
@@ -76,6 +72,36 @@ RSpec.describe Promotion, type: :model do
       promotion.valid?
   
       expect(promotion.errors.include?(:start_date)).to be false
+    end
+
+    it 'true se tamanho de coupon for igual a 8' do
+      promotion = described_class.new()
+
+      promotion.valid?
+
+      expect(promotion.coupon.length).to eq 8
+    end
+
+    it 'false se coupon já existir no banco de dados' do
+      allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('ABCD1234')
+      create :promotion
+      allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('ABCD1234')
+      promotion = described_class.new()
+
+      promotion.valid?
+      
+      expect(promotion.errors).to include :coupon
+    end
+
+    it 'true se coupon não existir no banco de dados' do
+      allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('ABCD1234')
+      create :promotion
+      allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('6789QWER')
+      promotion = described_class.new()
+
+      promotion.valid?
+      
+      expect(promotion.errors).not_to include :coupon
     end
   end
 end
