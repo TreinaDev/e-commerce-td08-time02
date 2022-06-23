@@ -3,11 +3,11 @@
         <div>
           <h2 class="">Entrar como Admin</h2>
           <div class="field py-3 ">
-            <%= f.label :email %><br />
+            <%= f.label :email %>
             <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
           </div>
           <div class="field py-3 pb-5">
-            <%= f.label :password %><br />
+            <%= f.label :password %>
             <%= f.password_field :password, autocomplete: "current-password"%>
           </div>
 
@@ -20,10 +20,10 @@
           <% end %> 
           -->
           
-          <div class="btn-primary self-start actions w-full">
+          <div class="btn-primary actions w-full">
             <%= f.submit "Entrar", class: 'cursor-pointer' %>
           </div>
-          <div class="btn-second self-start actions w-full">
+          <div class="btn-second actions w-full">
             <%= render "admins/shared/links", class: 'cursor-pointer' %>
           </div>
             

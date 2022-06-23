@@ -54,8 +54,16 @@
     </nav>
 
     <div>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <% if notice%>
+      <div class="notice w-[90%] border-red-500 bg-green-500 p-1 mx-auto my-2 text-center">
+        <p><%= notice %></p>
+      </div>
+      <% end %>
+      <% if alert%>
+      <div class='alert w-[98%] bg-red-400 border-red-300 p-1 mx-auto my-2 opacity-90 text-center'>
+        <p><%= alert %></p>
+      </div>
+      <% end %>
     </div>
     <%= yield %>
   </body>

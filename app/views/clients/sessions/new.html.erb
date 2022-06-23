@@ -3,12 +3,12 @@
     <div>
       <h2>Entrar como Cliente</h2>
       <div class="field py-3">
-        <%= f.label :email %><br />
+        <%= f.label :email %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       </div>
 
       <div class="field py-3 pb-5">
-        <%= f.label :password %><br />
+        <%= f.label :password %>
         <%= f.password_field :password, autocomplete: "current-password" %>
       </div>
 
@@ -21,12 +21,12 @@
       <% end %>
     -->
     
-      <div class="actions self-start w-full">
+      <div class="btn-primary actions w-full">
         <%= f.submit "Entrar", class: 'btn-primary w-full' %>
       </div>
 
-      <div class= 'btn-second self-start w-full'>
-        <%= render "clients/shared/links" %>
+      <div class="btn-second actions w-full">
+        <%= render "clients/shared/links", class: 'cursor-pointer' %>
       </div>
   </div>
     <% end %>

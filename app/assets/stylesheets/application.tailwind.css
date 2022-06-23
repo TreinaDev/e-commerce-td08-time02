@@ -14,6 +14,9 @@
     .form>div {
         @apply flex flex-col text-black justify-center items-center p-10 m-auto
     }
+    .form>div>div.field {
+        @apply flex flex-col max-w-[250px];
+    }
 }
 
 h2 {
