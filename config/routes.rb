@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
   resources :products, only: %i[index new create show] do
     get 'search', on: :collection
+    get 'filter', on: :collection
     post 'activate', on: :member
     post 'deactivate', on: :member
     resources :product_items, only: %i[create destroy] do

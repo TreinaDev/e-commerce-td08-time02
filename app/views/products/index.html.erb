@@ -6,6 +6,12 @@
   <%= form.submit "Buscar" %>
 <% end %>
 
+<% @categories.each do |category| %>
+  <div>
+    <p><%= link_to category.name, filter_products_path(category.id) %></p>
+  </div>
+<% end %>
+
 <% if @products.any? %>
   <% @products.each do |product| %>
   <div id=<%= product.name %>>
@@ -15,7 +21,6 @@
     <%= image_tag product.photos.last if product.photos.attached? %>
   </div>
   <% end %>
-
 <% else %>
   <p>Nenhum produto encontrado</p>
 <% end %>
