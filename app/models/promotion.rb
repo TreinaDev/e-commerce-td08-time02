@@ -2,15 +2,15 @@ class Promotion < ApplicationRecord
   has_many :categories
   belongs_to :admin
 
-  validates :start_date, :end_date, :name, :discount_max, :discount_percentual, :used_times, :coupon, :usage_limit, presence: true
+  validates :start_date, :end_date, :name, :discount_max, :discount_percentual, :used_times, :usage_limit, presence: true
   validates :usage_limit, :discount_max, :discount_percentual, numericality: { greater_than: 0 }
   validates :used_times, numericality: { greater_than_or_equal_to: 0 }
-  validates :coupon, length: { is: 8 }
+  validates :coupon, uniqueness: true
   validate :start_date_before_end_date
   validate :start_date_greater_than_today
   validate :usage_limit_is_greater_or_equal_to_used_times
 
-  before_create :generate_coupon
+  before_validation :generate_coupon, on: :create
 
   private
 
