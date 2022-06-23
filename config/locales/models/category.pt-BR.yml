@@ -1,4 +1,6 @@
 pt-BR:
+  category_activation_succeeded: Categoria ativada com sucesso
+  category_deactivation_succeeded: Categoria desativada com sucesso
   select_category: Selecione categoria relacionada
   select_promotion: Selecione promoção relacionada
   category_created: Categoria Cadastrada com Sucesso!
@@ -13,5 +15,5 @@ pt-BR:
         name: Nome
         category: Categoria
       category/status:
-        active: Ativo
-        disabled: Inativo
+        active: Ativa
+        disabled: Desativada

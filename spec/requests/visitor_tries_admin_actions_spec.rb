@@ -46,4 +46,24 @@ describe 'Visitante não autenticado' do
 
     expect(response).to redirect_to root_path
   end
+
+  it 'tenta ativar categoria' do
+    category = create(:category, status: :disabled)
+
+    post activate_category_path(category.id)
+    category.reload
+
+    expect(response).to redirect_to new_admin_session_path
+    expect(category).to be_disabled
+  end
+
+  it 'tenta desativar categoria' do
+    category = create(:category, status: :active)
+
+    post deactivate_category_path(category.id)
+    category.reload
+
+    expect(response).to redirect_to new_admin_session_path
+    expect(category).to be_active
+  end
 end

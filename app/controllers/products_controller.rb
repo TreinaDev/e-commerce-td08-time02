@@ -3,6 +3,8 @@ class ProductsController < ApplicationController
   before_action :authenticate_admin!, only: %i[new create activate deactivate]
 
   def index
+    @products = Product.all
+    @categories = Category.active
     @products = admin_signed_in? ? Product.all : Product.active
   end
 
@@ -24,6 +26,14 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    @query = params[:query]
+    @categories = Category.all
+    @products = Product.where("name LIKE :query OR description LIKE :query OR sku LIKE :query",
+                              query: "%#{@query}%")
+    render :index
+  end
+
   def show
     unless @product && (@product.active? || admin_signed_in?)
       return redirect_to root_path, notice: t('inactive_or_inexistent_product')
@@ -32,6 +42,14 @@ class ProductsController < ApplicationController
     set_new_price
   end
 
+  def filter
+    @category = Category.find(params[:format])
+    @products = @category.all_products
+    @categories = Category.all
+    
+    render :index
+  end
+  
   def activate
     if @product.prices.last.end_date - Time.zone.today >= 90
       @product.active!

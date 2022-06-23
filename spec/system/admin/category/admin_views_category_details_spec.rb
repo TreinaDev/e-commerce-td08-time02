@@ -14,7 +14,7 @@ describe 'Administrador vê detalhes de uma categoria' do
 
     expect(page).to have_content 'Eletronicos'
     expect(page).to have_content 'Promoção: BlackFriday'
-    expect(page).to have_content 'Status: Ativo'
+    expect(page).to have_content 'Status: Desativada'
     expect(page).to have_content 'Criado por: André'
     expect(page).to have_content 'Subcategorias'
     expect(page).to have_link 'Celulares'
