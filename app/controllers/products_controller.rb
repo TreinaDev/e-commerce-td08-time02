@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
-    @categories = Category.where('status = 0')
+    @categories = Category.active
     @products = admin_signed_in? ? Product.all : Product.active
   end
 
