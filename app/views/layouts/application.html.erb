@@ -22,6 +22,7 @@
           <li><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
         <% end %>
         <% if admin_signed_in? %>
+          <li><%= link_to 'Promoções', promotions_path %></li>
           <li><%= link_to 'Categorias', categories_path %></li>
           <li><%= link_to 'Cadastros Pendentes', pending_admins_path %></li>
           <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
