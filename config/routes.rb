@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resources :promotions, only: %i[index show]
+  resources :promotions, only: %i[new create index show]
   resources :categories, only: %i[new create index show]
   resources :products, only: %i[index new create show] do
     post 'activate', on: :member
