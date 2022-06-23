@@ -24,6 +24,14 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    @query = params[:query]
+    @products = Product.where("name LIKE :query OR description LIKE :query OR sku LIKE :query",
+                              query: "%#{@query}%")
+
+    render :index
+  end
+
   def show
     unless @product && (@product.active? || admin_signed_in?)
       return redirect_to root_path, notice: t('inactive_or_inexistent_product')
