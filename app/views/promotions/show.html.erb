@@ -16,7 +16,7 @@
     <h2>Categorias:</h2>
       <% @promotion.categories.each do |category| %>
         <ul>
-          <li><%= category.name %></li>
+          <li><%= link_to category.name, category %></li>
         </ul>
       <% end %>
       <% if @promotion.categories.empty? %>

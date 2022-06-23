@@ -2,9 +2,17 @@
   <h1><%= @category.name %></h1>
 
   <div>
+    <p>Promoção: 
+      <% if @category.promotion %>
+        <%= link_to @category.promotion.name, @category.promotion %>
+      <% else %>
+        Não há promoção relacionada
+      <% end %>
+    </p>
     <p>Status: <%= Category.human_attribute_name("status.#{@category.status}") %></p>
     <p>Criado por: <%= @category.admin.name %></p>
   </div>
+
 
   <div>
     <h2>Subcategorias</h2>

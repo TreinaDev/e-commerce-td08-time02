@@ -3,7 +3,8 @@ require 'rails_helper'
 describe 'Administrador vê detalhes de uma categoria' do
   it 'com sucesso' do
     admin = create(:admin, name: 'André')
-    category = create(:category, name: 'Eletronicos', admin:)
+    promotion = create(:promotion, name: 'BlackFriday', admin:)
+    category = create(:category, name: 'Eletronicos', admin:, promotion:)
     create(:category, name: 'Celulares', admin:, category:)
     create(:category, name: 'Computadores', admin:, category:)
 
@@ -12,6 +13,7 @@ describe 'Administrador vê detalhes de uma categoria' do
     click_on 'Eletronicos'
 
     expect(page).to have_content 'Eletronicos'
+    expect(page).to have_content 'Promoção: BlackFriday'
     expect(page).to have_content 'Status: Ativo'
     expect(page).to have_content 'Criado por: André'
     expect(page).to have_content 'Subcategorias'

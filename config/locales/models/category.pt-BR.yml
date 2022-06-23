@@ -1,5 +1,6 @@
 pt-BR:
   select_category: Selecione categoria relacionada
+  select_promotion: Selecione promoção relacionada
   category_created: Categoria Cadastrada com Sucesso!
   category_not_created: Não foi possível cadastrar a categoria
   activerecord:

@@ -9,6 +9,10 @@
       <%= form.collection_select :category_id, @categories, :id, :name, { prompt: '[Sem categoria relacionada]'} %>
     </div>
     <div>
+      <%= form.label :promotion_id, t('select_promotion') %>
+      <%= form.collection_select :promotion_id, @promotions, :id, :name, { prompt: '[Sem promoção relacionada]'} %>
+    </div>
+    <div>
       <%= form.submit %>
     </div>
   <% end %>
