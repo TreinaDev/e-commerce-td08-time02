@@ -24,4 +24,10 @@ Rails.application.routes.draw do
   resources :pending_admins, only: %i[index] do
     post 'approve', on: :member
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :exchange_rates, only: %i[create]
+    end
+  end
 end

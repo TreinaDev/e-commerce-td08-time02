@@ -18,4 +18,8 @@ class Product < ApplicationRecord
     )
     price.value
   end
+
+  def set_rubies_shipping_price
+    update(rubies_shipping_price: shipping_price / ExchangeRate.last.value)
+  end
 end
