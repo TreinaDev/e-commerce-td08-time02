@@ -30,4 +30,29 @@ RSpec.describe Product, type: :model do
 
     it { is_expected.to belong_to(:category) }
   end
+
+  describe '#set_rubies_shipping_price' do
+    it 'Converte valor do frete com sucesso' do
+      create :exchange_rate, value: 2.0
+      product = build :product, shipping_price: 20.00
+
+      product.set_rubies_shipping_price
+
+      expect(product.rubies_shipping_price).to eq 10.00
+    end
+
+    it 'Converte valor do frete quando o produto é criado' do
+      create :exchange_rate, value: 2.0
+
+      product = create :product, shipping_price: 20.00
+
+      expect(product.rubies_shipping_price).to eq 10.00
+    end
+
+    it 'Não é executado quando não há taxa de câmbio' do
+      product = create :product, shipping_price: 20.00
+
+      expect(product.rubies_shipping_price).to be_nil
+    end
+  end
 end

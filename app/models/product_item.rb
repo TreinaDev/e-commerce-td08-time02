@@ -3,11 +3,11 @@ class ProductItem < ApplicationRecord
   belongs_to :client
   belongs_to :purchase, optional: true
 
-  def get_product_total_price
-    self.product.current_price*self.quantity
+  def define_product_total_price
+    product.current_price.rubies_value * quantity
   end
 
-  def get_product_shipping_price
-    self.product.shipping_price*self.quantity
+  def define_product_shipping_price
+    product.rubies_shipping_price * quantity
   end
 end

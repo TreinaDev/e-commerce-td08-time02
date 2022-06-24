@@ -14,6 +14,9 @@ third_category = Category.create!(name: 'Celulares', admin:, category: first_cat
 fourth_category = Category.create!(name: 'Camisetas', admin:, category: second_category)
 Category.create!(name: 'Jardinagem', admin:)
 
+# Taxa de converção
+ExchangeRate.create!(value: 2.0)
+
 # Produtos
 first_product = Product.create!(name: 'Monitor 8k', brand: 'LG', category: first_category,
                                 description: 'Monitor de alta qualidade', sku: 'MON8K-64792', height: 50,
@@ -58,7 +61,7 @@ first_promotion = Promotion.create!(name: 'BlackFriday', discount_percentual: 50
                                     start_date: 1.day.from_now, end_date: 1.month.from_now, admin:)
 
 second_promotion = Promotion.create!(name: 'Dia das Mães', discount_percentual: 30, discount_max: 100, usage_limit: 50,
-                                    start_date: 1.day.from_now, end_date: 1.week.from_now, admin:)                                    
+                                    start_date: 1.day.from_now, end_date: 1.week.from_now, admin:)
 
 third_promotion = Promotion.create!(name: 'Dia dos Namorados', discount_percentual: 20, discount_max: 60, usage_limit: 40,
-                                    start_date: 1.day.from_now, end_date: 1.week.from_now, admin:)                                                                        
+                                    start_date: 1.day.from_now, end_date: 1.week.from_now, admin:)
