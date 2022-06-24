@@ -3,7 +3,9 @@ require 'rails_helper'
 describe 'Cliente edita' do
   it 'aumentando quantidade do item' do
     client = create :client
-    create(:product_item, client:)
+    product = create :product
+    create(:price, product:)
+    create(:product_item, product: product, client: client)
 
     login_as client, scope: :client
     visit shopping_cart_path
@@ -15,7 +17,9 @@ describe 'Cliente edita' do
 
   it 'diminuindo quantidade do item' do
     client = create :client
-    create(:product_item, quantity: 2, client:)
+    product = create :product
+    create(:price, product:)
+    create(:product_item, product: product, client: client, quantity: 2)
 
     login_as client, scope: :client
     visit shopping_cart_path
@@ -27,7 +31,9 @@ describe 'Cliente edita' do
 
   it 'e botão diminuir some quando quantidade for 1' do
     client = create :client
-    create(:product_item, client:)
+    product = create :product
+    create(:price, product:)
+    create(:product_item, product: product, client: client)
 
     login_as client, scope: :client
     visit shopping_cart_path
