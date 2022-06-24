@@ -21,12 +21,18 @@ class PromotionsController < ApplicationController
     @promotions = Promotion.all
   end
 
-  def show; end
+  def show
+    unless @promotion
+      return redirect_to root_path, notice: t('inexistent_promotion')
+    end
+  end
   
   private
 
   def set_promotion
     @promotion = Promotion.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+    @promotion = nil
   end
 
   def promotion_params

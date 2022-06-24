@@ -22,4 +22,14 @@ describe 'Administrador vê detalhes de uma promoção' do
     expect(page).to have_content('Categorias:')
     expect(page).to have_content('Celulares')
   end
+
+  it 'inexistente' do
+    admin = create :admin
+    login_as admin, scope: :admin
+
+    visit promotion_path('99999')
+
+    expect(page).to have_current_path root_path
+    expect(page).to have_content 'Promoção inexistente'
+  end
 end

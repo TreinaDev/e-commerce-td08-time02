@@ -1,6 +1,7 @@
 pt-BR:
   promotion_created: Promoção cadastrada com sucesso!
   promotion_not_created: Não foi possível cadastrar a promoção
+  inexistent_promotion: Promoção inexistente
   activerecord:
     models:
       promotion:
