@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
       redirect_to @product, notice: t('product_creation_succeeded')
     else
       @categories = Category.all
-      flash.now[:notice] = t('product_creation_failed')
+      flash.now[:alert] = t('product_creation_failed')
       render :new
     end
   end
@@ -47,7 +47,7 @@ class ProductsController < ApplicationController
     end
 
     set_new_price
-    flash.now[:notice] = t('product_activation_failed')
+    flash.now[:alert] = t('product_activation_failed')
     render :show
   end
 
