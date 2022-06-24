@@ -12,7 +12,7 @@ describe 'Administrador vê detalhes de uma categoria' do
     click_on 'Eletronicos'
 
     expect(page).to have_content 'Eletronicos'
-    expect(page).to have_content 'Status: Ativo'
+    expect(page).to have_content 'Status: Desativada'
     expect(page).to have_content 'Criado por: André'
     expect(page).to have_content 'Subcategorias'
     expect(page).to have_link 'Celulares'

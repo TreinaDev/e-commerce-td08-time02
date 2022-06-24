@@ -13,12 +13,27 @@ describe 'Cliente vê carrinho' do
     click_on 'Adicionar ao carrinho'
     visit product_path(second_product)
     click_on 'Adicionar ao carrinho'
+    click_on 'Adicionar ao carrinho'
     click_on 'Carrinho'
-
+    save_page
     expect(page).to have_content 'Meu Carrinho'
-    expect(page).to have_content 'Monitor 8k'
-    expect(page).to have_content '1'
-    expect(page).to have_content 'Mouse'
+    within("##{first_product.id}") do
+      expect(page).to have_content 'Mouse'
+      expect(page).to have_content '1'
+      expect(page).to have_content 'Preço Unitário: R$ 9,99'
+      expect(page).to have_content 'Frete: R$ 90,99'
+      expect(page).to have_content 'Subtotal: R$ 9,99'
+    end
+    within("##{second_product.id}") do
+      expect(page).to have_content 'Monitor 8k'
+      expect(page).to have_content '2'
+      expect(page).to have_content 'Preço Unitário: R$ 9,99'
+      expect(page).to have_content 'Frete: R$ 181,98'
+      expect(page).to have_content 'Subtotal: R$ 19,98'
+    end
+    expect(page).to have_content 'Total frete: R$ 272,97'
+    expect(page).to have_content 'Total produtos: R$ 29,97'
+    expect(page).to have_content 'Total: R$ 302,94'
   end
 
   it 'e não há produtos duplicados' do

@@ -49,6 +49,16 @@ fourth_product = Product.create!(name: 'Camiseta do Flamengo', brand: 'Flamengo'
                                  description: 'Camisa Mengão 2022', sku: 'MENP8KU-99999', height: 55, width: 120,
                                  depth: 8, weight: 0.5, shipping_price: 30, fragile: false, status: :inactive)
 fourth_product.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-2.png')),
-                             filename: 'placeholder-image-2.png', content_type: 'image/png')
+                        filename: 'placeholder-image-2.png', content_type: 'image/png')
+
 Price.create!(admin: admin, product: fourth_product, start_date: Time.zone.today, end_date: 60.days.from_now,
               value: 140.00)
+
+first_promotion = Promotion.create!(name: 'BlackFriday', discount_percentual: 50, discount_max: 200, usage_limit: 100,
+                                    start_date: 1.day.from_now, end_date: 1.month.from_now, admin:)
+
+second_promotion = Promotion.create!(name: 'Dia das Mães', discount_percentual: 30, discount_max: 100, usage_limit: 50,
+                                    start_date: 1.day.from_now, end_date: 1.week.from_now, admin:)                                    
+
+third_promotion = Promotion.create!(name: 'Dia dos Namorados', discount_percentual: 20, discount_max: 60, usage_limit: 40,
+                                    start_date: 1.day.from_now, end_date: 1.week.from_now, admin:)                                                                        

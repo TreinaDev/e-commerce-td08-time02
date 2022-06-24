@@ -3,6 +3,8 @@ class ProductsController < ApplicationController
   before_action :authenticate_admin!, only: %i[new create activate deactivate]
 
   def index
+    @products = Product.all
+    @categories = Category.active
     @products = admin_signed_in? ? Product.all : Product.active
   end
 
@@ -19,9 +21,17 @@ class ProductsController < ApplicationController
       redirect_to @product, notice: t('product_creation_succeeded')
     else
       @categories = Category.all
-      flash.now[:notice] = t('product_creation_failed')
+      flash.now[:alert] = t('product_creation_failed')
       render :new
     end
+  end
+
+  def search
+    @query = params[:query]
+    @categories = Category.all
+    @products = Product.where("name LIKE :query OR description LIKE :query OR sku LIKE :query",
+                              query: "%#{@query}%")
+    render :index
   end
 
   def show
@@ -32,6 +42,14 @@ class ProductsController < ApplicationController
     set_new_price
   end
 
+  def filter
+    @category = Category.find(params[:format])
+    @products = @category.all_products
+    @categories = Category.all
+    
+    render :index
+  end
+  
   def activate
     if @product.prices.last.end_date - Time.zone.today >= 90
       @product.active!
@@ -39,7 +57,7 @@ class ProductsController < ApplicationController
     end
 
     set_new_price
-    flash.now[:notice] = t('product_activation_failed')
+    flash.now[:alert] = t('product_activation_failed')
     render :show
   end
 

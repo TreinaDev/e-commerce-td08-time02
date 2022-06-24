@@ -1,5 +1,17 @@
 <%= link_to 'Cadastrar Produto', new_product_path if admin_signed_in? %>
 
+<%= form_with url: search_products_path, method: :get do |form| %>
+  <%= form.label :query, "Buscar" %>
+  <%= form.text_field :query %>
+  <%= form.submit "Buscar" %>
+<% end %>
+
+<% @categories.each do |category| %>
+  <div>
+    <p><%= link_to category.name, filter_products_path(category.id) %></p>
+  </div>
+<% end %>
+
 <% if @products.any? %>
   <% @products.each do |product| %>
   <div id=<%= product.name %>>
@@ -9,7 +21,6 @@
     <%= image_tag product.photos.last if product.photos.attached? %>
   </div>
   <% end %>
-
 <% else %>
-  <p>Nenhum produto cadastrado</p>
+  <p>Nenhum produto encontrado</p>
 <% end %>
