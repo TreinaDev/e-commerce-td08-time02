@@ -1,19 +1,25 @@
-<div>
-  <%= form_with model: @category do |form| %>
+<section class="h-[450px]">
+  <%= form_with model: @category, html: { class:  'form'} do |form| %>
     <div>
-      <%= form.label :name %>
-      <%= form.text_field :name %>
-    </div>
-    <div>
-      <%= form.label :category_id, t('select_category') %>
-      <%= form.collection_select :category_id, @categories, :id, :name, { prompt: '[Sem categoria relacionada]'} %>
-    </div>
-    <div>
-      <%= form.label :promotion_id, t('select_promotion') %>
-      <%= form.collection_select :promotion_id, @promotions, :id, :name, { prompt: '[Sem promoção relacionada]'} %>
-    </div>
-    <div>
-      <%= form.submit %>
+      <h2>Registrar Categoria</h2>
+        <div class="field py-3">
+          <%= form.label :name %>
+          <%= form.text_field :name %>
+          <% if @category.errors.any?%>
+            <p class=' text-red-600'><%= @category.errors.full_messages_for(:name).first %></p>
+          <% end %>
+        </div>
+        <div class="field py-3">
+          <%= form.label :category_id, t('select_category') %>
+          <%= form.collection_select :category_id, @categories, :id, :name, { prompt: '[Sem categoria relacionada]'} %>
+        </div>
+        <div class="field py-3">
+          <%= form.label :promotion_id, t('select_promotion') %>
+          <%= form.collection_select :promotion_id, @promotions, :id, :name, { prompt: '[Sem promoção relacionada]'} %>
+        </div>
+        <div class="btn-primary actions w-full max-w-[250px]">
+          <%= form.submit 'Cadastrar', class:'cursor-pointer' %>
+        </div>
     </div>
   <% end %>
-</div>
+</section>
