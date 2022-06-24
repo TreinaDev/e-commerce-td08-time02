@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'Cliente edita' do
   it 'aumentando quantidade do item' do
+    create :exchange_rate
     client = create :client
     product = create :product
     create(:price, product:)
@@ -16,6 +17,7 @@ describe 'Cliente edita' do
   end
 
   it 'diminuindo quantidade do item' do
+    create :exchange_rate
     client = create :client
     product = create :product
     create(:price, product:)
@@ -30,6 +32,7 @@ describe 'Cliente edita' do
   end
 
   it 'e botão diminuir some quando quantidade for 1' do
+    create :exchange_rate
     client = create :client
     product = create :product
     create(:price, product:)

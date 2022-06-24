@@ -15,7 +15,7 @@ class ShoppingCartController < ApplicationController
   def get_total_product(current_client)
     total_value = 0
     current_client.product_items.each do |product_item|
-      total_value += product_item.get_product_total_price
+      total_value += product_item.define_product_total_price
     end
     total_value.to_f
   end
@@ -23,7 +23,7 @@ class ShoppingCartController < ApplicationController
   def get_total_shipping(current_client)
     total_value = 0
     current_client.product_items.each do |product_item|
-      total_value += product_item.get_product_shipping_price
+      total_value += product_item.define_product_shipping_price
     end
     total_value.to_f
   end
