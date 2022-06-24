@@ -22,4 +22,8 @@ class Cashback < ApplicationRecord
 
     errors.add :start_date, message: 'não pode ser anterior a hoje'
   end
+
+  def extended_description
+    "#{percentual}% |  #{start_date.strftime('%d/%m')} - #{end_date.strftime('%d/%m')}"
+  end
 end

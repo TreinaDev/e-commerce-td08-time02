@@ -5,6 +5,9 @@ describe 'Administrador cadastra um produto' do
     admin = create :admin, name: 'João'
     category = create :category, admin: admin
     create :subcategory, name: 'TVs', category: category, admin: admin
+    create :cashback, start_date: 1.day.from_now, end_date: 1.month.from_now,
+                      percentual: 10, admin: admin
+    cashback_string = "10% | #{1.day.from_now.strftime('%d/%m')} - #{1.month.from_now.strftime('%d/%m')}"
 
     login_as admin, scope: :admin
     visit root_path
@@ -13,6 +16,7 @@ describe 'Administrador cadastra um produto' do
     fill_in 'Nome', with: 'TV - LG 45'
     fill_in 'Marca', with: 'LG'
     select 'TVs', from: 'Categorias'
+    select cashback_string, from: 'Cashback'
     fill_in 'Descrição', with: 'TV - LG 45 polegadas'
     fill_in 'SKU', with: 'TVLG45-XKFZ'
     fill_in 'Largura', with: '75'
@@ -31,6 +35,7 @@ describe 'Administrador cadastra um produto' do
     expect(page).to have_current_path product_path(Product.last)
     expect(page).to have_content('Produto criado com sucesso')
     expect(page).to have_content('TV - LG 45')
+    expect(page).to have_content("Cashback: #{cashback_string}")
     expect(page).to have_css("img[src*='placeholder-image-1.png']")
     expect(page).to have_css("img[src*='placeholder-image-2.png']")
     expect(page).to have_content('Status: Inativo')

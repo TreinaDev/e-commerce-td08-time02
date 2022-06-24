@@ -1,4 +1,7 @@
-<%= link_to 'Cadastrar Produto', new_product_path if admin_signed_in? %>
+<% if admin_signed_in? %>
+  <%= link_to 'Cadastrar Produto', new_product_path %>
+  <%= link_to 'Cadastrar Cashback', new_cashback_path %>
+<% end %>
 
 <%= form_with url: search_products_path, method: :get do |form| %>
   <%= form.label :query, "Buscar" %>

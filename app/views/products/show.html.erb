@@ -19,6 +19,9 @@
   <p>Preço do Frete: <%= number_to_currency(@product.shipping_price, unit: "R$ ") %></p>
   <p>Frágil - <%= @product.fragile? ? 'Sim' : 'Não' %></p>
   <p>Preço: <%= number_to_currency(@product.current_price, unit: "R$ ") %></p>
+  <% unless @product.cashback.nil? %> 
+    <p>Cashback: <%= @product.cashback.extended_description %></p>
+  <% end %>
   <% if admin_signed_in? %>
     <p>Status: <%= Product.human_attribute_name("status.#{@product.status}") %></p>
 

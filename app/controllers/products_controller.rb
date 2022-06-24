@@ -7,12 +7,13 @@ class ProductsController < ApplicationController
     @categories = Category.active
     @products = admin_signed_in? ? Product.all : Product.active
   end
-
+  
   def new
     @product = Product.new
     @start_date = Time.zone.today
     @product.prices.build
     @categories = Category.all
+    @cashbacks = Cashback.where('end_date >= :today', today: Date.today)
   end
 
   def create
@@ -21,6 +22,7 @@ class ProductsController < ApplicationController
       redirect_to @product, notice: t('product_creation_succeeded')
     else
       @categories = Category.all
+      @cashbacks = Cashback.where('end_date >= :today', today: Date.today)
       flash.now[:notice] = t('product_creation_failed')
       render :new
     end
@@ -70,8 +72,9 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :brand, :category_id, :description, :sku, :width, :height,
-                                    :depth, :weight, :shipping_price, :fragile, :manual,
+                                    :depth, :weight, :shipping_price, :fragile, :manual, :cashback_id,
                                     photos: [], prices_attributes: %i[id admin_id start_date end_date value])
+                                   
   end
 
   def set_product
