@@ -12,6 +12,8 @@ class Product < ApplicationRecord
   has_one_attached :manual
   has_many_attached :photos
 
+  before_create :set_rubies_shipping_price
+
   def current_price
     price = prices.find_by(
       'start_date <= current_date AND end_date >= current_date', current_date: Time.zone.today
@@ -20,6 +22,8 @@ class Product < ApplicationRecord
   end
 
   def set_rubies_shipping_price
-    update(rubies_shipping_price: shipping_price / ExchangeRate.last.value)
+    return unless shipping_price && ExchangeRate.last
+
+    self.rubies_shipping_price = shipping_price / ExchangeRate.last.value
   end
 end
