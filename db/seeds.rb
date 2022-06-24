@@ -60,7 +60,7 @@ fifth_product = Product.create!(name: 'Capa de Celular HyperX', brand: 'HyperZ',
 fifth_product.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-2.png')),
                         filename: 'placeholder-image-2.png', content_type: 'image/png')
 
-Price.create!(admin: admin, product: fourth_product, start_date: Time.zone.today, end_date: 60.days.from_now,
+Price.create!(admin: admin, product: fifth_product, start_date: Time.zone.today, end_date: 180.days.from_now,
 value: 140.00)
 
 #Promoções

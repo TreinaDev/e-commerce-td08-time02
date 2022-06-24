@@ -26,7 +26,7 @@
           <div class=''>            
             <%= link_to(image_tag(product.photos.last), product_path(product)) if product.photos.attached? %>                
             <div class='p-2 '>
-              <p>Nome: <%= link_to product.name, product_path(product) %> </p>
+              <h3 class='font-semibold'>Nome: <%= link_to product.name, product_path(product) %> </h3>
               <p>Marca: <%= product.brand %></p>
               <p><%= Product.human_attribute_name("status.#{product.status}") if admin_signed_in? %></p>
             </div>
