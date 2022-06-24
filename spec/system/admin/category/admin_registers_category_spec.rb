@@ -10,7 +10,7 @@ describe 'Administrador cria' do
       click_on 'Categorias'
       click_on 'Criar Categoria'
       fill_in 'Nome', with: 'Alimentos'
-      click_on 'cadastrar'
+      click_on 'Cadastrar'
       category = Category.last
 
       expect(page).to have_current_path categories_path
@@ -26,7 +26,7 @@ describe 'Administrador cria' do
       login_as(admin, scope: :admin)
       visit new_category_path
       fill_in 'Nome', with: ''
-      click_on 'cadastrar'
+      click_on 'Cadastrar'
 
       expect(page).to have_current_path categories_path
       expect(page).to have_content 'Não foi possível cadastrar a categoria'
@@ -42,7 +42,7 @@ describe 'Administrador cria' do
       visit new_category_path
       fill_in 'Nome', with: 'Frutas'
       select 'Alimentos', from: 'Selecione categoria relacionada'
-      click_on 'cadastrar'
+      click_on 'Cadastrar'
 
       expect(Category.last.name).to eq 'Frutas'
       expect(category.name).to eq 'Alimentos'
@@ -57,7 +57,7 @@ describe 'Administrador cria' do
       click_on 'Criar subcategoria'
       fill_in 'Nome', with: 'Celulares'
       select 'Eletronicos', from: 'Selecione categoria relacionada'
-      click_on 'cadastrar'
+      click_on 'Cadastrar'
 
       expect(Category.last.name).to eq 'Celulares'
     end

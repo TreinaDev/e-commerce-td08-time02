@@ -27,7 +27,6 @@ describe 'Cliente se cadastra' do
     fill_in 'CPF/CNPJ', with: ''
     click_on('Registrar-se')
 
-    expect(page).to have_content 'Não foi possível registrar cliente'
     expect(page).to have_content 'Nome não pode ficar em branco'
     expect(page).to have_content 'E-mail não pode ficar em branco'
     expect(page).to have_content 'Senha não pode ficar em branco'

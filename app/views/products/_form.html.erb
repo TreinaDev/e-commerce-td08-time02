@@ -1,106 +1,127 @@
-<%= form_with model: @product do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-    <p ><%= @product.errors.full_messages_for(:name).first if @product.errors.any? %></p>
-  </div>
+<section class='w-full'>
+  <%= form_with model: @product, html: { class: 'form w-full' } do |f| %>
+    <div class='w-full max-w-lg'>
+      <h1 class='self-start text-3xl font-semibold mb-3'>Produto </h1>
+      <div class='sm:flex-row flex flex-col w-full '>
+        <div class="flex flex-col w-full mr-2">
+            <%= f.label :name %>
+            <%= f.text_field :name, class: 'w-full' %>
+            <p class=' text-red-600'><%= @product.errors.full_messages_for(:name).first if @product.errors.any? %></p>
+        </div>
 
-  <div>
-    <%= f.label :brand %>
-    <%= f.text_field :brand %>
-    <p ><%= @product.errors.full_messages_for(:brand).first if @product.errors.any? %></p>
-  </div>
+        <div class="flex flex-col w-full">
+          <%= f.label :brand %>
+          <%= f.text_field :brand, class: 'w-full' %>
+          <p class=' text-red-600'><%= @product.errors.full_messages_for(:brand).first if @product.errors.any? %></p>
+        </div>
+      </div>
 
-  <div>
-    <%= f.label :category_id, 'Categorias' %>
-    <%= f.collection_select :category_id, @categories, :id, :name, { prompt: '[Sem categoria relacionada]'} %>
-    <% if @product.errors.any? %>
-      <p class=' text-red-600'><%= @product.errors.full_messages_for(:categories).first %></p>
-    <% end %>
-  </div>
+      <div class='sm:flex-row flex-col flex w-full'>
+        <div class="flex flex-col py-3 pb-5 mr-2 w-full sm:w-6/12">
+          <%= f.label :category_id, 'Categorias' %>
+          <%= f.collection_select :category_id, @categories, :id, :name, { prompt: '[Sem categoria relacionada]'}, class: 'w-full' %>
+          <% if @product.errors.any? %>
+            <p class=' text-red-600'><%= @product.errors.full_messages_for(:categories).first %></p>
+          <% end %>
+        </div>
+      
+        <div class="flex flex-col py-3 pb-5 w-full sm:w-6/12">
+          <%= f.label :sku %>
+          <%= f.text_field :sku, class: 'w-full' %>
+          <p class=' text-red-600'><%= @product.errors.full_messages_for(:sku).first if @product.errors.any? %></p>
+        </div>
+      </div>
 
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-    <p><%= @product.errors.full_messages_for(:description).first if @product.errors.any? %></p>
-  </div>
+      <h1 class='self-start text-xl font-semibold mb-2'>Dimensões </h1>
 
-  <div>
-    <%= f.label :sku %>
-    <%= f.text_field :sku %>
-    <p><%= @product.errors.full_messages_for(:sku).first if @product.errors.any? %></p>
-  </div>
+      <div class='sm:flex-row flex-col flex w-full'>    
+        <div class="w-full sm:w-[30%] sm:mr-[2%]">
+          <div class='flex'><%= f.label :width %> (cm)</div>
+          <%= f.number_field :width, class: 'w-full' %>
+          <p class=' text-red-600'><%= @product.errors.full_messages_for(:width).first if @product.errors.any? %></p>
+        </div>
 
-  <div>
-    <%= f.label :width %>
-    <%= f.number_field :width %> (em cm)
-    <p><%= @product.errors.full_messages_for(:width).first if @product.errors.any? %></p>
-  </div>
+        <div class="w-full sm:w-[30%] sm:mr-[2%]">
+          <div class='flex'><%= f.label :height %> (cm)</div>
+          <%= f.number_field :height, class: 'w-full' %>
+          <p class=' text-red-600'><%= @product.errors.full_messages_for(:height).first if @product.errors.any? %></p>
+        </div>
 
-  <div>
-    <%= f.label :height %>
-    <%= f.number_field :height %> (em cm)
-    <p><%= @product.errors.full_messages_for(:height).first if @product.errors.any? %></p>
-  </div>
+        <div class="sm:w-[36%] w-full">
+          <div class='flex'><%= f.label :depth %>(cm)</div>
+          <%= f.number_field :depth, class: 'w-full' %>
+          <p class=' text-red-600'><%= @product.errors.full_messages_for(:depth).first if @product.errors.any? %></p>
+        </div>        
+      </div>
+      
+      <div class="sm:flex-row flex-col flex w-full mt-6">
+        <div class="sm:w-[49%] sm:mr-[2%] w-full">
+          <div class='flex'><%= f.label :weight %> (kg)</div>
+          <%= f.number_field :weight, class: 'w-full' %>
+          <p class=' text-red-600'><%= @product.errors.full_messages_for(:weight).first if @product.errors.any? %></p>
+        </div>
 
-  <div>
-    <%= f.label :depth %>
-    <%= f.number_field :depth %> (em cm)
-    <p><%= @product.errors.full_messages_for(:depth).first if @product.errors.any? %></p>
-  </div>
+        <div class="sm:w-[49%] w-full">
+          <%= f.label :shipping_price %>
+          <%= f.number_field :shipping_price, class: 'w-full' %>
+          <p class=' text-red-600'><%= @product.errors.full_messages_for(:shipping_price).first if @product.errors.any? %></p>
+        </div>
+      </div>
 
-  <div>
-    <%= f.label :weight %>
-    <%= f.number_field :weight %> (em kg)
-    <p><%= @product.errors.full_messages_for(:weight).first if @product.errors.any? %></p>
-  </div>
+      <div class="self-start mt-6">
+        <%= f.label :fragile %>
+        <%= f.check_box :fragile %>
+        <p class=' text-red-600'><%= @product.errors.full_messages_for(:fragile).first if @product.errors.any? %></p>
+      </div>
 
-  <div>
-    <%= f.label :shipping_price %>
-    <%= f.number_field :shipping_price %>
-    <p><%= @product.errors.full_messages_for(:shipping_price).first if @product.errors.any? %></p>
-  </div>
+      <div class="flex flex-col py-3 pb-5 w-full">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: 'w-full resize-none h-[200px]'%>
+        <p class=' text-red-600'><%= @product.errors.full_messages_for(:description).first if @product.errors.any? %></p>
+      </div>
 
-  <div>
-    <%= f.label :fragile %>
-    <%= f.check_box :fragile %>
-    <p><%= @product.errors.full_messages_for(:fragile).first if @product.errors.any? %></p>
-  </div>
+      <div class='sm:flex-row flex flex-col w-full sm:py-3 sm:pb-5l'>
+        <% @product.prices.each do |price| %>
+          <%= f.fields_for :prices, price do |price_f| %>
+            <%= price_f.hidden_field :admin_id, value: current_admin.id %>
+            <div class='sm:w-[33%] w-full sm:mr-[2%]'>
+              <%= price_f.label :start_date %>
+              <%= price_f.date_field :start_date, value: @start_date, readonly: true, class: 'w-full' %>
+              <p class=' text-red-600'><%= price.errors.full_messages_for(:start_date).first if price.errors.any? %></p>
+            </div>
+            <div class='sm:w-[33%] w-full sm:mr-[2%]'>
+              <%= price_f.label :end_date %>
+              <%= price_f.date_field :end_date, class: 'w-full' %>
+              <p class=' text-red-600'><%= price.errors.full_messages_for(:end_date).first if price.errors.any? %></p>
+            </div>
+            <div class='sm:w-[30%] w-full'>
+              <%= price_f.label :value %>
+              <%= price_f.number_field :value, class: 'w-full' %>
+              <p class=' text-red-600'><%= price.errors.full_messages_for(:value).first if price.errors.any? %></p>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
 
-  <div>
-    <% @product.prices.each do |price| %>
-      <%= f.fields_for :prices, price do |price_f| %>
-        <%= price_f.hidden_field :admin_id, value: current_admin.id %>
+      <div class='flex flex-col my-3 self-start w-full'>
+        <%= f.label :photos  %>
+        <div class=''>
+          <%= f.file_field :photos, multiple: true, class:'w-full' %>
+          <p class=' text-red-600'><%= @product.errors.full_messages_for(:photos).first if @product.errors.any? %></p>
+        </div>
+      </div>
 
-        <%= price_f.label :start_date %>
-        <%= price_f.date_field :start_date, value: @start_date, readonly: true %>
-        <p><%= price.errors.full_messages_for(:start_date).first if price.errors.any? %></p>
+      <div class='flex flex-col my-3 pb-5 self-start'>
+        <%= f.label :manual %>
+        <div>
+          <%= f.file_field :manual, class: 'w-full' %>
+          <p class=' text-red-600'><%= @product.errors.full_messages_for(:manual).first if @product.errors.any? %></p>
+        </div>
+      </div>
 
-        <%= price_f.label :end_date %>
-        <%= price_f.date_field :end_date %>
-        <p><%= price.errors.full_messages_for(:end_date).first if price.errors.any? %></p>
-
-        <%= price_f.label :value %>
-        <%= price_f.number_field :value %>
-        <p><%= price.errors.full_messages_for(:value).first if price.errors.any? %></p>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div>
-    <%= f.label :photos %>
-    <%= f.file_field :photos, multiple: true %>
-    <p><%= @product.errors.full_messages_for(:photos).first if @product.errors.any? %></p>
-  </div>
-
-  <div>
-    <%= f.label :manual %>
-    <%= f.file_field :manual %>
-    <p><%= @product.errors.full_messages_for(:manual).first if @product.errors.any? %></p>
-  </div>
-
-  <div>
-    <%= f.submit 'Cadastrar' %>
-  </div>
-  
-<% end %>
+      <div class='btn-primary self-start w-full'>
+        <%= f.submit 'Cadastrar', class: 'cursor-pointer' %>
+      </div>
+    </div>
+  <% end %>
+</section>
