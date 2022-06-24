@@ -9,6 +9,10 @@ RSpec.describe Cashback, type: :model do
 
   it { is_expected.to validate_numericality_of(:percentual).is_greater_than(0) }
 
+  it { is_expected.to belong_to(:admin) }
+
+  it { is_expected.to have_many(:products) }
+
   it 'false se data inicial for maior que data final' do
     cashback = described_class.new(start_date: 1.day.from_now, end_date: Time.zone.today)
 
