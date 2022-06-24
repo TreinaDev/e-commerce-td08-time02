@@ -4,12 +4,14 @@ describe 'Administrador cria' do
   context 'supercategoria' do
     it 'com sucesso' do
       admin = create(:admin)
+      create(:promotion, name: 'BlackFriday', admin:)
 
       login_as(admin, scope: :admin)
       visit root_path
       click_on 'Categorias'
       click_on 'Criar Categoria'
       fill_in 'Nome', with: 'Alimentos'
+      select 'BlackFriday', from: 'Selecione promoção relacionada'
       click_on 'Cadastrar'
       category = Category.last
 
@@ -17,6 +19,7 @@ describe 'Administrador cria' do
       expect(page).to have_content 'Categoria Cadastrada com Sucesso!'
       expect(category.name).to eq 'Alimentos'
       expect(category.admin_id).to eq admin.id
+      expect(category.promotion.name).to eq 'BlackFriday'
       expect(page).to have_content 'Alimentos'
     end
 
