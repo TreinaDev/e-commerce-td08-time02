@@ -5,6 +5,7 @@ class Client < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :product_items, dependent: :nullify
+  has_many :reviews, dependent: :nullify
   
   validates :name, :code, presence: true
   validate :code_is_valid
