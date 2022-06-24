@@ -11,7 +11,7 @@ describe 'Administrador modifica status da categoria' do
     click_on 'Eletrônicos'
     click_on 'Desativar'
     category.reload
-    
+
     expect(page).to have_current_path category_path(category)
     expect(category).to be_disabled
     expect(page).to have_content 'Categoria desativada com sucesso'
@@ -21,7 +21,7 @@ describe 'Administrador modifica status da categoria' do
 
   it 'para ativado' do
     admin = create(:admin)
-    category = create :category, admin: admin
+    category = create :category, admin: admin, status: :disabled
 
     login_as(admin, scope: :admin)
     visit root_path
@@ -29,7 +29,7 @@ describe 'Administrador modifica status da categoria' do
     click_on 'Eletrônicos'
     click_on 'Ativar'
     category.reload
-    
+
     expect(page).to have_current_path category_path(category)
     expect(category).to be_active
     expect(page).to have_content 'Categoria ativada com sucesso'
