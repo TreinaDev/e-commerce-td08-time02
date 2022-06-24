@@ -8,11 +8,11 @@ Client.create!(email: 'juliana@hotmail.com', password: 'password', name: 'Julian
 Client.create!(email: 'jadson@hotmail.com', password: 'password', name: 'Jadson', code: '59641220004')
 
 # Categorias
-first_category = Category.create!(name: 'Eletronicos', admin:)
-second_category = Category.create!(name: 'Roupas', admin:)
-third_category = Category.create!(name: 'Celulares', admin:, category: first_category)
-fourth_category = Category.create!(name: 'Camisetas', admin:, category: second_category)
-Category.create!(name: 'Jardinagem', admin:)
+first_category = Category.create!(name: 'Eletronicos', admin:, status: :active)
+second_category = Category.create!(name: 'Roupas', admin:, status: :active)
+third_category = Category.create!(name: 'Celulares', admin:, category: first_category, status: :active)
+fourth_category = Category.create!(name: 'Camisetas', admin:, category: second_category, status: :active)
+Category.create!(name: 'Jardinagem', admin:, status: :disabled)
 
 # Produtos
 first_product = Product.create!(name: 'Monitor 8k', brand: 'LG', category: first_category,
@@ -54,6 +54,16 @@ fourth_product.photos.attach(io: File.open(Rails.root.join('spec/support/files/p
 Price.create!(admin: admin, product: fourth_product, start_date: Time.zone.today, end_date: 60.days.from_now,
               value: 140.00)
 
+fifth_product = Product.create!(name: 'Capa de Celular HyperX', brand: 'HyperZ', category: third_category,
+                                 description: 'Capa em couro sintético gamer', sku: 'CAPP8KU-99119', height: 14, width: 8,
+                                 depth: 2, weight: 0.1, shipping_price: 25, fragile: false, status: :active)
+fifth_product.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-2.png')),
+                        filename: 'placeholder-image-2.png', content_type: 'image/png')
+
+Price.create!(admin: admin, product: fourth_product, start_date: Time.zone.today, end_date: 60.days.from_now,
+value: 140.00)
+
+#Promoções
 first_promotion = Promotion.create!(name: 'BlackFriday', discount_percentual: 50, discount_max: 200, usage_limit: 100,
                                     start_date: 1.day.from_now, end_date: 1.month.from_now, admin:)
 

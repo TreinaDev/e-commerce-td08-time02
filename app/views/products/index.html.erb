@@ -1,26 +1,41 @@
-<%= link_to 'Cadastrar Produto', new_product_path if admin_signed_in? %>
-
-<%= form_with url: search_products_path, method: :get do |form| %>
-  <%= form.label :query, "Buscar" %>
-  <%= form.text_field :query %>
-  <%= form.submit "Buscar" %>
-<% end %>
-
-<% @categories.each do |category| %>
-  <div>
-    <p><%= link_to category.name, filter_products_path(category.id) %></p>
+<section class='pt-5 px-[2%]'>
+  <div class='flex '>
+    <%= form_with url: search_products_path, method: :get, html: {class: 'flex items-center'} do |form| %>
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <%= form.text_field :query, placeholder: "Pesquisar", id: "Buscar", class:'rounded-lg h-8'%>
+      <%= form.submit "Buscar", class:'btn-second ml-2' %>
+    <% end %>
+    <div>
+      <%= link_to 'Cadastrar Produto', new_product_path, class:'btn-second ml-3' if admin_signed_in? %>
+    </div>
   </div>
-<% end %>
 
-<% if @products.any? %>
-  <% @products.each do |product| %>
-  <div id=<%= product.name %>>
-    <p>Nome: <%= link_to product.name, product_path(product) %> </p>
-    <p>Marca: <%= product.brand %></p>
-    <p><%= Product.human_attribute_name("status.#{product.status}") if admin_signed_in? %></p>
-    <%= image_tag product.photos.last if product.photos.attached? %>
+  <div class='flex mt-8 w-full'>
+    <div class='mr-5 w-[85px]'>
+      <% @categories.each do |category| %>
+        <div>
+          <p><%= link_to category.name, filter_products_path(category.id) %></p>
+        </div>
+      <% end %>
+    </div>
+
+    <div class='flex flex-wrap justify-center max-w-7xl'>
+      <% if @products.any? %>
+        <% @products.each do |product| %>
+        <div id=<%= product.name %> class='m-2 w-[250px] h-[280px] shadow-lg rounded-md overflow-hidden'>
+          <div class=''>            
+            <%= link_to(image_tag(product.photos.last), product_path(product)) if product.photos.attached? %>                
+            <div class='p-2 '>
+              <p>Nome: <%= link_to product.name, product_path(product) %> </p>
+              <p>Marca: <%= product.brand %></p>
+              <p><%= Product.human_attribute_name("status.#{product.status}") if admin_signed_in? %></p>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      <% else %>
+        <p>Nenhum produto encontrado</p>
+      <% end %>
+    </div>
   </div>
-  <% end %>
-<% else %>
-  <p>Nenhum produto encontrado</p>
-<% end %>
+</section>
