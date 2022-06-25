@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'Cliente remove item do carrinho' do
   it 'com sucesso' do
+    create :exchange_rate
     client = create :client
     product = create :product, name: 'Mouse'
     create(:price, product:)

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'Cliente adiciona um item ao carrinho' do
   it 'com sucesso' do
+    create :exchange_rate
     client = create :client
     product = create(:product, name: 'Monitor 8k', status: :active)
     create(:price, product: product, admin: product.category.admin, start_date: Time.zone.today,
@@ -16,6 +17,7 @@ describe 'Cliente adiciona um item ao carrinho' do
   end
 
   it 'com falha' do
+    create :exchange_rate
     client = create :client
     product = create(:product, name: 'Monitor 8k', status: :active)
     create(:price, product: product, admin: product.category.admin, start_date: Time.zone.today,

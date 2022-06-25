@@ -27,10 +27,9 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @query = params[:query]
     @categories = Category.all
-    @products = Product.where("name LIKE :query OR description LIKE :query OR sku LIKE :query",
-                              query: "%#{@query}%")
+    @products = Product.where('name LIKE :query OR description LIKE :query OR sku LIKE :query',
+                              query: "%#{params[:query]}%")
     render :index
   end
 
@@ -46,10 +45,10 @@ class ProductsController < ApplicationController
     @category = Category.find(params[:format])
     @products = @category.all_products
     @categories = Category.all
-    
+
     render :index
   end
-  
+
   def activate
     if @product.prices.last.end_date - Time.zone.today >= 90
       @product.active!

@@ -14,10 +14,13 @@ third_category = Category.create!(name: 'Celulares', admin:, category: first_cat
 fourth_category = Category.create!(name: 'Camisetas', admin:, category: second_category)
 Category.create!(name: 'Jardinagem', admin:)
 
+# Taxa de conversão
+ExchangeRate.create!(value: 2.0)
+
 # Cashbacks
-first_cashback = Cashback.create!(start_date: Date.today, end_date: 1.week.from_now, percentual: 20, admin:)
-second_cashback = Cashback.create!(start_date: Date.today, end_date: 1.week.from_now, percentual: 10, admin:)
-third_cashback = Cashback.create!(start_date: 1.month.from_now, end_date: 2.months.from_now, percentual: 5, admin:)
+first_cashback = Cashback.create!(start_date: Time.zone.today, end_date: 1.week.from_now, percentual: 20, admin:)
+second_cashback = Cashback.create!(start_date: Time.zone.today, end_date: 1.week.from_now, percentual: 10, admin:)
+Cashback.create!(start_date: 1.month.from_now, end_date: 2.months.from_now, percentual: 5, admin:)
 
 # Produtos
 first_product = Product.create!(name: 'Monitor 8k', brand: 'LG', category: first_category,
@@ -30,7 +33,7 @@ first_product.manual.attach(io: File.open(Rails.root.join('spec/support/files/pl
                             filename: 'placeholder-manual.pdf', content_type: 'application/pdf')
 Price.create!(admin: admin, product: first_product, start_date: Time.zone.today, end_date: 90.days.from_now,
               value: 1500.00)
-              
+
 second_product = Product.create!(name: 'Casaco da Razer', brand: 'Razer', category: second_category,
                                  description: 'Casaco de Lã de Ovelha', sku: 'CAS8KU-99999', height: 50,
                                  width: 120, depth: 7, weight: 1.5, shipping_price: 50, fragile: false,
@@ -54,15 +57,14 @@ fourth_product = Product.create!(name: 'Camiseta do Flamengo', brand: 'Flamengo'
                                  description: 'Camisa Mengão 2022', sku: 'MENP8KU-99999', height: 55, width: 120,
                                  depth: 8, weight: 0.5, shipping_price: 30, fragile: false, status: :inactive)
 fourth_product.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-2.png')),
-                        filename: 'placeholder-image-2.png', content_type: 'image/png')
-
+                             filename: 'placeholder-image-2.png', content_type: 'image/png')
 Price.create!(admin: admin, product: fourth_product, start_date: Time.zone.today, end_date: 60.days.from_now,
               value: 140.00)
 
 # Promoções
-first_promotion = Promotion.create!(name: 'BlackFriday', discount_percentual: 50, discount_max: 200, usage_limit: 100,
-                                    start_date: 1.day.from_now, end_date: 1.month.from_now, admin:)
-second_promotion = Promotion.create!(name: 'Dia das Mães', discount_percentual: 30, discount_max: 100, usage_limit: 50,
-                                    start_date: 1.day.from_now, end_date: 1.week.from_now, admin:)                                    
-third_promotion = Promotion.create!(name: 'Dia dos Namorados', discount_percentual: 20, discount_max: 60, usage_limit: 40,
-                                    start_date: 1.day.from_now, end_date: 1.week.from_now, admin:)                                                                                                            
+Promotion.create!(name: 'BlackFriday', discount_percentual: 50, discount_max: 200, usage_limit: 100,
+                  start_date: 1.day.from_now, end_date: 1.month.from_now, admin:)
+Promotion.create!(name: 'Dia das Mães', discount_percentual: 30, discount_max: 100, usage_limit: 50,
+                  start_date: 1.day.from_now, end_date: 1.week.from_now, admin:)
+Promotion.create!(name: 'Dia dos Namorados', discount_percentual: 20, discount_max: 60, usage_limit: 40,
+                  start_date: 1.day.from_now, end_date: 1.week.from_now, admin:)

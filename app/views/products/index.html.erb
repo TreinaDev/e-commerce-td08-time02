@@ -14,11 +14,12 @@
 
 <% if @products.any? %>
   <% @products.each do |product| %>
-  <div id=<%= product.name %>>
+  <div id=<%= product.id %>>
     <p>Nome: <%= link_to product.name, product_path(product) %> </p>
     <p>Marca: <%= product.brand %></p>
     <p><%= Product.human_attribute_name("status.#{product.status}") if admin_signed_in? %></p>
     <%= image_tag product.photos.last if product.photos.attached? %>
+    <p><%= number_with_precision(product.current_price.rubies_value, precision: 2) %> rubis</p>
   </div>
   <% end %>
 <% else %>
