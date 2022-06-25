@@ -1,26 +1,23 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_client!
-  before_action :set_client
 
   def create
-    items = params[:item_ids].map { |id| ProductItem.find(id) }
-    purchase = Purchase.new(client: @client, product_items: items)
+    purchase = Purchase.new(purchase_params)
+    purchase.product_items = current_client.product_items
+    purchase.save
     response_status = SendPurchaseDataService.response_status(purchase)
     if response_status
-      define_purchase_status(purchase)
-      return redirect_to root_path, notice: @notice
+      purchase.approved!
+      return redirect_to root_path, notice: t('purchase_confirmed')
     end
+
+    purchase.destroy
     redirect_to shopping_cart_path, alert: t('purchase_failed')
   end
 
   private
 
-  def set_client
-    @client = Client.find(params[:client_id])
-  end
-
-  def define_purchase_status(purchase)
-    purchase.approved!
-    @notice = t('purchase_confirmed')
+  def purchase_params
+    params.permit(:client_id, :value)
   end
 end

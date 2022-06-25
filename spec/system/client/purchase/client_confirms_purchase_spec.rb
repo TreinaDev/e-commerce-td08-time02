@@ -56,16 +56,17 @@ describe 'Cliente confirma compra' do
   # end
 
   it 'e houve um erro na API' do
+    create :exchange_rate, value: 2.0
     client = create :client, code: '510.309.910-14'
-    first_product = create :product, shipping_price: 15.00
-    create :price, admin: first_product.category.admin, product: first_product, value: 50.00
+    first_product = create :product, shipping_price: 10.00
+    create :price, product: first_product, value: 20.00
     create :product_item, client: client, product: first_product, quantity: 1
+    purchase_data_sent = { transaction: { order: 1, registered_number: '510.309.910-14',
+                                          value: 1500, cashback: 0 } }.to_json
     response_data = { error: 'Internal server error' }.to_json
     fake_response = instance_double Faraday::Response, status: :internal_server_error, body: response_data
-    json_data = { transaction: { registered_number: client.code, value: '65.0' } }.to_json
-    allow(Faraday).to receive(:post).with(
-      'http://localhost:4000/api/v1/transactions', json_data, content_type: 'application/json'
-    ).and_return(fake_response)
+    allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/transactions', purchase_data_sent,
+                                          content_type: 'application/json').and_return(fake_response)
 
     login_as client, scope: :client
     visit shopping_cart_path
