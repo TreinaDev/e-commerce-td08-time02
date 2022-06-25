@@ -35,6 +35,7 @@
           <% end %>
           <% if admin_signed_in? %>
             <div class= 'flex'>
+              <li class= 'mr-4'><%= link_to 'Promoções', promotions_path %></li>
               <li class= 'mr-4'><%= link_to 'Categorias', categories_path %></li>
               <li class= 'mr-4'><%= link_to 'Cadastros Pendentes', pending_admins_path %></li>
             </div>
