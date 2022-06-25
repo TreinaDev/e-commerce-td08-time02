@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :category
+  belongs_to :cashback, optional: true
   enum status: { inactive: 0, active: 5 }
 
   validates :name, :brand, :description, :sku, :width, :height, :depth, :weight, :shipping_price, presence: true

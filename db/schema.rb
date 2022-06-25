@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_23_195200) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_24_124150) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -51,6 +51,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_23_195200) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "cashbacks", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "percentual"
+    t.integer "admin_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_cashbacks_on_admin_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -126,6 +136,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_23_195200) do
     t.datetime "updated_at", null: false
     t.integer "category_id"
     t.decimal "rubies_shipping_price"
+    t.integer "cashback_id"
+    t.index ["cashback_id"], name: "index_products_on_cashback_id"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["sku"], name: "index_products_on_sku", unique: true
   end
@@ -147,6 +159,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_23_195200) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cashbacks", "admins"
   add_foreign_key "categories", "admins"
   add_foreign_key "categories", "categories"
   add_foreign_key "categories", "promotions"
@@ -154,6 +167,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_23_195200) do
   add_foreign_key "prices", "products"
   add_foreign_key "product_items", "clients"
   add_foreign_key "product_items", "products"
+  add_foreign_key "products", "cashbacks"
   add_foreign_key "products", "categories"
   add_foreign_key "promotions", "admins"
 end
