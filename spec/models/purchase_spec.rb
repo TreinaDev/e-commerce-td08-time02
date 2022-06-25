@@ -1,23 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe Purchase, type: :model do
-  it { is_expected.to belong_to(:client) }
+  describe '#valid?' do
+    it { is_expected.to belong_to(:client) }
 
-  it { is_expected.to have_many(:product_items) }
+    it { is_expected.to have_many(:product_items) }
 
-  it { is_expected.to define_enum_for(:status).with_values(pending: 0, approved: 5, rejected: 10) }
+    it { is_expected.to define_enum_for(:status).with_values(pending: 0, approved: 5, rejected: 10) }
 
-  it '#calculate_value' do
-    first_product = create :product, shipping_price: 15.00
-    create :price, admin: first_product.category.admin, product: first_product, value: 50.00
-    second_product = create :product, category: first_product.category, shipping_price: 20.00
-    create :price, admin: second_product.category.admin, product: second_product, value: 35.00
-    first_item = create :product_item, product: first_product, quantity: 2
-    second_item = create :product_item, client: first_item.client, product: second_product, quantity: 1
-    purchase = described_class.new(client: first_item.client, product_items: [first_item, second_item])
+    it { is_expected.to validate_numericality_of(:cashback_value).is_greater_than_or_equal_to(0.0) }
 
-    purchase.save
+    it { is_expected.to validate_numericality_of(:value).is_greater_than_or_equal_to(0.0) }
 
-    expect(purchase.value).to eq 170.00
+    context 'valor de compra >= valor de cashback' do
+      it 'false' do
+        purchase = build :purchase, value: 0.11, cashback_value: 0.12
+
+        purchase.valid?
+
+        expect(purchase.errors[:value]).to include 'não pode ser menor que o valor de cashback'
+      end
+
+      it 'true' do
+        purchase = build :purchase, value: 0.12, cashback_value: 0.11
+
+        purchase.valid?
+
+        expect(purchase.errors.include?(:value)).to be false
+      end
+    end
   end
 end

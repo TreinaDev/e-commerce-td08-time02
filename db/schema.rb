@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_21_202121) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_25_122545) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -53,6 +53,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_202121) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "cashbacks", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "percentual"
+    t.integer "admin_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_cashbacks_on_admin_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.integer "category_id"
@@ -60,9 +70,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_202121) do
     t.datetime "updated_at", null: false
     t.integer "admin_id", null: false
     t.integer "status", default: 1
+    t.integer "promotion_id"
     t.index ["admin_id"], name: "index_categories_on_admin_id"
     t.index ["category_id"], name: "index_categories_on_category_id"
     t.index ["name", "category_id"], name: "index_categories_on_name_and_category_id", unique: true
+    t.index ["promotion_id"], name: "index_categories_on_promotion_id"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -79,6 +91,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_202121) do
     t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
   end
 
+  create_table "exchange_rates", force: :cascade do |t|
+    t.float "value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "prices", force: :cascade do |t|
     t.integer "admin_id", null: false
     t.integer "product_id", null: false
@@ -87,6 +105,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_202121) do
     t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "rubies_value"
     t.index ["admin_id"], name: "index_prices_on_admin_id"
     t.index ["product_id"], name: "index_prices_on_product_id"
   end
@@ -118,8 +137,26 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_202121) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "category_id"
+    t.decimal "rubies_shipping_price"
+    t.integer "cashback_id"
+    t.index ["cashback_id"], name: "index_products_on_cashback_id"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["sku"], name: "index_products_on_sku", unique: true
+  end
+
+  create_table "promotions", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.string "name"
+    t.integer "discount_percentual"
+    t.decimal "discount_max"
+    t.integer "used_times", default: 0
+    t.string "coupon"
+    t.integer "usage_limit"
+    t.integer "admin_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_promotions_on_admin_id"
   end
 
   create_table "purchases", force: :cascade do |t|
@@ -128,18 +165,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_202121) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "message"
+    t.decimal "cashback_value", default: "0.0"
     t.index ["client_id"], name: "index_purchases_on_client_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cashbacks", "admins"
   add_foreign_key "categories", "admins"
   add_foreign_key "categories", "categories"
+  add_foreign_key "categories", "promotions"
   add_foreign_key "prices", "admins"
   add_foreign_key "prices", "products"
   add_foreign_key "product_items", "clients"
   add_foreign_key "product_items", "products"
   add_foreign_key "product_items", "purchases"
+  add_foreign_key "products", "cashbacks"
   add_foreign_key "products", "categories"
+  add_foreign_key "promotions", "admins"
   add_foreign_key "purchases", "clients"
 end

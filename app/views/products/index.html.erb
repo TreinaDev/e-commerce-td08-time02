@@ -1,15 +1,27 @@
 <%= link_to 'Cadastrar Produto', new_product_path if admin_signed_in? %>
 
+<%= form_with url: search_products_path, method: :get do |form| %>
+  <%= form.label :query, "Buscar" %>
+  <%= form.text_field :query %>
+  <%= form.submit "Buscar" %>
+<% end %>
+
+<% @categories.each do |category| %>
+  <div>
+    <p><%= link_to category.name, filter_products_path(category.id) %></p>
+  </div>
+<% end %>
+
 <% if @products.any? %>
   <% @products.each do |product| %>
-  <div id=<%= product.name %>>
+  <div id=<%= product.id %>>
     <p>Nome: <%= link_to product.name, product_path(product) %> </p>
     <p>Marca: <%= product.brand %></p>
     <p><%= Product.human_attribute_name("status.#{product.status}") if admin_signed_in? %></p>
     <%= image_tag product.photos.last if product.photos.attached? %>
+    <p><%= number_with_precision(product.current_price.rubies_value, precision: 2) %> rubis</p>
   </div>
   <% end %>
-
 <% else %>
-  <p>Nenhum produto cadastrado</p>
+  <p>Nenhum produto encontrado</p>
 <% end %>

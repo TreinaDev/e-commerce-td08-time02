@@ -3,16 +3,18 @@ require 'rails_helper'
 describe 'Administrador vê detalhes de uma categoria' do
   it 'com sucesso' do
     admin = create(:admin, name: 'André')
-    category = create(:category, name: 'Eletronicos', admin:)
-    create(:category, name: 'Celulares', admin:, category:)
-    create(:category, name: 'Computadores', admin:, category:)
+    promotion = create(:promotion, name: 'BlackFriday', admin: admin)
+    category = create(:category, name: 'Eletrônicos', admin: admin, promotion: promotion, status: :disabled)
+    create(:subcategory, name: 'Celulares', category: category)
+    create(:subcategory, name: 'Computadores', category: category)
 
     login_as(admin, scope: :admin)
     visit categories_path
-    click_on 'Eletronicos'
+    click_on 'Eletrônicos'
 
-    expect(page).to have_content 'Eletronicos'
-    expect(page).to have_content 'Status: Ativo'
+    expect(page).to have_content 'Eletrônicos'
+    expect(page).to have_content 'Promoção: BlackFriday'
+    expect(page).to have_content 'Status: Desativada'
     expect(page).to have_content 'Criado por: André'
     expect(page).to have_content 'Subcategorias'
     expect(page).to have_link 'Celulares'
