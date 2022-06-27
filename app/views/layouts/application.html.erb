@@ -77,8 +77,8 @@
           </div>
           <div class= 'flex flex-col font-semibold space-y-2'>
             <% if client_signed_in? %>
-              <div class= 'flex space-y-2'>
-                <li class= 'border px-2 rounded-full'><%= @balance %> Rubis</li>
+              <div class= 'flex flex-col space-y-2 '>
+                <li class= 'border px-2 rounded-full self-start align-center'><%= @balance %> Rubis</li>
                 <li><%= current_client.name %> (<%= current_client.email %>)</li>
                 <li class= 'text-red-500'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
               </div>
@@ -90,12 +90,12 @@
               </div>
             <% end %>
             <% if admin_signed_in? %>
-              <div class= 'flex  flex-col space-x-2'>
+              <div class= 'flex  flex-col space-y-2'>
                 <li><%= link_to 'Promoções', promotions_path %></li>
                 <li><%= link_to 'Categorias', categories_path %></li>
                 <li><%= link_to 'Cadastros Pendentes', pending_admins_path %></li>
               </div>
-              <div class= 'flex flex-col space-x-2'>
+              <div class= 'flex flex-col space-y-2'>
                 <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
                 <li class= 'text-red-500'><%= button_to 'Sair', destroy_admin_session_path, method: :delete %></li>
               </div>
