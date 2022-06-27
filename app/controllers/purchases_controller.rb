@@ -8,7 +8,7 @@ class PurchasesController < ApplicationController
     response = PurchaseDataService.send(purchase)
     if response&.status == :created
       PurchaseDataService.change_purchase_status(purchase, response)
-      return redirect_to root_path, notice: PurchaseDataService.define_status_notice(purchase)
+      return redirect_to root_path, notice: PurchaseDataService.status_notice(purchase)
     end
 
     purchase.destroy

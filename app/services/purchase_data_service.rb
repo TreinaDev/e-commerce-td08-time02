@@ -15,7 +15,7 @@ class PurchaseDataService
     purchase.client.product_items.clear
   end
 
-  def self.define_status_notice(purchase)
+  def self.status_notice(purchase)
     purchase.approved? ? I18n.t('purchase_confirmed') : I18n.t('purchase_pending')
   end
 end
