@@ -91,6 +91,7 @@
             <% end %>
             <% if admin_signed_in? %>
               <div class= 'flex  flex-col space-x-2'>
+                <li><%= link_to 'Promoções', promotions_path %></li>
                 <li><%= link_to 'Categorias', categories_path %></li>
                 <li><%= link_to 'Cadastros Pendentes', pending_admins_path %></li>
               </div>
