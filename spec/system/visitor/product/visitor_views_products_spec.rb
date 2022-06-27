@@ -10,7 +10,7 @@ describe 'Visitante vê todos os produtos' do
                            filename: 'placeholder-image-2.png', content_type: 'image/png')
 
     visit root_path
-    click_on 'Produtos'
+    find('#menu-desktop').click_on 'Produtos'
 
     expect(page).to have_current_path products_path
     expect(page).not_to have_link('Cadastrar Produto')
@@ -24,7 +24,7 @@ describe 'Visitante vê todos os produtos' do
 
   it 'e não existem produtos cadastrados' do
     visit root_path
-    click_on 'Produtos'
+    find('#menu-desktop').click_on 'Produtos'
 
     expect(page).to have_content 'Nenhum produto encontrado'
   end

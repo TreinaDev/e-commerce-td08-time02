@@ -7,7 +7,7 @@ describe 'Administrador modifica status da categoria' do
 
     login_as(admin, scope: :admin)
     visit root_path
-    click_on 'Categorias'
+    find('#menu-desktop').click_on 'Categorias'
     click_on 'Eletrônicos'
     click_on 'Desativar'
     category.reload
@@ -25,7 +25,7 @@ describe 'Administrador modifica status da categoria' do
 
     login_as(admin, scope: :admin)
     visit root_path
-    click_on 'Categorias'
+    find('#menu-desktop').click_on 'Categorias'
     click_on 'Eletrônicos'
     click_on 'Ativar'
     category.reload

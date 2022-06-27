@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Cliente se cadastra' do
   it 'com sucesso' do
     visit root_path
-    click_on('Entrar como Cliente')
+    find('#menu-desktop').click_on('Entrar como Cliente')
     click_on('Registrar-se')
     fill_in('E-mail', with: 'james@outlook.com')
     fill_in('Senha', with: 'password')

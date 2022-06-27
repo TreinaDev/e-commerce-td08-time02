@@ -10,9 +10,8 @@ describe 'Visitante filtra produtos por categoria' do
     create :product, name: 'Galaxy S20', category: other_category
 
     visit root_path
-    click_on 'Produtos'
+    find('#menu-desktop').click_on 'Produtos'
     click_on 'Roupas'
-    
     expect(page).to have_content('Shorts vermelho')
     expect(page).to have_content('Shorts azul')
     expect(page).not_to have_content('Galaxy S20')
