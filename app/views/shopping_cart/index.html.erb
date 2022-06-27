@@ -40,7 +40,7 @@
         <p>Total: <%= number_with_precision(@total, precision: 2) %> rubis</p>
       </div>
 
-      <%= button_to 'Confirmar Compra', purchases_path(client_id: current_client.id, value: @total), method: :post %>
+      <%= button_to 'Confirmar Compra', purchases_path(client_id: current_client.id, value: @total), method: :post %>      
     </div>
 
   <% else %>

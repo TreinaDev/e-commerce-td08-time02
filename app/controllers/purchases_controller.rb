@@ -5,10 +5,10 @@ class PurchasesController < ApplicationController
     purchase = Purchase.new(purchase_params)
     purchase.product_items = current_client.product_items
     purchase.save
-    response_status = SendPurchaseDataService.response_status(purchase)
-    if response_status
-      purchase.approved!
-      return redirect_to root_path, notice: t('purchase_confirmed')
+    response = PurchaseDataService.send(purchase)
+    if response&.status == :created
+      PurchaseDataService.change_purchase_status(purchase, response)
+      return redirect_to root_path, notice: PurchaseDataService.define_status_notice(purchase)
     end
 
     purchase.destroy
