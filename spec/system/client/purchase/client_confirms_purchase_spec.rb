@@ -75,4 +75,26 @@ describe 'Cliente confirma compra' do
     expect(Purchase.count).to eq 0
     expect(client.product_items).to include item
   end
+
+  it 'e os itens são removidos do carrinho' do
+    create :exchange_rate, value: 2.0
+    client = create :client, code: '510.309.910-14'
+    product = create :product, shipping_price: 10.00
+    create :price, product: product, value: 20.00
+    create :product_item, client: client, product: product, quantity: 1
+    purchase_data_sent = { transaction: { order: 1, registered_number: '510.309.910-14',
+                                          value: 1500, cashback: 0 } }.to_json
+    purchase_status_data = { transaction: { order: 1, registered_number: '510.309.910-14',
+                                            status: 'accepted', message: nil } }.to_json
+    purchase_response = instance_double Faraday::Response, status: :created, body: purchase_status_data
+    allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/transactions', purchase_data_sent,
+                                          content_type: 'application/json').and_return(purchase_response)
+
+    login_as client, scope: :client
+    visit shopping_cart_path
+    click_on 'Confirmar Compra'
+    visit shopping_cart_path
+
+    expect(page).to have_content 'Não há produtos no carrinho'
+  end
 end
