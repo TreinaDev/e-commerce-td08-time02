@@ -1,0 +1,26 @@
+<div>
+  <h1>Detalhes da Promoção</h1>
+
+  <div>
+    <h2><%= @promotion.coupon %></h2>
+    <p>Validade: <%= @promotion.is_valid_status %></p>
+    <p>Nome: <%= @promotion.name %></p>
+    <p>Percentual de Desconto: <%= @promotion.discount_percentual %>%</p>
+    <p>Quantidade Máxima de Desconto: R$ <%= @promotion.discount_max.to_i %></p>
+    <p>Quantidade utilizada: <%= @promotion.used_times %> | Limite de uso: <%= @promotion.usage_limit %></p>
+    <p>Início: <%= I18n.l(@promotion.start_date) %> | Final: <%= I18n.l(@promotion.end_date) %></p>
+    <p>Percentual de Desconto: <%= @promotion.discount_percentual %></p>    
+  </div>
+
+  <div>
+    <h2>Categorias:</h2>
+      <% @promotion.categories.each do |category| %>
+        <ul>
+          <li><%= link_to category.name, category %></li>
+        </ul>
+      <% end %>
+      <% if @promotion.categories.empty? %>
+        <p>Não há categorias</p>
+      <% end %>
+  </div>
+</div>

@@ -29,6 +29,7 @@
               <h3 class='font-semibold'>Nome: <%= link_to product.name, product_path(product) %> </h3>
               <p>Marca: <%= product.brand %></p>
               <p><%= Product.human_attribute_name("status.#{product.status}") if admin_signed_in? %></p>
+              <p><%= number_with_precision(product.current_price.rubies_value, precision: 2) %> rubis</p>
             </div>
           </div>
         </div>
@@ -37,5 +38,4 @@
         <p>Nenhum produto encontrado</p>
       <% end %>
     </div>
-  </div>
 </section>

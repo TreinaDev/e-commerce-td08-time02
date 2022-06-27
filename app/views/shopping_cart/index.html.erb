@@ -8,11 +8,19 @@
           <div>
             <%= link_to item.product.name, item.product %>
           </div>
+
           <div>
-            <p>Preço Unitário: <%= number_to_currency(item.product.current_price, unit: "R$")%></p>
-            <p>Subtotal: <%= number_to_currency(item.get_product_total_price, unit: "R$")%></p>
-            <p>Frete: <%= number_to_currency(item.get_product_shipping_price, unit: "R$")%></p>
+            <p>
+              Preço Unitário: <%= number_with_precision(item.product.current_price.rubies_value, precision: 2) %> rubis
+            </p>
+            <p>
+              Subtotal: <%= number_with_precision(item.define_product_total_price, precision: 2) %> rubis
+            </p>
+            <p>
+              Frete: <%= number_with_precision(item.define_product_shipping_price, precision: 2) %> rubis
+            </p>
           </div>
+
           <div>
             <% if item.quantity != 1 %>
               <%= button_to '-', dec_quantity_product_product_item_path(item.product, item), method: 'patch' %>
@@ -20,14 +28,17 @@
             <%= item.quantity %>
             <%= button_to '+', sum_quantity_product_product_item_path(item.product, item), method: 'patch' %>
           </div>
+
           <%= button_to 'Remover Produto', product_product_item_path(item.product, item), method: 'delete' %>
         </div>
       <% end %>
+
       <div>
-        <p>Total produtos: <%= number_to_currency(@total_products, unit: "R$")%></p>
-        <p>Total frete: <%= number_to_currency(@total_shipping, unit: "R$")%></p>
-        <p>Total: <%= number_to_currency(@total, unit: "R$")%></p>       
+        <p>Total produtos: <%= number_with_precision(@total_products, precision: 2) %> rubis</p>
+        <p>Total frete: <%= number_with_precision(@total_shipping, precision: 2)%> rubis</p>
+        <p>Total: <%= number_with_precision(@total, precision: 2) %> rubis</p>
       </div>
+
     </div>
   <% else %>
     <div>

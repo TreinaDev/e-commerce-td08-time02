@@ -26,10 +26,9 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @query = params[:query]
-    @categories = Category.active
+    @categories = Category.all
     @products = Product.where('name LIKE :query OR description LIKE :query OR sku LIKE :query',
-                              query: "%#{@query}%")
+                              query: "%#{params[:query]}%")
     render :index
   end
 
@@ -44,7 +43,7 @@ class ProductsController < ApplicationController
   def filter
     @category = Category.find(params[:format])
     @products = @category.all_products
-    @categories = Category.active
+    @categories = Category.all
 
     render :index
   end

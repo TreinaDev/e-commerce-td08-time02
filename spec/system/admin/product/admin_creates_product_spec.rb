@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'Administrador cadastra um produto' do
   it 'a partir da tela inicial' do
+    create :exchange_rate, value: 2.00
     admin = create :admin, name: 'João'
     category = create :category, admin: admin
     create :subcategory, name: 'TVs', category: category, admin: admin
@@ -19,10 +20,10 @@ describe 'Administrador cadastra um produto' do
     fill_in 'Altura', with: '45'
     fill_in 'Profundidade', with: '10'
     fill_in 'Peso', with: '4'
-    fill_in 'Preço de frete', with: '47'
+    fill_in 'Preço de frete', with: '10'
     check 'Frágil'
-    fill_in 'Data final', with: 1.week.from_now
-    fill_in 'Valor', with: '201.89'
+    fill_in 'Data final', with: 7.days.from_now
+    fill_in 'Valor', with: '20'
     attach_file 'Fotos', [Rails.root.join('spec/support/files/placeholder-image-1.png'),
                           Rails.root.join('spec/support/files/placeholder-image-2.png')]
     attach_file 'Manual', Rails.root.join('spec/support/files/placeholder-manual.pdf')
@@ -30,22 +31,23 @@ describe 'Administrador cadastra um produto' do
 
     expect(page).to have_current_path product_path(Product.last)
     expect(page).to have_content('Produto criado com sucesso')
-    expect(page).to have_content('TV - LG 45')
-    expect(page).to have_css("img[src*='placeholder-image-1.png']")
-    expect(page).to have_css("img[src*='placeholder-image-2.png']")
-    expect(page).to have_content('Status: Inativo')
-    expect(page).to have_content('Marca: LG')
-    expect(page).to have_content('Categoria: TVs')
-    expect(page).to have_content('SKU: TVLG45-XKFZ')
-    expect(page).to have_content('Descrição: TV - LG 45 polegadas')
-    expect(page).to have_content('Dimensões: 75,00 x 45,00 x 10,00')
-    expect(page).to have_content('Peso: 4,00 kg')
-    expect(page).to have_content('Preço do Frete: R$ 47,00')
-    expect(page).to have_content('Frágil - Sim')
-    expect(page).to have_content("Preço para #{I18n.l(Time.zone.today)} - #{I18n.l(1.week.from_now.to_date)}: " \
-                                 'R$ 201,89 - Cadastrado por: João')
-    expect(page).to have_link('Manual')
-    expect(page).not_to have_button 'Adicionar ao Carrinho'
+    expect(Product.last.name).to eq 'TV - LG 45'
+    expect(Product.last).to be_inactive
+    expect(Product.last.brand).to eq 'LG'
+    expect(Product.last.category.name).to eq 'TVs'
+    expect(Product.last.sku).to eq 'TVLG45-XKFZ'
+    expect(Product.last.description).to eq 'TV - LG 45 polegadas'
+    expect(Product.last.height).to eq 45.00
+    expect(Product.last.width).to eq 75.00
+    expect(Product.last.depth).to eq 10.00
+    expect(Product.last.weight).to eq 4.00
+    expect(Product.last.shipping_price).to eq 10.00
+    expect(Product.last.rubies_shipping_price).to eq 5.00
+    expect(Product.last).to be_fragile
+    expect(Product.last.current_price.value).to eq 20.00
+    expect(Product.last.current_price.rubies_value).to eq 10.00
+    expect(Product.last.manual).to be_present
+    expect(Product.last.photos.count).to eq 2
   end
 
   it 'com dados incompletos' do

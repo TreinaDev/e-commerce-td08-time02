@@ -13,12 +13,14 @@ class CategoriesController < ApplicationController
   def new
     @category = Category.new
     @categories = Category.all
+    @promotions = Promotion.where('end_date > :today', today: Date.today)
   end
 
   def create
     @category = Category.new(category_params)
     @category.admin_id = current_admin.id
     @categories = Category.all
+    @promotions = Promotion.where('end_date > :today', today: Date.today)
 
     if @category.save
       redirect_to categories_path, notice: t('category_created')
@@ -45,6 +47,6 @@ class CategoriesController < ApplicationController
   end
 
   def category_params
-    params.require(:category).permit(:name, :category_id)
+    params.require(:category).permit(:name, :category_id, :promotion_id)
   end
 end
