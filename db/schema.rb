@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_24_124150) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_25_122545) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_24_124150) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -116,8 +116,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_24_124150) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "client_id", null: false
+    t.integer "purchase_id"
     t.index ["client_id"], name: "index_product_items_on_client_id"
     t.index ["product_id"], name: "index_product_items_on_product_id"
+    t.index ["purchase_id"], name: "index_product_items_on_purchase_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -157,6 +159,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_24_124150) do
     t.index ["admin_id"], name: "index_promotions_on_admin_id"
   end
 
+  create_table "purchases", force: :cascade do |t|
+    t.integer "client_id", null: false
+    t.decimal "value"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "message"
+    t.decimal "cashback_value", default: "0.0"
+    t.index ["client_id"], name: "index_purchases_on_client_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cashbacks", "admins"
@@ -167,7 +180,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_24_124150) do
   add_foreign_key "prices", "products"
   add_foreign_key "product_items", "clients"
   add_foreign_key "product_items", "products"
+  add_foreign_key "product_items", "purchases"
   add_foreign_key "products", "cashbacks"
   add_foreign_key "products", "categories"
   add_foreign_key "promotions", "admins"
+  add_foreign_key "purchases", "clients"
 end
