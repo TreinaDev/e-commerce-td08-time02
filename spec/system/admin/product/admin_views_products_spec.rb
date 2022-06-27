@@ -15,12 +15,12 @@ describe 'Administrador vê todos os produtos' do
     within("##{first_product.id}") do
       expect(page).to have_content 'Monitor 8k'
       expect(page).to have_content 'LG'
-      expect(page).to have_content '5,00 rubis'
+      expect(page).to have_content '$5,00'
     end
     within("##{second_product.id}") do
       expect(page).to have_content 'Notebook'
       expect(page).to have_content 'Samsung'
-      expect(page).to have_content '10,00 rubis'
+      expect(page).to have_content '$10,00'
       expect(page).to have_content 'Inativo'
     end
   end
