@@ -6,7 +6,7 @@ RSpec.describe Category, type: :model do
 
     it 'falso quando o nome se repete na mesma super categoria' do
       admin = create(:admin)
-      category = described_class.create!(name: 'Eletronicos', admin:)
+      category = described_class.create!(name: 'Eletrônicos', admin:)
       described_class.create!(name: 'Celulares', admin:, category:)
       other_category = described_class.new(name: 'Celulares', admin:, category:)
 
@@ -16,7 +16,7 @@ RSpec.describe Category, type: :model do
 
     it 'verdadeiro quando o nome não se repete' do
       admin = create(:admin)
-      category = described_class.create!(name: 'Eletronicos', admin:)
+      category = described_class.create!(name: 'Eletrônicos', admin:)
       described_class.create!(name: 'Celulares', admin:, category:)
       other_category = described_class.new(name: 'Computadores', admin:, category:)
 

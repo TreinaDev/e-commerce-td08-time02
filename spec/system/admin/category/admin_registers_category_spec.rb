@@ -53,13 +53,13 @@ describe 'Administrador cria' do
 
     it 'a partir da tela de detalhes da categoria' do
       admin = create(:admin, name: 'André')
-      category = create(:category, name: 'Eletronicos', admin:)
+      category = create(:category, name: 'Eletrônicos', admin:)
 
       login_as(admin, scope: :admin)
       visit category_path(category)
       click_on 'Criar subcategoria'
       fill_in 'Nome', with: 'Celulares'
-      select 'Eletronicos', from: 'Selecione categoria relacionada'
+      select 'Eletrônicos', from: 'Selecione categoria relacionada'
       click_on 'Cadastrar'
 
       expect(Category.last.name).to eq 'Celulares'
