@@ -66,4 +66,16 @@ describe 'Visitante não autenticado' do
     expect(response).to redirect_to new_admin_session_path
     expect(category).to be_active
   end
+
+  it 'tenta fazer avaliação' do
+    product = create(:product, name: 'Monitor 8k', status: :active)
+    create(:price, product: product, admin: product.category.admin, start_date: Time.zone.today,
+                   end_date: 90.days.from_now, value: 1500.00)
+    review =  { product: product, rating: 3, comment: 'Muito bom.'}
+
+    post product_reviews_path(product.id), params: { review: review }
+
+    expect(response).to redirect_to new_client_session_path
+    expect(Review.count).to eq 0
+  end
 end
