@@ -8,7 +8,7 @@ describe 'Administrador cria' do
 
       login_as(admin, scope: :admin)
       visit root_path
-      click_on 'Categorias'
+      find('#menu-desktop').click_on 'Categorias'
       click_on 'Criar Categoria'
       fill_in 'Nome', with: 'Alimentos'
       select 'BlackFriday', from: 'Selecione promoção relacionada'

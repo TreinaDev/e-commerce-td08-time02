@@ -12,7 +12,8 @@ describe 'Visitante filtra produtos por categoria' do
     invisible_product = create :product, name: 'Galaxy S20', category: other_category
     create :price, product: invisible_product
 
-    visit products_path
+    visit root_path
+    find('#menu-desktop').click_on 'Produtos'
     click_on 'Roupas'
 
     expect(page).to have_content('Shorts vermelho')
