@@ -63,4 +63,18 @@ describe 'Administrador acessa detalhes do produto' do
     expect(page).to have_current_path product_path(product)
     expect(page).to have_content('Inativo')
   end
+
+  it 'e vê um produto cujos preços expiraram como inativo' do
+    create :exchange_rate, value: 2.0
+    product = create :product, name: 'Monitor 8k', brand: 'LG'
+    create :price, product: product, value: 10.00, start_date: Time.zone.today, end_date: 45.days.from_now
+    create :price, product: product, value: 20.00, start_date: 46.days.from_now, end_date: 90.days.from_now
+    product.active!
+    allow(Time.zone).to receive(:today).and_return 91.days.from_now
+
+    login_as product.category.admin, scope: :admin
+    visit product_path(product)
+
+    expect(page).to have_content 'Inativo'
+  end
 end

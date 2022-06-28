@@ -66,6 +66,7 @@
           <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
         <div>
       </div>
+      <%= button_to 'Confirmar Compra', purchases_path(client_id: current_client.id, value: @total), method: :post %> 
     <% else %>
       <div>
         <p>Não há produtos no carrinho</p>
