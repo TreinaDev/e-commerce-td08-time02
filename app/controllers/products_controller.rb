@@ -41,6 +41,9 @@ class ProductsController < ApplicationController
       return redirect_to root_path, notice: t('inactive_or_inexistent_product')
     end
 
+    @rating_average = Review.where('product_id = ?', @product).average(:rating).to_f
+    @reviews = Review.where(product_id: @product).order('created_at DESC')
+
     set_new_price
   end
 

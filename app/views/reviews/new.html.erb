@@ -1,0 +1,33 @@
+<h1>Avaliação</h1>
+
+  <% if(@review.errors.any?) %>
+    <p>Verifique os erros abaixo:</p>
+    <ul>
+      <% @review.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if @product.photos.attached? %>
+      <%= image_tag @product.photos.first %>
+  <% end %>
+  <p>Marca: <%= @product.brand %></p>
+  <p>Name: <%= @product.name %></p>
+<div>
+  <%= form_for([@product, @review]) do |form| %>
+    <div>
+      <%= form.label :rating %>
+      <%= form.number_field :rating, min: 0, max: 5 %>
+      <p><%= @review.errors.full_messages_for(:raing).first if @review.errors.any? %></p>
+    </div>
+    <div>
+      <%= form.label :comment %>
+      <%= form.text_area :comment %>
+      <p><%= @review.errors.full_messages_for(:comment).first if @review.errors.any? %></p>
+    </div>
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>

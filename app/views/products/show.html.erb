@@ -8,6 +8,7 @@
   <p>Marca: <%= @product.brand %></p>
   <p>Categoria: <%= @product.category.name %></p>
   <p>SKU: <%= @product.sku %></p>
+  <p>Avaliação: <%= number_with_precision(@rating_average,  precision: 1) %></p>
   <% unless admin_signed_in? %>
     <%= button_to 'Adicionar ao carrinho ', product_product_items_path(@product.id), method: 'post' %>
   <% end %>
@@ -61,4 +62,24 @@
     <% end %>
   <% end %>
   <p><%= link_to 'Manual', @product.manual if @product.manual.attached? %></p>
+</div>
+<div>
+<br>
+  <% unless admin_signed_in? %>
+    <h3>Avaliações</h3>
+    <p><%= link_to 'Faça sua avaliação', new_product_review_path(@product) %> </p>
+    <br>
+    <% if @reviews.empty? %>
+      <p>Não há avaliação cadastrada</p>
+    <% else %>
+      <% @reviews.each do |review| %>
+        <div>
+          <p><%= review.client.name %> - <%= time_ago_in_words(review.created_at) %></p>
+          <p>Nota: <%= review.rating %></p>
+          <p>Comentario: <%= review.comment %></p>
+          <br>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
 </div>
