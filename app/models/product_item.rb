@@ -1,6 +1,6 @@
 class ProductItem < ApplicationRecord
   belongs_to :product
-  belongs_to :client
+  belongs_to :client, optional: true
   belongs_to :purchase, optional: true
 
   def define_product_total_price
