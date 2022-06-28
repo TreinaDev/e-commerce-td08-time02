@@ -7,7 +7,7 @@ describe 'Cliente visualiza o próprio saldo' do
     login_as client, scope: :client
     visit root_path
 
-    within('nav') do
+    within('#menu-desktop') do
       expect(page).to have_content('50,75 Rubis')
     end
   end

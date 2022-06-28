@@ -15,7 +15,7 @@ describe 'Visitante vê todos os produtos' do
     create :price, product: product2, start_date: 2.days.from_now, end_date: 90.days.from_now, value: 40.00
 
     visit root_path
-    click_on 'Produtos'
+    find('#menu-desktop').click_on 'Produtos'
 
     expect(page).to have_current_path products_path
     expect(page).not_to have_link('Cadastrar Produto')
@@ -23,19 +23,19 @@ describe 'Visitante vê todos os produtos' do
       expect(page).to have_content('Monitor 8k')
       expect(page).to have_content('Marca: LG')
       expect(page).to have_css("img[src*='placeholder-image-1.png']")
-      expect(page).to have_content('5,00 rubis')
+      expect(page).to have_content('$5,00')
     end
     within("##{product2.id}") do
       expect(page).to have_content('Monitor 4k')
       expect(page).to have_content('Marca: Samsung')
       expect(page).to have_css("img[src*='placeholder-image-2.png']")
-      expect(page).to have_content('10,00 rubis')
+      expect(page).to have_content('$10,00')
     end
   end
 
   it 'e não existem produtos cadastrados' do
     visit root_path
-    click_on 'Produtos'
+    find('#menu-desktop').click_on 'Produtos'
 
     expect(page).to have_content 'Nenhum produto encontrado'
   end
@@ -52,10 +52,10 @@ describe 'Visitante vê todos os produtos' do
     within("##{first_product.id}") do
       expect(page).to have_content 'Monitor 8k'
       expect(page).to have_content 'LG'
-      expect(page).to have_content '5,00 rubis'
+      expect(page).to have_content '$5,00'
     end
     expect(page).not_to have_content 'Notebook'
     expect(page).not_to have_content 'Samsung'
-    expect(page).not_to have_content '10,00 rubis'
+    expect(page).not_to have_content '$10,00'
   end
 end

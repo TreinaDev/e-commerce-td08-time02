@@ -6,7 +6,7 @@ describe 'Administrador cria promoção' do
 
     login_as admin, scope: :admin
     visit root_path
-    click_on 'Promoções'
+    find('#menu-desktop').click_on 'Promoções'
     click_on 'Criar Promoção'
     fill_in 'Nome', with: 'BlackFriday'
     fill_in 'Percentual de Desconto', with: '50'
@@ -30,7 +30,7 @@ describe 'Administrador cria promoção' do
 
     login_as admin, scope: :admin
     visit root_path
-    click_on 'Promoções'
+    find('#menu-desktop').click_on 'Promoções'
     click_on 'Criar Promoção'
     fill_in 'Nome', with: ''
     fill_in 'Percentual de Desconto', with: ''

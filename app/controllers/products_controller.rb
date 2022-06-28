@@ -3,7 +3,6 @@ class ProductsController < ApplicationController
   before_action :authenticate_admin!, only: %i[new create activate deactivate]
 
   def index
-    @products = Product.all
     @categories = Category.active
     @products = admin_signed_in? ? Product.all : Product.active
   end

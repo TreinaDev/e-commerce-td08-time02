@@ -14,6 +14,14 @@ class Client < ApplicationRecord
     code.split('-').join.split('.').join.split('/').join
   end
 
+  def purchase_value
+    product_items.sum(&:define_product_total_price)
+  end
+
+  def purchase_shipping_value
+    product_items.sum(&:define_product_shipping_price)
+  end
+
   private
 
   def code_is_valid
