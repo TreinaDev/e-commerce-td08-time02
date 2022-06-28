@@ -1,6 +1,10 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_client!
 
+  def index
+    @purchases = Purchase.where(client: current_client)
+  end
+
   def create
     purchase = Purchase.new(purchase_params)
     purchase.product_items = current_client.product_items
