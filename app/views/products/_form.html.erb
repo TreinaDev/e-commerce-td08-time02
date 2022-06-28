@@ -21,7 +21,7 @@
 
     <div>
     <%= f.label :cashback_id, 'Cashback' %>
-    <%= f.collection_select :cashback_id, @cashbacks, :id, :extended_description, { prompt: '[Sem cashback relacionada]'} %>
+    <%= f.collection_select :cashback_id, @cashbacks, :id, :extended_description, { prompt: '[Sem cashback relacionado]'} %>
     <% if @product.errors.any? %>
       <p class=' text-red-600'><%= @product.errors.full_messages_for(:cashbacks).first %></p>
     <% end %>
