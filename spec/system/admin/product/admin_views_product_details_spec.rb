@@ -38,10 +38,10 @@ describe 'Administrador acessa detalhes do produto' do
     expect(page).to have_content('SKU: MON8K-64792')
     expect(page).to have_content('Dimensões: 100,00 x 50,00 x 12,00')
     expect(page).to have_content('Peso: 12,00 kg')
-    expect(page).to have_content('Preço do Frete: 5,00 rubis')
+    expect(page).to have_content('Frete: $5,00')
     expect(page).to have_content('Preço do Frete (em reais): R$ 10,00')
     expect(page).to have_content('Frágil - Sim')
-    expect(page).to have_content('Preço: 10,00 rubis')
+    expect(page).to have_content('$10,00')
     expect(page).to have_content('Preço (em reais): R$ 20,00')
     expect(page).to have_content('Ativo')
     expect(page).to have_content("Preço para #{I18n.l(Time.zone.today)} - " \

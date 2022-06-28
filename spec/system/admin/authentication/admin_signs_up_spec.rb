@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Administrador se cadastra' do
   it 'com sucesso' do
     visit root_path
-    click_on 'Entrar como Administrador'
+    find('#menu-desktop').click_on 'Entrar como Administrador'
     click_on 'Registrar-se'
     fill_in 'E-mail', with: 'admin@mercadores.com.br'
     fill_in 'Senha', with: 'password'

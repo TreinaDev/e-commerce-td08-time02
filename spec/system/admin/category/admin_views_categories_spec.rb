@@ -8,7 +8,7 @@ describe 'Administrador vê categorias' do
 
     login_as(admin, scope: :admin)
     visit root_path
-    click_on 'Categorias'
+    find('#menu-desktop').click_on 'Categorias'
 
     expect(page).to have_link 'Eletrônicos'
     expect(page).to have_link 'Alimentos'

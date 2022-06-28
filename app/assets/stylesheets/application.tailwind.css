@@ -8,6 +8,12 @@
     .btn-second {
         @apply py-1 my-1 px-3 rounded-md bg-yell1 text-brown1 font-semibold cursor-pointer inline-block text-center;
     }
+    .btn-activate {
+        @apply py-1 my-1 px-3 rounded-md bg-green-500 text-white font-semibold cursor-pointer inline-block text-center;
+    }
+    .btn-deactivate {
+        @apply py-1 my-1 px-3 rounded-md bg-red-500 text-white font-semibold cursor-pointer inline-block text-center;
+    }
     .form {
         @apply h-[100%] items-center flex;
     }

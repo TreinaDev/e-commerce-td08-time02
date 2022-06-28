@@ -9,7 +9,7 @@ describe 'Administrador ve todas as promoções' do
 
     login_as admin, scope: :admin
     visit root_path
-    click_on 'Promoções'
+    find('#menu-desktop').click_on 'Promoções'
 
     expect(page).to have_link "#{promotion.coupon}"
     expect(page).to have_content 'Lista de Promoções'
