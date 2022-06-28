@@ -6,6 +6,8 @@ RSpec.describe Client, type: :model do
 
     it { is_expected.to validate_presence_of(:code) }
 
+    it { is_expected.to validate_numericality_of(:balance).is_greater_than_or_equal_to 0.0 }
+
     describe '.code_is_valid' do
       it 'verdadeiro se CPF é válido' do
         client = described_class.new(code: '510.808.180-49')
@@ -34,20 +36,12 @@ RSpec.describe Client, type: :model do
       end
     end
   end
-  
+
   describe '.code_numbers' do
     it 'remove caracteres especiais do code com sucesso' do
       client = create(:client, code: '82.425.181/0001-62')
 
       expect(client.code_numbers).to eq '82425181000162'
-    end
-  end
-
-  describe '.balance' do
-    it 'retorna valor de rubis de um cliente' do
-      client = create :client
-
-      expect(client.balance.class).to be Integer
     end
   end
 end

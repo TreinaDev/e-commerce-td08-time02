@@ -22,12 +22,12 @@
         <div class= 'flex font-semibold'>
           <% if client_signed_in? %>
             <div class= 'flex'>
-              <li class= 'mr-4 border px-2 rounded-full'><%= @balance %> Rubis</li>
+              <li class= 'mr-4 border px-2 rounded-full'><%= number_to_currency(current_client.balance) %> Rubis</li>
               <li class= 'mr-4'><%= current_client.name %> (<%= current_client.email %>)</li>
               <li class= 'mr-4 text-red-500'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
             </div>
           <% end %>
-          <% if !admin_signed_in? && !client_signed_in? %>
+          <% unless admin_signed_in? || client_signed_in? %>
             <div class= 'flex'>
               <li class= 'mr-4 border px-2 py-1 border-gray-400'><%= link_to "Entrar como Administrador", new_admin_session_path %></li>
               <li class= 'mr-4 border px-2 py-1 border-gray-400'><%= link_to "Entrar como Cliente", new_client_session_path %></li>

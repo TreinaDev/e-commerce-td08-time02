@@ -2,16 +2,13 @@ require 'rails_helper'
 
 describe 'Cliente visualiza o próprio saldo' do
   it 'com sucesso' do
-    client = create(:client)
-    json_data = File.read(Rails.root.join('spec/support/json/client_balance.json'))
-    fake_response = double("faraday_response", status: 200, body: json_data)
-    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:4000/api/v1/balance/#{client.code_numbers}").and_return(fake_response)
-    
+    client = create :client, code: '61.887.261/0001-60', balance: 50.75
+
     login_as client, scope: :client
     visit root_path
 
     within('nav') do
-      expect(page).to have_content('500 Rubis')
+      expect(page).to have_content('50,75 Rubis')
     end
   end
 end
