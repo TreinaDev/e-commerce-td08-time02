@@ -8,7 +8,7 @@ Client.create!(email: 'juliana@hotmail.com', password: 'password', name: 'Julian
 Client.create!(email: 'jadson@hotmail.com', password: 'password', name: 'Jadson', code: '59641220004')
 
 # Categorias
-first_category = Category.create!(name: 'Eletronicos', admin:, status: :active)
+first_category = Category.create!(name: 'Eletrônicos', admin:, status: :active)
 second_category = Category.create!(name: 'Roupas', admin:, status: :active)
 third_category = Category.create!(name: 'Celulares', admin:, category: first_category, status: :active)
 fourth_category = Category.create!(name: 'Camisetas', admin:, category: second_category, status: :active)
