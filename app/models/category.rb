@@ -13,7 +13,7 @@ class Category < ApplicationRecord
   def all_products(admin, all_products = [], category = self)
     admin ? all_products.concat(category.products) : all_products.concat(category.products.active)
     category.categories.each do |children|
-      all_products(all_products, children)
+      all_products(admin, all_products, children)
     end
 
     all_products
