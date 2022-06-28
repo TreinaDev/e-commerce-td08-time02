@@ -10,8 +10,15 @@ describe 'Visitante visita a app' do
   it 'e não encontra links restritos a administradores' do
     visit root_path
 
-    expect(page).not_to have_link 'Criar Categoria'
+    expect(page).not_to have_link 'Categorias'
+    expect(page).not_to have_link 'Promoções'
     expect(page).not_to have_link 'Cadastros Pendentes'
+  end
+
+  it 'e não encontra links restritos a clientes' do
+    visit root_path
+
+    expect(page).not_to have_link 'Minhas Compras'
   end
 
   it 'e volta para a tela inicial' do
