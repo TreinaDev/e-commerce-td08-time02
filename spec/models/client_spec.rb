@@ -42,12 +42,4 @@ RSpec.describe Client, type: :model do
       expect(client.code_numbers).to eq '82425181000162'
     end
   end
-
-  describe '.balance' do
-    it 'retorna valor de rubis de um cliente' do
-      client = create :client
-
-      expect(client.balance.class).to be Integer
-    end
-  end
 end

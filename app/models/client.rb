@@ -11,16 +11,6 @@ class Client < ApplicationRecord
 
   after_create :create_wallet
 
-  def balance
-    begin
-      response = Faraday.get("http://localhost:4000/api/v1/client_wallet/balance", { client_wallet: { registered_number: code }})
-      body = JSON.parse(response.body)
-      return body["balance"]
-    rescue => exception
-      return 0
-    end
-  end
-
   def code_numbers
     code.split('-').join.split('.').join.split('/').join
   end
@@ -28,8 +18,12 @@ class Client < ApplicationRecord
   private
 
   def create_wallet
-    params = { client_wallet: { email:, registered_number: code } }
-    Faraday.post('http://localhost:4000/api/v1/client_wallets', params)
+    begin
+      params = { client_wallet: { email:, registered_number: code } }
+      Faraday.post('http://localhost:4000/api/v1/client_wallets', params)
+    rescue => exception
+      puts 'Não foi possível fazer a conexão com a API de pagamentos'
+    end
   end
 
   def code_is_valid

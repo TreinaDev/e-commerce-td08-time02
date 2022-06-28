@@ -19,12 +19,6 @@ RSpec.configure do |config|
   config.before(:each) do
     stub_request(:post, "http://localhost:4000/api/v1/client_wallets").
     to_return(status: 200)
-    stub_request(:get, "http://localhost:4000/api/v1/client_wallet/balance?client_wallet%5Bregistered_number%5D=510.309.910-14").
-    to_return(status: 200)
-    stub_request(:get, "http://localhost:4000/api/v1/client_wallet/balance?client_wallet%5Bregistered_number%5D=29498318000126").
-    to_return(status: 200)
-    stub_request(:get, "http://localhost:4000/api/v1/client_wallet/balance?client_wallet%5Bregistered_number%5D=623.809.720-52").
-    to_return(status: 200)
   end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
