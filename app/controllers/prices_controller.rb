@@ -3,7 +3,8 @@ class PricesController < ApplicationController
     @product = Product.find(price_params[:product_id])
     @price = Price.new(price_params)
     return redirect_to @product, notice: t('price_registered') if @price.save
-
+    
+    @reviews = Review.where(product_id: @product).order('created_at DESC')
     flash.now[:notice] = t('price_registration_failed')
     render 'products/show'
   end

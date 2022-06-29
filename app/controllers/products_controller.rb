@@ -65,6 +65,7 @@ class ProductsController < ApplicationController
     end
 
     set_new_price
+    @reviews = Review.where(product_id: @product).order('created_at DESC')
     flash.now[:alert] = t('product_activation_failed')
     render :show
   end
