@@ -18,7 +18,7 @@
           <h1 class='font-extrabold text-xl text-yellow-400'>E-Commerce</h1>
         </div>
         <ul class= 'md:flex text-white justify-between items-center space-x-2 hidden w-full'>
-          <div class= 'flex font-semibold items-baseline space-x-2'>            
+          <div class= 'flex font-semibold items-baseline space-x-2'>
             <li><%= link_to 'Página Inicial', root_path %></li>
             <li><%= link_to 'Produtos', products_path %></li>
           </div>
@@ -26,6 +26,7 @@
             <% if client_signed_in? %>
               <div class= 'flex space-x-2'>
                 <li class= 'border px-2 rounded-full'><%= @balance %> Rubis</li>
+                <li><%= link_to 'Minhas Compras', purchases_path %></li>
                 <li><%= current_client.name %> (<%= current_client.email %>)</li>
                 <li class= 'text-red-500'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
               </div>
@@ -46,10 +47,10 @@
                 <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
                 <li class= 'text-red-500'><%= button_to 'Sair', destroy_admin_session_path, method: :delete %></li>
               </div>
-            <% end %>           
+            <% end %>
           </div>
         </ul>
-        
+
         <div class='flex items-center space-x-3 pl-3'>
           <% unless admin_signed_in? %>
             <div class= 'flex items-center'>
@@ -64,14 +65,14 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
-          </div> 
-        </div> 
-      </div>     
+          </div>
+        </div>
+      </div>
     </nav>
 
     <nav id='menu-mobile' class='hidden absolute w-full bg-black1 px-3'>
       <ul class= 'flex flex-col text-white items-start space-y-2 w-full pb-8'>
-          <div class= 'flex flex-col font-semibold items-baseline space-y-2'>           
+          <div class= 'flex flex-col font-semibold items-baseline space-y-2'>
             <li><%= link_to 'Página Inicial', root_path %></li>
             <li><%= link_to 'Produtos', products_path %></li>
           </div>
@@ -80,6 +81,7 @@
               <div class= 'flex flex-col space-y-2 '>
                 <li class= 'border px-2 rounded-full self-start align-center'><%= @balance %> Rubis</li>
                 <li><%= current_client.name %> (<%= current_client.email %>)</li>
+                <li><%= link_to 'Minhas Compras', purchases_path %></li>
                 <li class= 'text-red-500'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
               </div>
             <% end %>
@@ -99,7 +101,7 @@
                 <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
                 <li class= 'text-red-500'><%= button_to 'Sair', destroy_admin_session_path, method: :delete %></li>
               </div>
-            <% end %>           
+            <% end %>
           </div>
         </ul>
     </nav>
@@ -117,5 +119,5 @@
       <% end %>
     </div>
     <%= yield %>
-  </body> 
+  </body>
 </html>
