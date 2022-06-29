@@ -32,7 +32,7 @@
         </div>
       </div>
 
-        <div class="flex flex-col py-3 pb-5 w-full sm:w-6/12">
+        <div class="flex flex-col py-3 pb-5 w-full sm:w-12/12">
           <%= f.label :cashback_id, 'Cashback' %>
           <%= f.collection_select :cashback_id, @cashbacks, :id, :extended_description, { prompt: '[Sem cashback relacionado]'} %>
           <% if @product.errors.any? %>
