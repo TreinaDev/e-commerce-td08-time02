@@ -43,14 +43,6 @@ RSpec.describe Client, type: :model do
     end
   end
 
-  describe '.balance' do
-    it 'retorna valor de rubis de um cliente' do
-      client = create :client
-
-      expect(client.balance.class).to be Integer
-    end
-  end
-
   describe '.purchase_value' do
     it 'retorna valor total dos itens comprados em rubis' do
       create :exchange_rate, value: 2.0
