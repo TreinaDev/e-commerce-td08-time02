@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :purchase do
-    association :client
+    status { :approved }
   end
 end
