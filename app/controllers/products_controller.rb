@@ -22,16 +22,17 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to @product, notice: t('product_creation_succeeded')
     else
-      @categories = Category.all
+      @categories = Category.active
       flash.now[:alert] = t('product_creation_failed')
       render :new
     end
   end
 
   def search
-    @categories = Category.all
-    @products = Product.where('name LIKE :query OR description LIKE :query OR sku LIKE :query',
-                              query: "%#{params[:query]}%")
+    @categories = Category.active
+    @products = admin_signed_in? ? Product.all : Product.active
+    @products = @products.where('name LIKE :query OR description LIKE :query OR sku LIKE :query',
+                                query: "%#{params[:query]}%")
     render :index
   end
 
@@ -46,8 +47,8 @@ class ProductsController < ApplicationController
 
   def filter
     @category = Category.find(params[:format])
-    @products = @category.all_products
-    @categories = Category.all
+    @products = @category.all_products(admin_signed_in?)
+    @categories = Category.active
 
     render :index
   end
