@@ -4,6 +4,9 @@ class ProductsController < ApplicationController
 
   def index
     @categories = Category.active
+    Product.active.each do |product|
+      product.inactive! if product.prices.last.end_date < Time.zone.today
+    end
     @products = admin_signed_in? ? Product.all : Product.active
   end
 
@@ -34,7 +37,8 @@ class ProductsController < ApplicationController
   end
 
   def show
-    unless @product && (@product.active? || admin_signed_in?)
+    @product.inactive! if @product.prices.last.end_date < Time.zone.today
+    unless @product.active? || admin_signed_in?
       return redirect_to root_path, notice: t('inactive_or_inexistent_product')
     end
 
@@ -76,7 +80,7 @@ class ProductsController < ApplicationController
   def set_product
     @product = Product.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    @product = nil
+    redirect_to root_path, notice: t('inactive_or_inexistent_product')
   end
 
   def set_new_price
