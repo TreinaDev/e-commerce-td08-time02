@@ -30,7 +30,7 @@ first_product.manual.attach(io: File.open(Rails.root.join('spec/support/files/pl
                             filename: 'placeholder-manual.pdf', content_type: 'application/pdf')
 Price.create!(admin: admin, product: first_product, start_date: Time.zone.today, end_date: 90.days.from_now,
               value: 1500.00)
-              
+
 second_product = Product.create!(name: 'Casaco da Razer', brand: 'Razer', category: second_category,
                                  description: 'Casaco de Lã de Ovelha', sku: 'CAS8KU-99999', height: 50,
                                  width: 120, depth: 7, weight: 1.5, shipping_price: 50, fragile: false,

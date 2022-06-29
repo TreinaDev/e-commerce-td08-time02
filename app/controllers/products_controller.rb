@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
     @categories = Category.active
     @products = admin_signed_in? ? Product.all : Product.active
   end
-  
+
   def new
     @product = Product.new
     @start_date = Time.zone.today
