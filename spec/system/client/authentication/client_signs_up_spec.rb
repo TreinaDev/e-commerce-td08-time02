@@ -16,6 +16,7 @@ describe 'Cliente se cadastra' do
     expect(page).to have_content('Cadastro efetuado com sucesso.')
     expect(page).not_to have_content('Entrar como Cliente')
     expect(page).to have_content('James (james@outlook.com)')
+    expect(Client.last.has_wallet).to be true
   end
 
   it 'com dados incompletos' do

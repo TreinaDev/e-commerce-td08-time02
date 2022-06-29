@@ -20,9 +20,11 @@ class Client < ApplicationRecord
   def create_wallet
     begin
       params = { client_wallet: { email:, registered_number: code } }
-      Faraday.post('http://localhost:4000/api/v1/client_wallets', params)
-    rescue => exception
-      puts 'Não foi possível fazer a conexão com a API de pagamentos'
+      response = Faraday.post('http://localhost:4000/api/v1/client_wallets', params)
+      
+      if response.status.digits.last == 2 || response.body.include?('em uso')
+        self.update(has_wallet: true)
+      end
     end
   end
 
