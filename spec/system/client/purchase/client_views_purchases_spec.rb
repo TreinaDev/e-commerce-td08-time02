@@ -41,6 +41,6 @@ describe 'Cliente visualiza compras realizadas' do
     login_as client, scope: :client
     visit purchases_path
 
-    expect(page).to have_content 'Você ainda não realizou nenhuma compra.'
+    expect(page).to have_content 'Nenhuma compra realizada.'
   end
 end
