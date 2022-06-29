@@ -1,24 +1,48 @@
 <div>
   <% unless @product_items.empty? %>
     <h1><%= t('my_cart') %></h1>
+
     <div>
       <h4>Produtos</h4>
       <% @product_items.each do |item| %>
-        <div>
+        <div id=<%= item.product.id %>>
           <div>
             <%= link_to item.product.name, item.product %>
           </div>
+
           <div>
-            <% if item.quantity != 1 %>
+            <p>
+              Preço Unitário: <%= number_with_precision(item.product.current_price.rubies_value, precision: 2) %> rubis
+            </p>
+            <p>
+              Subtotal: <%= number_with_precision(item.define_product_total_price, precision: 2) %> rubis
+            </p>
+            <p>
+              Frete: <%= number_with_precision(item.define_product_shipping_price, precision: 2) %> rubis
+            </p>
+          </div>
+
+          <div>
+            <% if item.quantity > 1 %>
               <%= button_to '-', dec_quantity_product_product_item_path(item.product, item), method: 'patch' %>
             <% end %>
             <%= item.quantity %>
             <%= button_to '+', sum_quantity_product_product_item_path(item.product, item), method: 'patch' %>
           </div>
+
           <%= button_to 'Remover Produto', product_product_item_path(item.product, item), method: 'delete' %>
         </div>
       <% end %>
+
+      <div>
+        <p>Total produtos: <%= number_with_precision(@total_products, precision: 2) %> rubis</p>
+        <p>Total frete: <%= number_with_precision(@total_shipping, precision: 2)%> rubis</p>
+        <p>Total: <%= number_with_precision(@total, precision: 2) %> rubis</p>
+      </div>
+
+      <%= button_to 'Confirmar Compra', purchases_path(client_id: current_client.id, value: @total), method: :post %>      
     </div>
+
   <% else %>
     <div>
       <p>Não há produtos no carrinho</p>

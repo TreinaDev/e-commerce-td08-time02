@@ -1,0 +1,21 @@
+<h2>Lista de Promoções</h2>
+<div>
+  <%= link_to 'Criar Promoção', new_promotion_path %>
+</div>
+<% if @promotions.any? %>
+  <div class="promotions-wrapper">
+    <% @promotions.each do |promotion| %>
+      <div class="promotion">
+          <%= link_to promotion_path(promotion.id) do %>
+            <div><%= promotion.coupon %></div>
+            <div>Nome: <%= promotion.name %></div>
+          <% end %>
+          <div>Percentual de Desconto: <%= promotion.discount_percentual %>%</div>
+          <div>Quantidade utilizada: <%= promotion.used_times %> | Limite de uso: <%= promotion.usage_limit %></div>
+          <div>Início: <%= I18n.l(promotion.start_date) %> | Final: <%= I18n.l(promotion.end_date) %></div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div>Não há promoções cadastradas</div>
+<% end %>

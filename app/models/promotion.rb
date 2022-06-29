@@ -12,6 +12,16 @@ class Promotion < ApplicationRecord
 
   before_validation :generate_coupon, on: :create
 
+  def is_valid_status
+    if Date.today < start_date 
+      'Futura'
+    elsif Date.today > end_date
+      'Expirada'
+    else
+      'Vigente'
+    end
+  end
+
   private
 
   def generate_coupon

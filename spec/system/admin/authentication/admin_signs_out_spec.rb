@@ -6,7 +6,7 @@ describe 'Administrador sai do sistema' do
 
     login_as admin, scope: :admin
     visit root_path
-    click_on 'Sair'
+    find('#menu-desktop').click_on 'Sair'
 
     expect(page).to have_current_path root_path
     expect(page).to have_content 'Saída efetuada com sucesso.'

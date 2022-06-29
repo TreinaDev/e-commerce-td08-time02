@@ -12,51 +12,110 @@
   </head>
 
   <body>
-    <nav class=' bg-blue-600 p-5'>
-      <ul class= 'flex text-white justify-between'>
-        <div class= 'flex font-semibold items-baseline'>
-          <li class= 'mr-4 font-extrabold text-xl text-yellow-400'><h1>E-Commerce</h1></li>
-          <li class= 'mr-4'><%= link_to 'Página Inicial', root_path %></li>
-          <li class= 'mr-4'><%= link_to 'Produtos', products_path %></li>
+    <nav id='menu-desktop' class=' bg-[#222831] p-5 '>
+      <div class='flex justify-between w-full items-center'>
+        <div class='w-[170px]'>
+          <h1 class='font-extrabold text-xl text-yellow-400'>E-Commerce</h1>
         </div>
-        <div class= 'flex font-semibold'>
-          <% if client_signed_in? %>
-            <div class= 'flex'>
-              <li class= 'mr-4 border px-2 rounded-full'><%= @balance %> Rubis</li>
-              <li class= 'mr-4'><%= current_client.name %> (<%= current_client.email %>)</li>
-              <li class= 'mr-4 text-red-500'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
-            </div>
-          <% end %>
-          <% if !admin_signed_in? && !client_signed_in? %>
-            <div class= 'flex'>
-              <li class= 'mr-4 border px-2 py-1 border-gray-400'><%= link_to "Entrar como Administrador", new_admin_session_path %></li>
-              <li class= 'mr-4 border px-2 py-1 border-gray-400'><%= link_to "Entrar como Cliente", new_client_session_path %></li>
-            </div>
-          <% end %>
-          <% if admin_signed_in? %>
-            <div class= 'flex'>
-              <li class= 'mr-4'><%= link_to 'Categorias', categories_path %></li>
-              <li class= 'mr-4'><%= link_to 'Cadastros Pendentes', pending_admins_path %></li>
-            </div>
-            <div class= 'flex'>
-              <li class= 'mr-4'><%= current_admin.name %> (<%= current_admin.email %>)</li>
-              <li class= 'mr-4 text-red-500'><%= button_to 'Sair', destroy_admin_session_path, method: :delete %></li>
-            </div>
-          <% else %>
-            <div class= 'flex'>
+        <ul class= 'md:flex text-white justify-between items-center space-x-2 hidden w-full'>
+          <div class= 'flex font-semibold items-baseline space-x-2'>            
+            <li><%= link_to 'Página Inicial', root_path %></li>
+            <li><%= link_to 'Produtos', products_path %></li>
+          </div>
+          <div class= 'flex font-semibold space-x-2'>
+            <% if client_signed_in? %>
+              <div class= 'flex space-x-2'>
+                <li class= 'border px-2 rounded-full'><%= @balance %> Rubis</li>
+                <li><%= current_client.name %> (<%= current_client.email %>)</li>
+                <li class= 'text-red-500'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
+              </div>
+            <% end %>
+            <% if !admin_signed_in? && !client_signed_in? %>
+              <div class= 'flex space-x-2'>
+                <li class= 'border px-2 py-1 border-gray-400'><%= link_to "Entrar como Administrador", new_admin_session_path %></li>
+                <li class= 'border px-2 py-1 border-gray-400'><%= link_to "Entrar como Cliente", new_client_session_path %></li>
+              </div>
+            <% end %>
+            <% if admin_signed_in? %>
+              <div class= 'flex space-x-2'>
+                <li><%= link_to 'Promoções', promotions_path %></li>
+                <li><%= link_to 'Categorias', categories_path %></li>
+                <li><%= link_to 'Cadastros Pendentes', pending_admins_path %></li>
+              </div>
+              <div class= 'flex space-x-2'>
+                <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
+                <li class= 'text-red-500'><%= button_to 'Sair', destroy_admin_session_path, method: :delete %></li>
+              </div>
+            <% end %>           
+          </div>
+        </ul>
+        
+        <div class='flex items-center space-x-3 pl-3'>
+          <% unless admin_signed_in? %>
+            <div class= 'flex items-center'>
               <%= link_to shopping_cart_path, title:"Carrinho", class:"mt-1" do %>
-                <%= '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>'.html_safe %>
+                <%= '<svg class="w-8 h-8 text-yell1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>'.html_safe %>
               <% end %>
             </div>
           <% end %>
-        </div>
-      </ul>
+          <div class="-mr-2 flex items-center md:hidden ", id='btn-menu'>
+              <button type="button" class="bg-white rounded-md p-1 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brown1" aria-expanded="false">
+                <svg class="h-6 w-6 text-brown1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+          </div> 
+        </div> 
+      </div>     
+    </nav>
+
+    <nav id='menu-mobile' class='hidden absolute w-full bg-black1 px-3'>
+      <ul class= 'flex flex-col text-white items-start space-y-2 w-full pb-8'>
+          <div class= 'flex flex-col font-semibold items-baseline space-y-2'>           
+            <li><%= link_to 'Página Inicial', root_path %></li>
+            <li><%= link_to 'Produtos', products_path %></li>
+          </div>
+          <div class= 'flex flex-col font-semibold space-y-2'>
+            <% if client_signed_in? %>
+              <div class= 'flex flex-col space-y-2 '>
+                <li class= 'border px-2 rounded-full self-start align-center'><%= @balance %> Rubis</li>
+                <li><%= current_client.name %> (<%= current_client.email %>)</li>
+                <li class= 'text-red-500'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
+              </div>
+            <% end %>
+            <% if !admin_signed_in? && !client_signed_in? %>
+              <div class= 'flex space-y-2 flex-col'>
+                <li class= 'border px-2 py-1 border-gray-400'><%= link_to "Entrar como Administrador", new_admin_session_path %></li>
+                <li class= 'border px-2 py-1 border-gray-400 max-w-[175px]'><%= link_to "Entrar como Cliente", new_client_session_path %></li>
+              </div>
+            <% end %>
+            <% if admin_signed_in? %>
+              <div class= 'flex  flex-col space-y-2'>
+                <li><%= link_to 'Promoções', promotions_path %></li>
+                <li><%= link_to 'Categorias', categories_path %></li>
+                <li><%= link_to 'Cadastros Pendentes', pending_admins_path %></li>
+              </div>
+              <div class= 'flex flex-col space-y-2'>
+                <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
+                <li class= 'text-red-500'><%= button_to 'Sair', destroy_admin_session_path, method: :delete %></li>
+              </div>
+            <% end %>           
+          </div>
+        </ul>
     </nav>
 
     <div>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <% if notice%>
+      <div class="notice w-[98%] border-red-500 bg-green-500 p-1 mx-auto my-2 text-center">
+        <p><%= notice %></p>
+      </div>
+      <% end %>
+      <% if alert%>
+      <div class='alert w-[98%] bg-red-400 border-red-300 p-1 mx-auto my-2 opacity-90 text-center'>
+        <p><%= alert %></p>
+      </div>
+      <% end %>
     </div>
     <%= yield %>
-  </body>
+  </body> 
 </html>

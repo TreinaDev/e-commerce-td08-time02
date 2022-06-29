@@ -1,13 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/*
-
 @layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
-  }
+    .btn-primary {
+        @apply py-1 my-1 px-3 rounded-md bg-black1 text-yell1 font-semibold cursor-pointer inline-block text-center;
+    }
+    .btn-second {
+        @apply py-1 my-1 px-3 rounded-md bg-yell1 text-brown1 font-semibold cursor-pointer inline-block text-center;
+    }
+    .btn-activate {
+        @apply py-1 my-1 px-3 rounded-md bg-green-500 text-white font-semibold cursor-pointer inline-block text-center;
+    }
+    .btn-deactivate {
+        @apply py-1 my-1 px-3 rounded-md bg-red-500 text-white font-semibold cursor-pointer inline-block text-center;
+    }
+    .form {
+        @apply h-[100%] items-center flex;
+    }
+    .form>div {
+        @apply flex flex-col text-black justify-center items-center p-10 m-auto
+    }
+    .form>div>div.field {
+        @apply flex flex-col max-w-[250px];
+    }
 }
 
-*/
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 15px;
+}
