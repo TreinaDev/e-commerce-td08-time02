@@ -11,17 +11,23 @@ class Client < ApplicationRecord
   validate :code_is_valid
 
   def balance
-    begin
-      response = Faraday.get("http://localhost:4000/api/v1/balance/#{self.code_numbers}")
-      body = JSON.parse(response.body)
-      return body["balance"]
-    rescue => exception
-      return 0
-    end
+    response = Faraday.get("http://localhost:4000/api/v1/balance/#{code_numbers}")
+    body = JSON.parse(response.body)
+    body['balance']
+  rescue
+    0
   end
 
   def code_numbers
     code.split('-').join.split('.').join.split('/').join
+  end
+
+  def purchase_value
+    product_items.sum(&:define_product_total_price)
+  end
+
+  def purchase_shipping_value
+    product_items.sum(&:define_product_shipping_price)
   end
 
   private

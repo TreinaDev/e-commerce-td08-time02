@@ -1,0 +1,31 @@
+<div>
+  <%= form_with model: @promotion do |form| %>
+    <div>
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+    <div>
+      <%= form.label :discount_percentual %>
+      <%= form.number_field :discount_percentual %>
+    </div>
+    <div>
+      <%= form.label :discount_max %>
+      <%= form.number_field :discount_max %>
+    </div>
+    <div>
+      <%= form.label :usage_limit %>
+      <%= form.number_field :usage_limit %>
+    </div>
+    <div>
+      <%= form.label :start_date %>
+      <%= form.date_field :start_date %>
+    </div>
+    <div>
+      <%= form.label :end_date %>
+      <%= form.date_field :end_date %>
+    </div>
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>

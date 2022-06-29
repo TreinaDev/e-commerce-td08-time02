@@ -9,7 +9,7 @@ describe 'Administrador vê os cadastros de administradores pendentes' do
 
     login_as admin, scope: :admin
     visit root_path
-    click_on 'Cadastros Pendentes'
+    find('#menu-desktop').click_on 'Cadastros Pendentes'
 
     expect(page).to have_content 'Cadastros de administradores pendentes'
     expect(page).to have_content 'Nome: José'

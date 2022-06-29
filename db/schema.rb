@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_24_202843) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_27_123229) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_24_202843) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.integer "blob_id", null: false
+    t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -91,6 +91,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_24_202843) do
     t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
   end
 
+  create_table "exchange_rates", force: :cascade do |t|
+    t.float "value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "prices", force: :cascade do |t|
     t.integer "admin_id", null: false
     t.integer "product_id", null: false
@@ -99,6 +105,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_24_202843) do
     t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "rubies_value"
     t.index ["admin_id"], name: "index_prices_on_admin_id"
     t.index ["product_id"], name: "index_prices_on_product_id"
   end
@@ -108,9 +115,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_24_202843) do
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "client_id", null: false
+    t.integer "client_id"
+    t.integer "purchase_id"
     t.index ["client_id"], name: "index_product_items_on_client_id"
     t.index ["product_id"], name: "index_product_items_on_product_id"
+    t.index ["purchase_id"], name: "index_product_items_on_purchase_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -128,6 +137,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_24_202843) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "category_id"
+    t.decimal "rubies_shipping_price"
     t.integer "cashback_id"
     t.index ["cashback_id"], name: "index_products_on_cashback_id"
     t.index ["category_id"], name: "index_products_on_category_id"
@@ -147,6 +157,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_24_202843) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_promotions_on_admin_id"
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer "client_id", null: false
+    t.decimal "value"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "message"
+    t.decimal "cashback_value", default: "0.0"
+    t.index ["client_id"], name: "index_purchases_on_client_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -170,9 +191,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_24_202843) do
   add_foreign_key "prices", "products"
   add_foreign_key "product_items", "clients"
   add_foreign_key "product_items", "products"
+  add_foreign_key "product_items", "purchases"
   add_foreign_key "products", "cashbacks"
   add_foreign_key "products", "categories"
   add_foreign_key "promotions", "admins"
+  add_foreign_key "purchases", "clients"
   add_foreign_key "reviews", "clients"
   add_foreign_key "reviews", "products"
 end

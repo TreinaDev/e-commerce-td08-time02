@@ -8,6 +8,14 @@ class Price < ApplicationRecord
   validate :start_date_greater_than_today
   validate :not_previously_registered
 
+  before_create :set_rubies_value
+
+  def set_rubies_value
+    return unless value && ExchangeRate.last
+
+    self.rubies_value = value / ExchangeRate.last.value
+  end
+
   private
 
   def start_date_before_end_date

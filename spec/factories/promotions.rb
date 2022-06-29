@@ -5,7 +5,7 @@ FactoryBot.define do
     name { "BlackFriday" }
     discount_percentual { 40 }
     discount_max { 100 }
-    used_times { 1 }
+    used_times { 0 }
     coupon { "ABCD1234" }
     usage_limit { 10 }
     association :admin

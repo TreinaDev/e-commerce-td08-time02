@@ -5,7 +5,7 @@ describe 'Administrador se autentica' do
     Admin.create!(email: 'admin@mercadores.com.br', password: 'password', name: 'João', status: :approved)
 
     visit root_path
-    click_on 'Entrar como Administrador'
+    find('#menu-desktop').click_on 'Entrar como Administrador'
     fill_in 'E-mail', with: 'admin@mercadores.com.br'
     fill_in 'Senha', with: 'password'
     click_on 'Entrar'

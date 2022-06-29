@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  resources :promotions, only: %i[new create index show]
   resources :categories, only: %i[new create index show] do
     post 'activate', on: :member
     post 'deactivate', on: :member
@@ -22,8 +23,15 @@ Rails.application.routes.draw do
   resources :cashbacks, only: %i[new create]
 
   get 'shopping_cart', to: 'shopping_cart#index'
+  resources :purchases, only: %i[index create]
 
   resources :pending_admins, only: %i[index] do
     post 'approve', on: :member
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :exchange_rates, only: %i[create]
+    end
   end
 end
