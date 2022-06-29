@@ -10,8 +10,6 @@ class Cashback < ApplicationRecord
   def start_date_before_end_date
     return unless start_date && end_date && start_date >= end_date
 
-    return if start_date < end_date
-
     errors.add :start_date, message: 'não pode ser maior que a data final'
   end
 
