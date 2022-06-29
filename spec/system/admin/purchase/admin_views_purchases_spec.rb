@@ -18,6 +18,7 @@ describe 'Administrador visita o menu de compras dos clientes' do
     click_on 'Buscar'
 
     expect(page).to have_content 'Marquinhos (510.309.910-14)'
+    expect(page).not_to have_content 'Cliente não encontrado.'
     within("##{purchase1.id}") do
       expect(page).to have_content "Data: #{I18n.l(Time.zone.today)}"
       expect(page).to have_content '1 x Monitor 8k'

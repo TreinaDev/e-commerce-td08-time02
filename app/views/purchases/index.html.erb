@@ -7,6 +7,8 @@
   </section>
 <% end %>
 
+<%= @message if @message %>
+
 <% if @client %>
   <div><h1><%= "#{@client.name} (#{@client.code})" %></h1></div>
 
@@ -28,7 +30,4 @@
       <p> Nenhuma compra realizada. </p>
     <% end %>
   </div>
-
-<% else %>
-  <p> Cliente não encontrado. </p>
 <% end %>
