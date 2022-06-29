@@ -19,6 +19,14 @@ RSpec.configure do |config|
   config.before do
     stub_request(:post, 'http://localhost:4000/api/v1/client_wallets')
       .to_return(status: 200)
+    stub_request(:get, "http://localhost:4000/api/v1/balance/51030991014").
+      with(
+        headers: {
+       'Accept'=>'*/*',
+       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+       'User-Agent'=>'Faraday v2.3.0'
+        }).
+      to_return(status: 200, body: "", headers: {})
   end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
