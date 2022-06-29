@@ -1,61 +1,101 @@
-<div>
-  <h1><%=@product.name%> </h1>
-  <% if @product.photos.attached? %>
-    <% @product.photos.each do |photo| %>
-      <%= image_tag photo %>
-    <% end %>
-  <% end %>
-  <p>Marca: <%= @product.brand %></p>
-  <p>Categoria: <%= @product.category.name %></p>
-  <p>SKU: <%= @product.sku %></p>
-  <% unless admin_signed_in? %>
-    <%= button_to 'Adicionar ao carrinho ', product_product_items_path(@product.id), method: 'post' %>
-  <% end %>
-  <p>Descrição: <%= @product.description %></p>
-  <p>Dimensões: <%= number_with_precision(@product.width, precision: 2) %> x
-                <%= number_with_precision(@product.height, precision: 2) %> x
-                <%= number_with_precision(@product.depth, precision: 2) %></p>
-  <p>Peso: <%= number_with_precision(@product.weight, precision: 2) %> kg</p>
-  <p>Preço do Frete: <%= number_to_currency(@product.shipping_price, unit: "R$ ") %></p>
-  <p>Frágil - <%= @product.fragile? ? 'Sim' : 'Não' %></p>
-  <p>Preço: <%= number_to_currency(@product.current_price, unit: "R$ ") %></p>
-  <% if admin_signed_in? %>
-    <p>Status: <%= Product.human_attribute_name("status.#{@product.status}") %></p>
-
-    <% @product.prices.each do |price| %>
-      <p>
-        <%= "Preço para #{I18n.l(price.start_date)} - #{I18n.l(price.end_date)}:
-        #{number_to_currency(price.value, unit: "R$ ")} - Cadastrado por: #{price.admin.name}"%>
-      </p>
-    <% end %>
-
-    <div>
-    Cadastrar novo preço:
-    <%= form_with model: @price do |f| %>
-      <%= f.hidden_field :admin_id, value: current_admin.id %>
-      <%= f.hidden_field :product_id, value: @product.id %>
-  
-      <%= f.label :start_date %>
-      <%= f.date_field :start_date, value: @start_date, readonly: true %>
-      <p><%= @price.errors.full_messages_for(:start_date).first if @price.errors.any? %></p>
-
-      <%= f.label :end_date %>
-      <%= f.date_field :end_date %>
-      <p><%= @price.errors.full_messages_for(:end_date).first if @price.errors.any? %></p>
-
-      <%= f.label :value %>
-      <%= f.number_field :value %>
-      <p><%= @price.errors.full_messages_for(:value).first if @price.errors.any? %></p>
-
-      <%= f.submit 'Cadastrar preço' %>
-    <% end %>
+<section class='p-[2%] w-full max-w-5xl flex mt-5 m-auto bg-gray-100'>
+  <div class='px-4 w-full'>
+    <div class="md:flex-row flex-col w-full flex md:space-x-8 items-center">
+      <div class="md:w-[65%] w-full">
+        <h1 class='text-2xl font-semibold pb-1'><%=@product.name%> </h1>
+        <% if @product.photos.attached? %>
+          <% @product.photos.each do |photo| %>
+            <%= image_tag photo, size: "550x400", class:'w-full'%>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="flex-col md:w-[35%] w-full flex">
+        <div id="rubis_prices" class="mt-5 w-full">
+          <div class='flex space-x-1 items-center'>
+            <p class='text-2xl font-semibold'>$<%= number_with_precision(@product.current_price.rubies_value, precision: 2) %> </p>
+            <%= image_tag('rubi', class: "img-responsive w-[20px] h-[20px]")%>
+          </div>
+          <div class='flex space-x-1 items-center'>
+            <p class='text-lg font-semibold'>Frete: $<%= number_with_precision(@product.rubies_shipping_price, precision: 2) %></p>
+            <%= image_tag('rubi', class: "img-responsive w-[20px] h-[20px]") %>
+          </div>
+        </div>
+        <% if admin_signed_in? %>
+          <p>Preço (em reais): <%= number_to_currency(@product.current_price.value, unit: 'R$') %></p>
+          <p>Preço do Frete (em reais): <%= number_to_currency(@product.shipping_price, unit: 'R$') %></p>
+        <% end %>
+        <% unless admin_signed_in? %>
+          <%= button_to 'Adicionar ao carrinho ', product_product_items_path(@product.id), method: 'post', class: 'btn-second mt-1' %>
+        <% end %>
+      </div>
     </div>
-
-    <% if @product.inactive? %>
-      <%= button_to 'Ativar', activate_product_path(@product) %>
-    <% else %>
-      <%= button_to 'Desativar', deactivate_product_path(@product) %>
+    <h3 class="text-xl mt-6 mb-2 font-semibold">Informações do Produto</h3>
+    <% unless @product.cashback.nil? %> 
+      <p>Cashback: <%= @product.cashback.extended_description %></p>
     <% end %>
-  <% end %>
-  <p><%= link_to 'Manual', @product.manual if @product.manual.attached? %></p>
-</div>
+    <p>Descrição: <%= @product.description %></p>
+    <p>SKU: <%= @product.sku %></p>
+    <p>Marca: <%= @product.brand %></p>
+    <p>Categoria: <%= @product.category.name %></p>
+    <p>Dimensões: <%= number_with_precision(@product.width, precision: 2) %> x
+                  <%= number_with_precision(@product.height, precision: 2) %> x
+                  <%= number_with_precision(@product.depth, precision: 2) %></p>
+    <p>Peso: <%= number_with_precision(@product.weight, precision: 2) %> kg</p>
+    <p>Frágil - <%= @product.fragile? ? 'Sim' : 'Não' %></p>
+    <% if admin_signed_in? %>
+      <p>Status: <%= Product.human_attribute_name("status.#{@product.status}") %></p>
+      <% @product.prices.each do |price| %>
+        <p>
+          <%= "Preço para #{I18n.l(price.start_date)} - #{I18n.l(price.end_date)}:
+          #{number_to_currency(price.value, unit: "R$ ")} - Cadastrado por: #{price.admin.name}"%>
+        </p>
+      <% end %>
+
+      <div class='flex'>
+        <% if @product.inactive? %>
+          <%= button_to 'Ativar', activate_product_path(@product), class:'btn-activate' %>
+        <% else %>
+          <%= button_to 'Desativar', deactivate_product_path(@product), class:'btn-deactivate' %>
+        <% end %> 
+        <div class='flex justify-center btn-second w-[120px] ml-2'>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+          <p><%= link_to 'Manual', @product.manual if @product.manual.attached? %></p> 
+        </div>
+      </div>
+
+      <h3 class='pt-4 pb-3 text-lg font-semibold'>Cadastrar novo preço:</h3>
+      <%= form_with model: @price do |f| %>
+        <%= f.hidden_field :admin_id, value: current_admin.id %>
+        <%= f.hidden_field :product_id, value: @product.id %>
+        <div class='flex space-x-2 w-full'>
+          <div class='flex flex-col'>
+            <%= f.label :start_date %>
+            <%= f.date_field :start_date, value: @start_date, readonly: true, class:'max-w-[120px]' %>       
+          </div>
+          <div class='flex flex-col'>
+            <%= f.label :end_date %>
+            <%= f.date_field :end_date %>     
+          </div>     
+        </div>
+        <p class=' text-red-600'><%= @price.errors.full_messages_for(:start_date).first if @price.errors.any? %></p>
+        <p class=' text-red-600'><%= @price.errors.full_messages_for(:end_date).first if @price.errors.any? %></p>
+        <div class='flex flex-col'>
+          <%= f.label :value %>
+          <%= f.number_field :value, class:'max-w-[150px]' %>
+        </div> 
+        <p class=' text-red-600'><%= @price.errors.full_messages_for(:value).first if @price.errors.any? %></p>
+
+        <%= f.submit 'Cadastrar preço', class:'btn-primary mb-4' %>
+      <% end %>
+      </div>
+
+      
+    <% end %>
+    <% unless admin_signed_in? %>
+      <div class='flex justify-center btn-second w-[120px]'>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+          <p><%= link_to 'Manual', @product.manual if @product.manual.attached? %></p> 
+      </div>
+    <% end %>
+  </div>
+</section>

@@ -5,7 +5,7 @@ describe 'Cliente se autentica' do
     create(:client, name: 'Nicolas', code: '623.809.720-52', email: 'cliente@email.com', password: 'password')
 
     visit root_path
-    click_on 'Entrar como Cliente'
+    find('#menu-desktop').click_on 'Entrar como Cliente'
     fill_in 'E-mail', with: 'cliente@email.com'
     fill_in 'Senha', with: 'password'
     within('.actions') do

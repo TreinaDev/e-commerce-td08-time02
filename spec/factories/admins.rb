@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :admin do
-    email { 'admin@mercadores.com.br' }
+    sequence(:email) { |n| "admin#{n}@mercadores.com.br" }
     password { 'password' }
     name { 'João' }
     status { :approved }

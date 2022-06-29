@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Cliente se cadastra' do
   it 'com sucesso' do
     visit root_path
-    click_on('Entrar como Cliente')
+    find('#menu-desktop').click_on('Entrar como Cliente')
     click_on('Registrar-se')
     fill_in('E-mail', with: 'james@outlook.com')
     fill_in('Senha', with: 'password')
@@ -28,7 +28,6 @@ describe 'Cliente se cadastra' do
     fill_in 'CPF/CNPJ', with: ''
     click_on('Registrar-se')
 
-    expect(page).to have_content 'Não foi possível registrar cliente'
     expect(page).to have_content 'Nome não pode ficar em branco'
     expect(page).to have_content 'E-mail não pode ficar em branco'
     expect(page).to have_content 'Senha não pode ficar em branco'

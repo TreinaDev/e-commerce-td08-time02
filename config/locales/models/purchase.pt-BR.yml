@@ -1,0 +1,15 @@
+pt-BR:
+  purchase_confirmed: Compra realizada!
+  purchase_pending: Compra pendente de aprovação
+  purchase_failed: Falha na confirmação. Tente novamente mais tarde
+  activerecord:
+    models:
+      purchase: Compra
+    attributes:
+      purchase:
+        client: Cliente
+        value: Valor total
+      purchase/status:
+        pending: Pendente
+        approved: Aprovada
+        rejected: Rejeitada

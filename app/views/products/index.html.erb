@@ -1,21 +1,47 @@
-<%= link_to 'Cadastrar Produto', new_product_path if admin_signed_in? %>
-
-<%= form_with url: search_products_path, method: :get do |form| %>
-  <%= form.label :query, "Buscar" %>
-  <%= form.text_field :query %>
-  <%= form.submit "Buscar" %>
-<% end %>
-
-<% if @products.any? %>
-  <% @products.each do |product| %>
-  <div id=<%= product.name %>>
-    <p>Nome: <%= link_to product.name, product_path(product) %> </p>
-    <p>Marca: <%= product.brand %></p>
-    <p><%= Product.human_attribute_name("status.#{product.status}") if admin_signed_in? %></p>
-    <%= image_tag product.photos.last if product.photos.attached? %>
+<section class='pt-5 px-[2%] w-full'>
+  <div class='flex'>
+    <%= form_with url: search_products_path, method: :get, html: {class: 'flex items-center'} do |form| %>
+      <%= form.text_field :query, placeholder: "Pesquisar", id: "Buscar", class:'rounded-lg h-8'%>
+      <%= form.submit "Buscar", class:'btn-second ml-2' %>
+    <% end %>
+    <% if admin_signed_in? %>
+      <div>
+        <%= link_to 'Cadastrar Produto', new_product_path, class:'btn-second ml-3' %>
+        <%= link_to 'Cadastrar Cashback', new_cashback_path, class:'btn-second ml-3'%>
+      </div>
+    <% end %>
   </div>
-  <% end %>
 
-<% else %>
-  <p>Nenhum produto encontrado</p>
-<% end %>
+  <div class='flex mt-8 w-full'>
+    <div class='mr-5 w-[85px]'>
+      <h1 class='text-lg font-semibold pb-2'>Categorias</h1>
+      <% @categories.each do |category| %>
+        <div>
+          <p><%= link_to category.name, filter_products_path(category.id) %></p>
+        </div>
+      <% end %>
+    </div>
+
+    <div class='flex flex-wrap justify-center w-full max-w-7xl'>
+      <% if @products.any? %>
+        <% @products.each do |product| %>
+        <div id=<%= product.id %> class='m-2 w-[250px] h-[280px] shadow-lg rounded-md overflow-hidden'>
+          <div class=''>            
+            <%= link_to(image_tag(product.photos.last), product_path(product)) if product.photos.attached? %>                
+            <div class='p-2 '>
+              <h3 class='font-semibold'>Nome: <%= link_to product.name, product_path(product) %> </h3>
+              <p>Marca: <%= product.brand %></p>
+              <p><%= Product.human_attribute_name("status.#{product.status}") if admin_signed_in? %></p>
+              <div class="flex space-x-1 items-center">
+                <p>$<%= number_with_precision(product.current_price.rubies_value, precision: 2) %></p>
+                <%= image_tag('rubi', class: "img-responsive w-[20px] h-[20px]") %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      <% else %>
+        <p>Nenhum produto encontrado</p>
+      <% end %>
+    </div>
+</section>

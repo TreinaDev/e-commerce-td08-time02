@@ -23,6 +23,8 @@ Style/HashSyntax:
 
 Metrics/BlockLength:
   IgnoredMethods: ['describe', 'context']
+  Exclude:
+    - 'config/routes.rb'
 
 Layout/LineLength:
   Exclude:
