@@ -1,38 +1,43 @@
-<div>
-  <h1><%= @category.name %></h1>
+<section class='p-[2%] w-full max-w-5xl flex mt-5 m-auto bg-gray-100'>
+  <div class='w-full flex-col'>
+    <div class='flex flex-col'>
+      <h1 class='text-2xl font-semibold pb-1'><%= @category.name %></h1>
+      <div class='flex flex-col'>
+        <p>Promoção: 
+          <% if @category.promotion %>
+            <%= link_to @category.promotion.name, @category.promotion %>
+          <% else %>
+            Não há promoção relacionada
+          <% end %>
+        </p>
+        <div class="flex w-full space-x-2 items-center">
+          <p>Status: <%= Category.human_attribute_name("status.#{@category.status}") %></p>
+          <% if @category.disabled? %>
+            <%= button_to 'Ativar', activate_category_path(@category), class:'btn-activate' %>
+          <% else %>
+            <%= button_to 'Desativar', deactivate_category_path(@category), class:'btn-deactivate' %>
+          <% end %>
+        </div>
+        <p>Criado por: <%= @category.admin.name %></p>
+      </div>
+    </div>
 
-  <div>
-    <p>Promoção: 
-      <% if @category.promotion %>
-        <%= link_to @category.promotion.name, @category.promotion %>
-      <% else %>
-        Não há promoção relacionada
-      <% end %>
-    </p>
-    <p>Status: <%= Category.human_attribute_name("status.#{@category.status}") %></p>
-    <p>Criado por: <%= @category.admin.name %></p>
-    <% if @category.disabled? %>
-      <%= button_to 'Ativar', activate_category_path(@category) %>
-    <% else %>
-      <%= button_to 'Desativar', deactivate_category_path(@category) %>
-    <% end %>
-  </div>
-
-  <div>
-    <h2>Subcategorias</h2>
-      <% @category.categories.each do |subcategory| %>
-        <ul>
-          <li><%= link_to subcategory.name, subcategory %></li>
-        </ul>
-      <% end %>
-      <% if @category.categories.empty? %>
-        <p>Não há subcategorias</p>
-      <% end %>
-    <%= link_to 'Criar subcategoria', new_category_path %>
-    <% if @supercategory %>
-      | <%= link_to 'Voltar', category_path(@supercategory) %>
-    <% else %>
-      | <%= link_to 'Voltar', categories_path %>
-    <% end %>
-  </div>
-</div>
+      <div>
+        <h2 class='text-xl font-semibold pb-1 mt-3'>Subcategorias</h2>
+          <% @category.categories.each do |subcategory| %>
+            <ul>
+              <li><p class="font-semibold"><%= link_to subcategory.name, subcategory %></p></li>
+            </ul>
+          <% end %>
+          <% if @category.categories.empty? %>
+            <p>Não há subcategorias</p>
+          <% end %>
+        <p><%= link_to 'Criar subcategoria', new_category_path, class:'btn-primary mb-6' %></p>
+        <% if @supercategory %>
+          <p class='btn-second'><%= link_to 'Voltar', category_path(@supercategory) %></p>
+        <% else %>
+          <p class='btn-second'><%= link_to 'Voltar', categories_path %></p>
+        <% end %>
+      </div>
+    </div>
+</section>
