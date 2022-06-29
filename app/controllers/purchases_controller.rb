@@ -1,5 +1,6 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_client!, only: :create
+  before_action :authenticate_admin!, only: :search
   before_action :authenticate_client_or_admin, only: :index
 
   def index
