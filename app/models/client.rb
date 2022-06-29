@@ -7,15 +7,8 @@ class Client < ApplicationRecord
   has_many :product_items, dependent: :nullify
 
   validates :name, :code, presence: true
+  validates :balance, numericality: { greater_than_or_equal_to: 0.0 }
   validate :code_is_valid
-
-  def balance
-    response = Faraday.get("http://localhost:4000/api/v1/balance/#{code_numbers}")
-    body = JSON.parse(response.body)
-    body['balance']
-  rescue
-    0
-  end
 
   def code_numbers
     code.split('-').join.split('.').join.split('/').join
