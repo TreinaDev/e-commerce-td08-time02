@@ -3,8 +3,10 @@ class ProductsController < ApplicationController
   before_action :authenticate_admin!, only: %i[new create activate deactivate]
 
   def index
-    @products = Product.all
     @categories = Category.active
+    Product.active.each do |product|
+      product.inactive! if product.prices.last.end_date < Time.zone.today
+    end
     @products = admin_signed_in? ? Product.all : Product.active
   end
   
@@ -21,23 +23,24 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to @product, notice: t('product_creation_succeeded')
     else
-      @categories = Category.all
       @cashbacks = Cashback.where('end_date >= :today', today: Date.today)
-      flash.now[:notice] = t('product_creation_failed')
+      @categories = Category.active
+      flash.now[:alert] = t('product_creation_failed')
       render :new
     end
   end
 
   def search
-    @query = params[:query]
-    @categories = Category.all
-    @products = Product.where("name LIKE :query OR description LIKE :query OR sku LIKE :query",
-                              query: "%#{@query}%")
+    @categories = Category.active
+    @products = admin_signed_in? ? Product.all : Product.active
+    @products = @products.where('name LIKE :query OR description LIKE :query OR sku LIKE :query',
+                                query: "%#{params[:query]}%")
     render :index
   end
 
   def show
-    unless @product && (@product.active? || admin_signed_in?)
+    @product.inactive! if @product.prices.last.end_date < Time.zone.today
+    unless @product.active? || admin_signed_in?
       return redirect_to root_path, notice: t('inactive_or_inexistent_product')
     end
 
@@ -49,12 +52,12 @@ class ProductsController < ApplicationController
 
   def filter
     @category = Category.find(params[:format])
-    @products = @category.all_products
-    @categories = Category.all
-    
+    @products = @category.all_products(admin_signed_in?)
+    @categories = Category.active
+
     render :index
   end
-  
+
   def activate
     if @product.prices.last.end_date - Time.zone.today >= 90
       @product.active!
@@ -62,7 +65,7 @@ class ProductsController < ApplicationController
     end
 
     set_new_price
-    flash.now[:notice] = t('product_activation_failed')
+    flash.now[:alert] = t('product_activation_failed')
     render :show
   end
 
@@ -83,7 +86,7 @@ class ProductsController < ApplicationController
   def set_product
     @product = Product.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    @product = nil
+    redirect_to root_path, notice: t('inactive_or_inexistent_product')
   end
 
   def set_new_price

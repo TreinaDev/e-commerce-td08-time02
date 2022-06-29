@@ -1,27 +1,82 @@
-<div>
-  <% unless @product_items.empty? %>
-    <h1><%= t('my_cart') %></h1>
-    <div>
-      <h4>Produtos</h4>
-      <% @product_items.each do |item| %>
-        <div>
-          <div>
-            <%= link_to item.product.name, item.product %>
+<section class='p-[2%] w-full max-w-5xl flex mt-5 m-auto bg-gray-100'>
+  <div class='px-4 pb-10 w-full flex flex-col'>
+    <% unless @product_items.empty? %>      
+      <div class="w-full flex flex-col">
+        <h2><%= t('my_cart') %></h2>
+        <h4 class='text-xl font-semibold pb-1'>Produtos</h4>
+        <% @product_items.each do |item| %>
+          <div id=<%= item.product.id %> class="w-full flex mb-6">
+            <div class="w-[40%]">
+              <% if item.product.photos.attached? %>
+                <% item.product.photos.each do |photo| %>
+                  <%= image_tag photo, size: "370x168"%>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="w-[60%] flex">
+              <div class="w-full flex-col pl-3">
+                <p class='text-xl font-semibold pb-1'><%= link_to item.product.name, item.product %></p>
+                <div  class='flex items-center space-x-1'>
+                  <p>Preço Unitário: $<%= number_with_precision(item.product.current_price.rubies_value, precision: 2) %></p>
+                  <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
+                </div>
+                <div  class='flex items-center space-x-1'>
+                  <p>Subtotal: $<%= number_with_precision(item.define_product_total_price, precision: 2) %></p>
+                  <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
+                </div>
+                <div  class='flex items-center space-x-1'>
+                  <p>Frete: $<%= number_with_precision(item.define_product_shipping_price, precision: 2) %></p>
+                  <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
+                </div>
+              </div>
+
+              <div class="w-[30%] flex flex-col items-center justify-center space-x-2 px-2">
+                <div class="flex justify-center items-center">
+                  <%= button_to '-', dec_quantity_product_product_item_path(item.product, item), method: 'patch', :disabled => item.quantity == 1, class:'m-1 btn-deactivate btn-decrease rounded-full my-0 p-0 h-6 w-6 leading-none' %>
+                  <p class='mx-1 text-xl font-semibold '><%= item.quantity %></p>
+                  <%= button_to '+', sum_quantity_product_product_item_path(item.product, item), method: 'patch', class:'m-1 btn-activate rounded-full my-0 p-0 h-6 w-6 leading-none' %>
+                </div>
+                <div class="pr-2">
+                  <%= button_to product_product_item_path(item.product, item), method: 'delete', title:'Remover Produto', class:'self-baseline' do %>
+                    <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2
+                        2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                      </path>
+                    </svg>
+                  <%end%>  
+                </div>                    
+              </div>
+            </div>
           </div>
-          <div>
-            <% if item.quantity != 1 %>
-              <%= button_to '-', dec_quantity_product_product_item_path(item.product, item), method: 'patch' %>
-            <% end %>
-            <%= item.quantity %>
-            <%= button_to '+', sum_quantity_product_product_item_path(item.product, item), method: 'patch' %>
+        <% end %>
+      </div>
+
+      <div class='w-full pt-12 '>        
+        <div class='bg-slate-50 py-4 px-6 shadow-md rounded-md w-full flex flex-col items-center'>
+          <div class='space-y-3'>
+            <h2>Resumo</h2>
+            <div class='flex items-center space-x-1'>
+              <p>Total produtos: <span class='text-lg font-semibold'>$<%= number_with_precision(@total_products, precision: 2) %></span> </p>
+              <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
+            </div>
+            <div  class='flex items-center space-x-1'>
+              <p>Total frete: <span class='text-lg font-semibold'>$<%= number_with_precision(@total_shipping, precision: 2)%></span> </p>
+              <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
+            </div>
+            <div  class='flex items-center space-x-1'>
+              <p>Total: <span class='text-2xl font-semibold'>$<%= number_with_precision(@total, precision: 2) %></span> </p>
+              <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
+            </div>
+            <div class='btn-primary  self-start'>
+              <%= button_to 'Confirmar Compra', purchases_path(client_id: current_client.id, value: @total), method: :post, class:'w-[200px]' %> 
+            </div>
           </div>
-          <%= button_to 'Remover Produto', product_product_item_path(item.product, item), method: 'delete' %>
         </div>
-      <% end %>
-    </div>
-  <% else %>
-    <div>
-      <p>Não há produtos no carrinho</p>
-    </div>
-  <% end %>
-</div>
+      </div>
+    <% else %>
+      <div>
+        <p>Não há produtos no carrinho</p>
+      </div>
+    <% end %>
+  </div>
+</section>

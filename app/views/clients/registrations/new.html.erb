@@ -1,39 +1,56 @@
-<h2>Registrar-se</h2>
+<section class="h-[450px]">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class:  'form'}) do |f| %>
+    <div>
+      <h2>Registrar-se como Cliente</h2>
+      <div class="field py-3">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <% if resource.errors.any?%>
+            <p class=' text-red-600'><%= resource.errors.full_messages_for(:email ).first %></p>
+        <% end %>
+      </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "clients/shared/error_messages", resource: resource %>
+      <div class="field py-3">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> caracteres, no mínimo)</em>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "new-password" %>
+        <% if resource.errors.any?%>
+            <p class=' text-red-600'><%= resource.errors.full_messages_for(:password).first %></p>
+        <% end %>
+      </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <div class="field py-3">        
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        <% if resource.errors.any?%>
+            <p class=' text-red-600'><%= resource.errors.full_messages_for(:password_confirmation).first %></p>
+        <% end %>
+      </div>
+
+      <div class="field py-3 pb-5">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+        <% if resource.errors.any?%>
+            <p class=' text-red-600'><%= resource.errors.full_messages_for(:name).first %></p>
+        <% end %>
+      </div>
+
+      <div class="field py-3 pb-5">
+        <%= f.label :code %>
+        <%= f.text_field :code %>
+        <% if resource.errors.any?%>
+            <p class=' text-red-600'><%= resource.errors.full_messages_for(:code).first %></p>
+        <% end %>
+      </div>
+
+      <div class="btn-primary actions w-full max-w-[250px]">
+        <%= f.submit "Registrar-se" %>
+      </div>
+      <div class="btn-second w-full max-w-[250px]">
+        <%= render "clients/shared/links", class:'cursor-pointer' %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> caracteres, no mínimo)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :code %><br />
-    <%= f.text_field :code %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Registrar-se" %>
-  </div>
-<% end %>
-
-<%= render "clients/shared/links" %>
+</section>

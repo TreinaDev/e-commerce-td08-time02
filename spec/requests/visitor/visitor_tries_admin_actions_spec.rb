@@ -41,6 +41,7 @@ describe 'Visitante não autenticado' do
 
   it 'tenta visualizar produto inativo' do
     product = create :product, status: :inactive
+    create :price, product: product
 
     get product_path(product)
 

@@ -10,25 +10,34 @@ class Client < ApplicationRecord
   validates :name, :code, presence: true
   validate :code_is_valid
 
-  def balance
-    begin
-      response = Faraday.get("http://localhost:4000/api/v1/balance/#{self.code_numbers}")
-      body = JSON.parse(response.body)
-      return body["balance"]
-    rescue => exception
-      return 0
-    end
-  end
+  after_create :create_wallet
 
   def code_numbers
     code.split('-').join.split('.').join.split('/').join
   end
 
+  def purchase_value
+    product_items.sum(&:define_product_total_price)
+  end
+
+  def purchase_shipping_value
+    product_items.sum(&:define_product_shipping_price)
+  end
+
   private
+
+  def create_wallet
+    params = { client_wallet: { email:, registered_number: code } }
+    response = Faraday.post('http://localhost:4000/api/v1/client_wallets', params)
+
+    update(has_wallet: true) if response.status.digits.last == 2 || response.body.include?('em uso')
+  end
 
   def code_is_valid
     return unless code
 
-    errors.add :code, 'inválido' if !CNPJ.valid?(code) && !CPF.valid?(code)
+    return if (CNPJ.valid?(code) || CPF.valid?(code)) && code.include?('.')
+
+    errors.add :code, 'inválido'
   end
 end

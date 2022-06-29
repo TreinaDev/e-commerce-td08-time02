@@ -6,7 +6,9 @@ describe 'Administrador cria cashback' do
 
     login_as admin, scope: :admin
     visit root_path
-    click_on 'Produtos'
+    within('#menu-desktop') do
+      click_on 'Produtos'
+    end
     click_on 'Cadastrar Cashback'
     fill_in 'Data Inicial', with: 1.day.from_now
     fill_in 'Data Final', with: 1.month.from_now
@@ -17,5 +19,17 @@ describe 'Administrador cria cashback' do
     expect(Cashback.last.percentual).to eq 30
     expect(Cashback.last.start_date).to eq 1.day.from_now.to_date
     expect(Cashback.last.end_date).to eq 1.month.from_now.to_date
+  end
+
+  it 'sem os dados necessários' do
+    admin = create :admin
+
+    login_as admin, scope: :admin
+    visit new_cashback_path
+
+    click_on 'cadastrar'
+
+    expect(page).to have_current_path cashbacks_path
+    expect(Cashback.all.length).to eq 0
   end
 end
