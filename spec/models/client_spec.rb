@@ -34,7 +34,7 @@ RSpec.describe Client, type: :model do
       end
     end
   end
-  
+
   describe '.code_numbers' do
     it 'remove caracteres especiais do code com sucesso' do
       client = create(:client, code: '82.425.181/0001-62')
