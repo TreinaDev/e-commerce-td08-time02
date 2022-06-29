@@ -22,7 +22,9 @@ Rails.application.routes.draw do
   resources :prices, only: :create
 
   get 'shopping_cart', to: 'shopping_cart#index'
-  resources :purchases, only: %i[index create]
+  resources :purchases, only: %i[index create] do
+    get 'search', on: :collection
+  end
 
   resources :pending_admins, only: %i[index] do
     post 'approve', on: :member

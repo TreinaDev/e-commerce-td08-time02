@@ -3,8 +3,8 @@ class PurchasesController < ApplicationController
   before_action :authenticate_client_or_admin, only: :index
 
   def index
-    @clients = Client.select { |client| client.purchases.count.positive? }
-    @purchases = Purchase.where(client: current_client)
+    @client = current_client if client_signed_in?
+    @purchases = Purchase.where(client: @client)
   end
 
   def create
@@ -19,6 +19,12 @@ class PurchasesController < ApplicationController
 
     purchase.destroy
     redirect_to shopping_cart_path, alert: t('purchase_failed')
+  end
+
+  def search
+    @client = Client.find_by('name LIKE ? OR code = ?', "%#{params[:query]}%", params[:query])
+    @purchases = Purchase.where(client: @client)
+    render :index
   end
 
   private

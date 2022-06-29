@@ -1,7 +1,14 @@
-<% if client_signed_in? %>
-  <div id='purchases'>
-    <div><h1>Minhas Compras</h1></div>
+<% if admin_signed_in? %>
+  <%= form_with url: search_purchases_path, method: :get do |form| %>
+    <%= form.text_field :query, placeholder: 'Nome ou CPF/CNPJ do cliente' %>
+    <%= form.submit 'Buscar' %>
+  <% end %>
+<% end %>
 
+<% if @client %>
+  <div><h1><%= "#{@client.name} (#{@client.code})" %></h1></div>
+
+  <div id='purchases'>
     <% if @purchases.any? %>
       <% @purchases.each do |purchase| %>
         <div id=<%= purchase.id %> >
@@ -17,15 +24,6 @@
       <% end %>
     <% else %>
       <p> Você ainda não realizou nenhuma compra. </p>
-    <% end %>
-  </div>
-
-<% else %>
-  <div id='clients'>
-    <% @clients.each do |client| %>
-      <ul>
-        <li><%= button_to client.name, purchases_path(client_id: client.id) %></li>
-      </ul>
     <% end %>
   </div>
 <% end %>

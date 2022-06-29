@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Cliente visualiza compras realizadas' do
   it 'com sucesso' do
-    client = create :client
+    client = create :client, name: 'Marquinhos', code: '510.309.910-14'
     create :exchange_rate, value: 2.0
     first_product = create :product, name: 'Monitor 8k', shipping_price: 10.00
     create :price, product: first_product, value: 20.00
@@ -19,9 +19,7 @@ describe 'Cliente visualiza compras realizadas' do
     find('#menu-desktop').click_on 'Minhas Compras'
 
     expect(page).to have_current_path purchases_path
-    within('#purchases') do
-      expect(page).to have_content 'Minhas Compras'
-    end
+    expect(page).to have_content 'Marquinhos (510.309.910-14)'
     within("##{first_purchase.id}") do
       expect(page).to have_content "Data: #{I18n.l(Time.zone.today)}"
       expect(page).to have_content '1 x Monitor 8k'
