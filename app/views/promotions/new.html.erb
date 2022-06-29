@@ -1,31 +1,38 @@
-<div>
-  <%= form_with model: @promotion do |form| %>
-    <div>
-      <%= form.label :name %>
-      <%= form.text_field :name %>
-    </div>
-    <div>
-      <%= form.label :discount_percentual %>
-      <%= form.number_field :discount_percentual %>
-    </div>
-    <div>
-      <%= form.label :discount_max %>
-      <%= form.number_field :discount_max %>
-    </div>
-    <div>
-      <%= form.label :usage_limit %>
-      <%= form.number_field :usage_limit %>
-    </div>
-    <div>
-      <%= form.label :start_date %>
-      <%= form.date_field :start_date %>
-    </div>
-    <div>
-      <%= form.label :end_date %>
-      <%= form.date_field :end_date %>
-    </div>
-    <div>
-      <%= form.submit %>
-    </div>
-  <% end %>
-</div>
+<section class='p-[2%] w-full '>
+  <div>
+    <%= form_with model: @promotion, html: {class:'form'} do |form| %>
+      <div class='space-y-4'>
+        <h2>Cadastro de Promoção</h2>
+        <div class='field'>
+          <%= form.label :name %>
+          <%= form.text_field :name %>
+        </div>
+        <div class='field'>
+          <%= form.label :discount_percentual %>
+          <%= form.number_field :discount_percentual %>
+        </div>
+        <div class='field'>
+          <%= form.label :discount_max %>
+          <%= form.number_field :discount_max %>
+        </div>
+        <div class='field'>
+          <%= form.label :usage_limit %>
+          <%= form.number_field :usage_limit %>
+        </div>
+        <div class='flex max-w-[250px]'>
+          <div class='w-[49%] mr-[2%]'>
+            <%= form.label :start_date %>
+            <%= form.date_field :start_date, class:'w-full' %>
+          </div>
+          <div class='w-[49%]'>
+            <%= form.label :end_date %>
+            <%= form.date_field :end_date, class:'w-full' %>
+          </div>
+        </div>
+        <div class='btn-primary w-full max-w-[250px]'>
+          <%= form.submit class:'cursor-pointer ' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

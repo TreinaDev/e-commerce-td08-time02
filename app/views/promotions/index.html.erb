@@ -1,21 +1,28 @@
-<h2>Lista de Promoções</h2>
-<div>
-  <%= link_to 'Criar Promoção', new_promotion_path %>
-</div>
-<% if @promotions.any? %>
-  <div class="promotions-wrapper">
-    <% @promotions.each do |promotion| %>
-      <div class="promotion">
-          <%= link_to promotion_path(promotion.id) do %>
-            <div><%= promotion.coupon %></div>
-            <div>Nome: <%= promotion.name %></div>
-          <% end %>
-          <div>Percentual de Desconto: <%= promotion.discount_percentual %>%</div>
-          <div>Quantidade utilizada: <%= promotion.used_times %> | Limite de uso: <%= promotion.usage_limit %></div>
-          <div>Início: <%= I18n.l(promotion.start_date) %> | Final: <%= I18n.l(promotion.end_date) %></div>
-      </div>
-    <% end %>
-  </div>
-<% else %>
-  <div>Não há promoções cadastradas</div>
-<% end %>
+<section class='pt-5 px-[2%] w-full'>
+  <div class="flex-col w-full">
+    <div class="flex flex-col items-center w-full">
+      <h2>Lista de Promoções</h2>
+    </div>
+    <%= link_to 'Criar Promoção', new_promotion_path, class: 'btn-primary ml-2 mb-3' %>
+    <div class='flex flex-wrap max-w-7xl m-auto'>
+      <% if @promotions.any? %>
+          <% @promotions.each do |promotion| %>
+            <div class="promotions-wrapper w-[300px] shadow-lg rounded-md bg-gray-100 m-2 grow min-w-[150px]">
+              <div class="promotion p-5">
+                  <%= link_to promotion_path(promotion.id) do %>
+                    <div><h1 class="text-lg font-semibold pb-2"><%= promotion.name %> (<%= promotion.discount_percentual %>%)</h1></div>
+                    <div><h2 class="text-base font-semibold m-0 p-0"><%= promotion.coupon %></h2></div>
+                  <% end %>
+                  <p>Utilizado: <%= promotion.used_times %></p> 
+                  <p>Limite: <%= promotion.usage_limit %></p>
+                  <p>Início: <%= I18n.l(promotion.start_date) %></p> 
+                  <p>Final: <%= I18n.l(promotion.end_date) %></p>
+              </div>
+            </div>
+        <% end %>
+        </div>
+      <% else %>
+        <div>Não há promoções cadastradas</div>
+      <% end %>
+    </div>
+</section>
