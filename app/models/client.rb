@@ -21,7 +21,7 @@ class Client < ApplicationRecord
     begin
       params = { client_wallet: { email:, registered_number: code } }
       response = Faraday.post('http://localhost:4000/api/v1/client_wallets', params)
-      
+
       if response.status.digits.last == 2 || response.body.include?('em uso')
         self.update(has_wallet: true)
       end
@@ -31,6 +31,8 @@ class Client < ApplicationRecord
   def code_is_valid
     return unless code
 
-    errors.add :code, 'inválido' if !CNPJ.valid?(code) && !CPF.valid?(code)
+    return if CNPJ.valid?(code) || CPF.valid?(code) && code.include?('.')
+
+    errors.add :code, 'inválido'
   end
 end
