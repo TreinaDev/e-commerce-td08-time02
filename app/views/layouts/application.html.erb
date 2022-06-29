@@ -25,7 +25,7 @@
           <div class= 'flex font-semibold space-x-2'>
             <% if client_signed_in? %>
               <div class= 'flex space-x-2'>
-                <li class= 'border px-2 rounded-full'><%= number_to_currency(current_client.balance) %> Rubis</li>
+                <li class= 'border px-2 rounded-full'><%= number_with_precision(current_client.balance, precision: 2) %> Rubis</li>
                 <li><%= current_client.name %> (<%= current_client.email %>)</li>
                 <li class= 'text-red-500'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
               </div>
@@ -78,7 +78,7 @@
           <div class= 'flex flex-col font-semibold space-y-2'>
             <% if client_signed_in? %>
               <div class= 'flex flex-col space-y-2 '>
-                <li class= 'border px-2 rounded-full self-start align-center'><%= @balance %> Rubis</li>
+                <li class= 'border px-2 rounded-full self-start align-center'><%= number_with_precision(current_client.balance, precision: 2) %></li>
                 <li><%= current_client.name %> (<%= current_client.email %>)</li>
                 <li class= 'text-red-500'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
               </div>
