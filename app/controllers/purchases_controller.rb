@@ -1,7 +1,9 @@
 class PurchasesController < ApplicationController
-  before_action :authenticate_client!
+  before_action :authenticate_client!, only: :create
+  before_action :authenticate_client_or_admin, only: :index
 
   def index
+    @clients = Client.select { |client| client.purchases.count.positive? }
     @purchases = Purchase.where(client: current_client)
   end
 
@@ -23,5 +25,9 @@ class PurchasesController < ApplicationController
 
   def purchase_params
     params.permit(:client_id, :value)
+  end
+
+  def authenticate_client_or_admin
+    authenticate_client! unless admin_signed_in?
   end
 end

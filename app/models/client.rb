@@ -5,6 +5,7 @@ class Client < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :product_items, dependent: :nullify
+  has_many :purchases, dependent: :nullify
 
   validates :name, :code, presence: true
   validates :balance, numericality: { greater_than_or_equal_to: 0.0 }
