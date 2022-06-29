@@ -1,0 +1,13 @@
+pt-BR:
+  cashback_created: Cashback Cadastrado com Sucesso!
+  cashback_not_created: Não foi possível cadastrar o cashback
+  activerecord:
+    models:
+      cashback:
+        one: Cashback
+        other: Cashbacks
+    attributes:
+      cashback:
+        percentual: Percentual de Cashback
+        start_date: Data Inicial
+        end_date: Data Final
