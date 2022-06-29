@@ -1,8 +1,10 @@
 <% if admin_signed_in? %>
-  <%= form_with url: search_purchases_path, method: :get do |form| %>
-    <%= form.text_field :query, placeholder: 'Nome ou CPF/CNPJ do cliente' %>
-    <%= form.submit 'Buscar' %>
-  <% end %>
+  <section id='search_form'>
+    <%= form_with url: search_purchases_path, method: :get do |form| %>
+      <%= form.text_field :query, placeholder: 'Nome ou CPF/CNPJ do cliente' %>
+      <%= form.submit 'Buscar' %>
+    <% end %>
+  </section>
 <% end %>
 
 <% if @client %>
@@ -26,4 +28,7 @@
       <p> Nenhuma compra realizada. </p>
     <% end %>
   </div>
+
+<% else %>
+  <p> Cliente não encontrado. </p>
 <% end %>

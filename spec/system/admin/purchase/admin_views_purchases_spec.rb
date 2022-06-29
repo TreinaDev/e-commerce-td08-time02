@@ -32,11 +32,38 @@ describe 'Administrador visita o menu de compras dos clientes' do
     end
   end
 
-  # it 'e vê as compras de um cliente' do
-  #   login_as product.category.admin, scope: :admin
-  #   visit root_path
-  #   find('#menu-desktop').click_on 'Todas as Compras'
-  #   click_on 'Marquinhos'
+  it 'e busca compras de um cliente por CPF' do
+    client = create :client, name: 'Marquinhos', code: '510.309.910-14'
+    create :exchange_rate, value: 2.0
+    product = create :product, name: 'Monitor 8k', shipping_price: 10.00
+    create :price, product: product, value: 20.00
+    purchase = create :purchase, client: client, status: :approved, value: 15.00
+    create :product_item, purchase: purchase, product: product, quantity: 1
 
-  # end
+    login_as product.category.admin, scope: :admin
+    visit purchases_path
+    fill_in 'Nome ou CPF/CNPJ do cliente', with: '510.309.910-14'
+    click_on 'Buscar'
+
+    expect(page).to have_content 'Marquinhos (510.309.910-14)'
+    within("##{purchase.id}") do
+      expect(page).to have_content "Data: #{I18n.l(Time.zone.today)}"
+      expect(page).to have_content '1 x Monitor 8k'
+      expect(page).to have_content 'Valor Total: $15,00 rubis'
+      expect(page).to have_content 'Aprovada'
+    end
+  end
+
+  it 'e não encontra um cliente na busca' do
+    admin = create :admin
+    create :client, name: 'Marquinhos'
+
+    login_as admin, scope: :admin
+    visit purchases_path
+    fill_in 'Nome ou CPF/CNPJ do cliente', with: 'José'
+    click_on 'Buscar'
+
+    expect(page).not_to have_content 'Marquinhos'
+    expect(page).to have_content 'Cliente não encontrado.'
+  end
 end
