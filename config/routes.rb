@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   end
   resources :prices, only: :create
-  resources :cashbacks, only: %i[new create]
+  resources :cashbacks, only: %i[index new create]
 
   get 'shopping_cart', to: 'shopping_cart#index'
   resources :purchases, only: %i[index create]

@@ -1,6 +1,10 @@
 class CashbacksController < ApplicationController
   before_action :authenticate_admin!
 
+  def index
+    @cashbacks = Cashback.all
+  end
+
   def new
     @cashback = Cashback.new
   end

@@ -1,0 +1,23 @@
+<section class='pt-5 px-[2%] w-full'>
+  <div class="flex flex-col w-full items-center">
+
+    <div class="flex flex-col items-center w-full">
+      <h2>Cashbacks Registrados</h2>
+    </div>
+
+    <div class='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 m-auto'>
+      <% @cashbacks.each do |cashback| %>
+        <div class="cashback-wrapper max-w-[300px] shadow-lg rounded-md bg-gray-100 m-2">
+          <div id=<%= cashback.id %> class='cashback p-5 flex flex-col items-start space-y-2'>
+            <div class='self-center'>
+              <p class='text-xl font-semibold'><%= cashback.percentual %>%</p>
+            </div>
+            <p>Início: <%= I18n.l(cashback.start_date) %></p>
+            <p>Final: <%= I18n.l(cashback.end_date) %></p>
+            <p class='text-xs'>Cadastrado por <%= cashback.admin.name %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
