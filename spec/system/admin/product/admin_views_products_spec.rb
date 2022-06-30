@@ -10,7 +10,7 @@ describe 'Administrador vê todos os produtos' do
     create :price, product: second_product, value: 20.00
 
     login_as first_product.category.admin, scope: :admin
-    visit products_path
+    visit root_path
 
     within("##{first_product.id}") do
       expect(page).to have_content 'Monitor 8k'
@@ -34,7 +34,7 @@ describe 'Administrador vê todos os produtos' do
     create :price, product: second_product
 
     login_as first_product.category.admin, scope: :admin
-    visit products_path
+    visit root_path
     click_on first_product.category.name
 
     expect(page).to have_content 'Monitor 8k'
@@ -49,7 +49,7 @@ describe 'Administrador vê todos os produtos' do
     create :price, product: second_product
 
     login_as first_product.category.admin, scope: :admin
-    visit products_path
+    visit root_path
     fill_in 'Buscar', with: 'Monitor'
     click_on 'Buscar'
 
@@ -66,7 +66,7 @@ describe 'Administrador vê todos os produtos' do
     allow(Time.zone).to receive(:today).and_return 91.days.from_now
 
     login_as product.category.admin, scope: :admin
-    visit products_path
+    visit root_path
 
     within("##{product.id}") do
       expect(page).to have_content 'Inativo'

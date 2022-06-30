@@ -17,7 +17,7 @@ describe 'Visitante busca produtos' do
                                         description: 'Jaqueta de Festa Junina 2022'
     create :price, product: visible_product2
 
-    visit products_path
+    visit root_path
     fill_in 'Buscar', with: 'Vermelha'
     click_on 'Buscar'
 
@@ -39,7 +39,7 @@ describe 'Visitante busca produtos' do
                                           description: 'Caixa de Som Portátil 50w'
     create :price, product: invisible_product2
 
-    visit products_path
+    visit root_path
     fill_in 'Buscar', with: '256mb'
     click_on 'Buscar'
 
@@ -54,7 +54,7 @@ describe 'Visitante busca produtos' do
     product = create :product, name: 'Galaxy S20', category: category, sku: 'MENP8KU-99999'
     create :price, product: product
 
-    visit products_path
+    visit root_path
     fill_in 'Buscar', with: 'MENP8KU-99999'
     click_on 'Buscar'
 
@@ -71,7 +71,7 @@ describe 'Visitante busca produtos' do
     invisible_product3 = create :product, name: 'Camiseta Azul', category: category
     create :price, product: invisible_product3
 
-    visit products_path
+    visit root_path
     fill_in 'Buscar', with: 'Televisão'
     click_on 'Buscar'
 
@@ -91,7 +91,7 @@ describe 'Visitante busca produtos' do
                                          description: 'Celular 256mb', status: :inactive
     create :price, product: invisible_product
 
-    visit products_path
+    visit root_path
     fill_in 'Buscar', with: 'Galaxy S20'
     click_on 'Buscar'
 

@@ -6,14 +6,17 @@ describe 'Administrador cadastra um produto' do
     admin = create :admin, name: 'João'
     category = create :category, admin: admin
     create :subcategory, name: 'TVs', category: category, admin: admin
+    create :cashback, start_date: 1.day.from_now, end_date: 1.month.from_now,
+                      percentual: 10, admin: admin
+    cashback_string = "10% | #{1.day.from_now.strftime('%d/%m')} - #{1.month.from_now.strftime('%d/%m')}"
 
     login_as admin, scope: :admin
     visit root_path
-    find('#menu-desktop').click_on 'Produtos'
     click_on 'Cadastrar Produto'
     fill_in 'Nome', with: 'TV - LG 45'
     fill_in 'Marca', with: 'LG'
     select 'TVs', from: 'Categorias'
+    select cashback_string, from: 'Cashback'
     fill_in 'Descrição', with: 'TV - LG 45 polegadas'
     fill_in 'SKU', with: 'TVLG45-XKFZ'
     fill_in 'Largura', with: '75'
