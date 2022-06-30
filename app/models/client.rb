@@ -18,11 +18,15 @@ class Client < ApplicationRecord
   end
 
   def purchase_value
-    product_items.sum(&:define_product_total_price)
+    product_items.sum(&:total_price)
   end
 
   def purchase_shipping_value
-    product_items.sum(&:define_product_shipping_price)
+    product_items.sum(&:total_shipping_price)
+  end
+
+  def purchase_cashback_value
+    product_items.sum(&:cashback_value)
   end
 
   private

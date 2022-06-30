@@ -7,5 +7,6 @@ class ShoppingCartController < ApplicationController
     @total_shipping = current_client.purchase_shipping_value
     @total_products = current_client.purchase_value
     @total = @total_shipping + @total_products
+    @cashback = current_client.purchase_cashback_value
   end
 end

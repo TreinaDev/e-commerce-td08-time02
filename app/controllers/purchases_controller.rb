@@ -22,6 +22,6 @@ class PurchasesController < ApplicationController
   private
 
   def purchase_params
-    params.permit(:client_id, :value)
+    params.permit(:client_id, :value, :cashback_value)
   end
 end
