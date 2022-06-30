@@ -27,4 +27,13 @@ describe 'Administrador visita a tela de cashbacks registrados' do
       expect(page).to have_content 'Cadastrado por José'
     end
   end
+
+  it 'e não há cashbacks registrados' do
+    admin = create :admin
+
+    login_as admin, scope: :admin
+    visit cashbacks_path
+
+    expect(page).to have_content 'Não há cashbacks registrados'
+  end
 end
