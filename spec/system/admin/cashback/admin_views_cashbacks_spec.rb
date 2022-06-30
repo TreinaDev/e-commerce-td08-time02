@@ -16,14 +16,14 @@ describe 'Administrador visita a tela de cashbacks registrados' do
     expect(page).to have_content 'Cashbacks Registrados'
     within("##{cashback1.id}") do
       expect(page).to have_content '15%'
-      expect(page).to have_content "Início: #{Time.zone.today}"
-      expect(page).to have_content "Final: #{10.days.from_now.to_date}"
+      expect(page).to have_content "Início: #{I18n.l(Time.zone.today)}"
+      expect(page).to have_content "Final: #{I18n.l(10.days.from_now.to_date)}"
       expect(page).to have_content 'Cadastrado por José'
     end
     within("##{cashback2.id}") do
       expect(page).to have_content '5%'
-      expect(page).to have_content "Início: #{5.days.from_now.to_date}"
-      expect(page).to have_content "Final: #{15.days.from_now.to_date}"
+      expect(page).to have_content "Início: #{I18n.l(5.days.from_now.to_date)}"
+      expect(page).to have_content "Final: #{I18n.l(15.days.from_now.to_date)}"
       expect(page).to have_content 'Cadastrado por José'
     end
   end
