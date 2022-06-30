@@ -1,0 +1,20 @@
+<div id='purchases'>
+  <div><h1>Minhas Compras</h1></div>
+
+  <% if @purchases.any? %>
+    <% @purchases.each do |purchase| %>
+      <div id=<%= purchase.id %> >
+        <ul>
+          <li>Data: <%= I18n.l(purchase.created_at.to_date) %></li>
+          <% purchase.product_items.each do |item| %>
+            <li><%= "#{item.quantity} x #{item.product.name}" %></li>
+          <% end %>
+            <li>Valor Total: $<%= number_with_precision(purchase.value, precision: 2) %> rubis</li>
+            <li><%= Purchase.human_attribute_name("status.#{purchase.status}") %></li>
+        </ul>
+      </div>
+    <% end %>
+  <% else %>
+    <p> Você ainda não realizou nenhuma compra. </p>
+  <% end %>
+</div>

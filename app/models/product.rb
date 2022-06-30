@@ -9,6 +9,7 @@ class Product < ApplicationRecord
 
   has_many :prices, dependent: :nullify
   has_many :product_items, dependent: :nullify
+  has_many :reviews, dependent: :nullify
   accepts_nested_attributes_for :prices
   has_one_attached :manual
   has_many_attached :photos

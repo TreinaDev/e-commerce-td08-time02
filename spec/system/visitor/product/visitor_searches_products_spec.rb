@@ -29,7 +29,7 @@ describe 'Visitante busca produtos' do
 
   it 'por descrição' do
     create :exchange_rate
-    category = create(:category, name: 'Eletronicos')
+    category = create(:category, name: 'Eletrônicos')
     visible_product = create :product, name: 'Galaxy S20', category: category, description: 'Celular 256mb'
     create :price, product: visible_product
     invisible_product1 = create :product, name: 'TV LED 40 POLEGADAS', category: category,
@@ -50,7 +50,7 @@ describe 'Visitante busca produtos' do
 
   it 'por sku' do
     create :exchange_rate
-    category = create(:category, name: 'Eletronicos')
+    category = create(:category, name: 'Eletrônicos')
     product = create :product, name: 'Galaxy S20', category: category, sku: 'MENP8KU-99999'
     create :price, product: product
 
@@ -79,5 +79,23 @@ describe 'Visitante busca produtos' do
     expect(page).not_to have_content 'Camiseta Vermelha'
     expect(page).not_to have_content 'Camiseta Azul'
     expect(page).not_to have_content 'Shorts Branco'
+  end
+
+  it 'e não vê produtos inativos' do
+    create :exchange_rate
+    category = create(:category, name: 'Eletrônicos')
+    visible_product = create :product, name: 'Galaxy S20 Azul', category: category, description: 'Celular 256mb',
+                                       status: :active
+    create :price, product: visible_product
+    invisible_product = create :product, name: 'Galaxy S20 Preto', category: category,
+                                         description: 'Celular 256mb', status: :inactive
+    create :price, product: invisible_product
+
+    visit products_path
+    fill_in 'Buscar', with: 'Galaxy S20'
+    click_on 'Buscar'
+
+    expect(page).to have_content visible_product.name
+    expect(page).not_to have_content invisible_product.name
   end
 end
