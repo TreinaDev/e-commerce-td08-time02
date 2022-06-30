@@ -26,7 +26,7 @@ describe 'Administrador acessa detalhes do produto' do
                    start_date: 8.days.from_now, end_date: 90.days.from_now, value: 100.00)
 
     login_as admin, scope: :admin
-    visit products_path
+    visit root_path
     click_on 'Monitor 8k'
 
     expect(page).to have_current_path product_path(Product.last)

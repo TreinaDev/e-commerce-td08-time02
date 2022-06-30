@@ -12,7 +12,6 @@ describe 'Administrador cadastra um produto' do
 
     login_as admin, scope: :admin
     visit root_path
-    find('#menu-desktop').click_on 'Produtos'
     click_on 'Cadastrar Produto'
     fill_in 'Nome', with: 'TV - LG 45'
     fill_in 'Marca', with: 'LG'

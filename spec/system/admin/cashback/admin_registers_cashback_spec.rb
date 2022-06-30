@@ -1,14 +1,11 @@
 require 'rails_helper'
 
-describe 'Administrador cria cashback' do 
+describe 'Administrador cria cashback' do
   it 'com sucesso' do
     admin = create :admin
 
     login_as admin, scope: :admin
     visit root_path
-    within('#menu-desktop') do
-      click_on 'Produtos'
-    end
     click_on 'Cadastrar Cashback'
     fill_in 'Data Inicial', with: 1.day.from_now
     fill_in 'Data Final', with: 1.month.from_now
@@ -26,7 +23,6 @@ describe 'Administrador cria cashback' do
 
     login_as admin, scope: :admin
     visit new_cashback_path
-
     click_on 'cadastrar'
 
     expect(page).to have_current_path cashbacks_path
