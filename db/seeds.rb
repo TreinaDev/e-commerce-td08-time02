@@ -3,15 +3,9 @@ admin = Admin.create!(email: 'arthur@mercadores.com.br', password: 'password', n
 Admin.create!(email: 'marco@mercadores.com.br', password: 'password', name: 'Marco')
 
 # Clientes
-<<<<<<< HEAD
-Client.create!(email: 'marquinhos@hotmail.com', password: 'password', name: 'Marquinhos', code: '61.887.261/0001-60')
-Client.create!(email: 'juliana@hotmail.com', password: 'password', name: 'Juliana', code: '622.894.020-10')
-Client.create!(email: 'jadson@hotmail.com', password: 'password', name: 'Jadson', code: '788.460.940-18')
-=======
 first_client = Client.create!(email: 'marquinhos@hotmail.com', password: 'password', name: 'Marquinhos', code: '61.887.261/0001-60')
 second_client = Client.create!(email: 'juliana@hotmail.com', password: 'password', name: 'Juliana', code: '622.894.020-10')
 third_client = Client.create!(email: 'jadson@hotmail.com', password: 'password', name: 'Jadson', code: '59641220004')
->>>>>>> cea8837 (Adiciona estilo da tela de listagem de compras)
 
 # Categorias
 first_category = Category.create!(name: 'Eletrônicos', admin:, status: :active)
