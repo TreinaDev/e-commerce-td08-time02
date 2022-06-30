@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
     end
     @products = admin_signed_in? ? Product.all : Product.active
   end
-  
+
   def new
     @product = Product.new
     @start_date = Time.zone.today
@@ -44,6 +44,7 @@ class ProductsController < ApplicationController
       return redirect_to root_path, notice: t('inactive_or_inexistent_product')
     end
 
+    set_cashback
     set_new_price
   end
 
@@ -77,13 +78,19 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:name, :brand, :category_id, :description, :sku, :width, :height,
                                     :depth, :weight, :shipping_price, :fragile, :manual, :cashback_id,
                                     photos: [], prices_attributes: %i[id admin_id start_date end_date value])
-                                   
   end
 
   def set_product
     @product = Product.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path, notice: t('inactive_or_inexistent_product')
+  end
+
+  def set_cashback
+    return unless @product.cashback
+
+    @cashback = @product.cashback
+    @cashback_value = @product.current_price.rubies_value / @cashback.percentual
   end
 
   def set_new_price
