@@ -19,4 +19,10 @@ describe 'Visitante não autenticado' do
 
     expect(page).to have_current_path new_client_session_path
   end
+
+  it 'visita a lista de compras realizadas' do
+    visit purchases_path
+
+    expect(page).to have_current_path new_client_session_path
+  end
 end

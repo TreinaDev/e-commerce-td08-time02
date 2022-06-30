@@ -22,20 +22,20 @@ describe 'Cliente vê carrinho' do
     within("##{first_product.id}") do
       expect(page).to have_content 'Mouse'
       expect(page).to have_content '1'
-      expect(page).to have_content 'Preço Unitário: 5,00 rubis'
-      expect(page).to have_content 'Frete: 5,00 rubis'
-      expect(page).to have_content 'Subtotal: 5,00 rubis'
+      expect(page).to have_content 'Preço Unitário: $5,00'
+      expect(page).to have_content 'Frete: $5,00'
+      expect(page).to have_content 'Subtotal: $5,00'
     end
     within("##{second_product.id}") do
       expect(page).to have_content 'Monitor 8k'
       expect(page).to have_content '2'
-      expect(page).to have_content 'Preço Unitário: 10,00 rubis'
-      expect(page).to have_content 'Frete: 20,00 rubis'
-      expect(page).to have_content 'Subtotal: 20,00 rubis'
+      expect(page).to have_content 'Preço Unitário: $10,00'
+      expect(page).to have_content 'Frete: $20,00'
+      expect(page).to have_content 'Subtotal: $20,00'
     end
-    expect(page).to have_content 'Total frete: 25,00 rubis'
-    expect(page).to have_content 'Total produtos: 25,00 rubis'
-    expect(page).to have_content 'Total: 50,00 rubis'
+    expect(page).to have_content 'Total frete: $25,00'
+    expect(page).to have_content 'Total produtos: $25,00'
+    expect(page).to have_content 'Total: $50,00'
   end
 
   it 'e não há produtos duplicados' do

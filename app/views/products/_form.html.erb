@@ -32,6 +32,14 @@
         </div>
       </div>
 
+        <div class="flex flex-col py-3 pb-5 w-full sm:w-12/12">
+          <%= f.label :cashback_id, 'Cashback' %>
+          <%= f.collection_select :cashback_id, @cashbacks, :id, :extended_description, { prompt: '[Sem cashback relacionado]'} %>
+          <% if @product.errors.any? %>
+            <p class=' text-red-600'><%= @product.errors.full_messages_for(:cashbacks).first %></p>
+          <% end %>
+        </div>
+    
       <h1 class='self-start text-xl font-semibold mb-2'>Dimensões </h1>
 
       <div class='sm:flex-row flex-col flex w-full'>    

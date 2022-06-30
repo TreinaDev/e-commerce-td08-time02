@@ -20,9 +20,10 @@ Rails.application.routes.draw do
     end
   end
   resources :prices, only: :create
+  resources :cashbacks, only: %i[new create]
 
   get 'shopping_cart', to: 'shopping_cart#index'
-  resources :purchases, only: :create
+  resources :purchases, only: %i[index create]
 
   resources :pending_admins, only: %i[index] do
     post 'approve', on: :member
@@ -31,6 +32,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :exchange_rates, only: %i[create]
+
+      post 'clients/update-balance', to: 'clients#update_balance'
     end
   end
 end

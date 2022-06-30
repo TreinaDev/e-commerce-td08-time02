@@ -1,0 +1,19 @@
+<div>
+  <%= form_with model: @cashback do |form| %>
+    <div>
+      <%= form.label :start_date %>
+      <%= form.date_field :start_date %>
+    </div>
+    <div>
+      <%= form.label :end_date %>
+      <%= form.date_field :end_date %>
+    </div>
+    <div>
+      <%= form.label :percentual %>
+      <%= form.number_field :percentual %>
+    </div>
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>

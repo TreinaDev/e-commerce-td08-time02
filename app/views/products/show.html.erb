@@ -30,6 +30,9 @@
       </div>
     </div>
     <h3 class="text-xl mt-6 mb-2 font-semibold">Informações do Produto</h3>
+    <% unless @product.cashback.nil? %> 
+      <p>Cashback: <%= @product.cashback.extended_description %></p>
+    <% end %>
     <p>Descrição: <%= @product.description %></p>
     <p>SKU: <%= @product.sku %></p>
     <p>Marca: <%= @product.brand %></p>

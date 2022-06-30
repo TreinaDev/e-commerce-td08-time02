@@ -5,17 +5,13 @@ class Client < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :product_items, dependent: :nullify
+  has_many :reviews, dependent: :nullify
 
   validates :name, :code, presence: true
+  validates :balance, numericality: { greater_than_or_equal_to: 0.0 }
   validate :code_is_valid
 
-  def balance
-    response = Faraday.get("http://localhost:4000/api/v1/balance/#{code_numbers}")
-    body = JSON.parse(response.body)
-    body['balance']
-  rescue
-    0
-  end
+  after_create :create_wallet
 
   def code_numbers
     code.split('-').join.split('.').join.split('/').join
@@ -31,9 +27,18 @@ class Client < ApplicationRecord
 
   private
 
+  def create_wallet
+    params = { client_wallet: { email:, registered_number: code } }
+    response = Faraday.post('http://localhost:4000/api/v1/client_wallets', params)
+
+    update(has_wallet: true) if response.status.digits.last == 2 || response.body.include?('em uso')
+  end
+
   def code_is_valid
     return unless code
 
-    errors.add :code, 'inválido' if !CNPJ.valid?(code) && !CPF.valid?(code)
+    return if (CNPJ.valid?(code) || CPF.valid?(code)) && code.include?('.')
+
+    errors.add :code, 'inválido'
   end
 end
