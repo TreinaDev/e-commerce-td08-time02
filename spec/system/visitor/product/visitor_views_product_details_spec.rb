@@ -28,7 +28,7 @@ describe 'Visitante vê detalhes de um produto' do
     expect(page).to have_content('Peso: 12,00 kg')
     expect(page).to have_content('Frete: $5,00')
     expect(page).to have_content('$10,00')
-    expect(page).to have_content('Cashback de 10% - $ 1,00')
+    expect(page).to have_content('Cashback de 10% | $ 1,00')
     expect(page).to have_content('Frágil - Sim')
     expect(page).not_to have_content('Preço do Frete: R$ 10,00')
     expect(page).not_to have_content('Preço: R$ 20,00')

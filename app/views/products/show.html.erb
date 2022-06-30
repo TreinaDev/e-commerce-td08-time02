@@ -16,7 +16,7 @@
             <%= image_tag('rubi', class: "img-responsive w-[20px] h-[20px]")%>
           </div>
           <% unless @cashback.nil? %>
-            <p class='text-xs text-green-500'>Cashback de <%= "#{@cashback.percentual}% - #{number_to_currency(@cashback_value, unit: '$')} " %>
+            <p class='text-xs text-green-500'>Cashback de <%= "#{@cashback.percentual}% | #{number_to_currency(@cashback_value, unit: '$')} " %>
             <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px] inline-block") %></p>
           <% end %>
           <div class='flex space-x-1 items-center'>
