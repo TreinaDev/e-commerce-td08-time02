@@ -1,28 +1,24 @@
-<section class='pt-5 px-[2%] w-full'>
+<section class='list'>
   <div class="flex flex-col w-full items-center">
-    <div class="flex flex-col items-center w-full">
-      <h2>Lista de Promoções</h2>
-    </div>
-    <%= link_to 'Criar Promoção', new_promotion_path, class: 'btn-primary ml-2 mb-3' %>
-    <div class='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+    <h1 class="title">Lista de Promoções</h1>
+    <%= link_to 'Criar Promoção', new_promotion_path, class: 'btn-primary' %>
+    <div class='grid-list'>
       <% if @promotions.any? %>
-          <% @promotions.each do |promotion| %>
-            <div class="promotions-wrapper max-w-[300px] shadow-lg rounded-md bg-gray-100 m-2">
-              <div class="promotion p-5">
-                  <%= link_to promotion_path(promotion.id) do %>
-                    <div><h1 class="text-lg font-semibold pb-2"><%= promotion.name %> (<%= promotion.discount_percentual %>%)</h1></div>
-                    <div><h2 class="text-base font-semibold m-0 p-0"><%= promotion.coupon %></h2></div>
-                  <% end %>
-                  <p>Utilizado: <%= promotion.used_times %></p> 
-                  <p>Limite: <%= promotion.usage_limit %></p>
-                  <p>Início: <%= I18n.l(promotion.start_date) %></p> 
-                  <p>Final: <%= I18n.l(promotion.end_date) %></p>
-              </div>
-            </div>
-          <% end %>  
+        <% @promotions.each do |promotion| %>
+          <div class="promotions-wrapper max-w-[300px] shadow-lg rounded-md bg-gray-100 m-2 promotion p-5">
+            <%= link_to promotion_path(promotion.id) do %>
+              <div><h1 class="text-lg font-semibold pb-2"><%= promotion.name %> (<%= promotion.discount_percentual %>%)</h1></div>
+              <div><h2 class="text-base font-semibold m-0 p-0"><%= promotion.coupon %></h2></div>
+            <% end %>
+            <p>Utilizado: <%= promotion.used_times %></p> 
+            <p>Limite: <%= promotion.usage_limit %></p>
+            <p>Início: <%= I18n.l(promotion.start_date) %></p> 
+            <p>Final: <%= I18n.l(promotion.end_date) %></p>
+          </div>
+        <% end %>  
       <% else %>
-      <div class='col-start-2 pt-5'>Não há promoções cadastradas</div>
+        <div class="mt-5 col-span-4">Não há promoções cadastradas</div>
       <% end %>
-    </div> 
+    </div>
   </div>
 </section>

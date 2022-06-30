@@ -3,9 +3,15 @@ admin = Admin.create!(email: 'arthur@mercadores.com.br', password: 'password', n
 Admin.create!(email: 'marco@mercadores.com.br', password: 'password', name: 'Marco')
 
 # Clientes
+<<<<<<< HEAD
 Client.create!(email: 'marquinhos@hotmail.com', password: 'password', name: 'Marquinhos', code: '61.887.261/0001-60')
 Client.create!(email: 'juliana@hotmail.com', password: 'password', name: 'Juliana', code: '622.894.020-10')
 Client.create!(email: 'jadson@hotmail.com', password: 'password', name: 'Jadson', code: '788.460.940-18')
+=======
+first_client = Client.create!(email: 'marquinhos@hotmail.com', password: 'password', name: 'Marquinhos', code: '61.887.261/0001-60')
+second_client = Client.create!(email: 'juliana@hotmail.com', password: 'password', name: 'Juliana', code: '622.894.020-10')
+third_client = Client.create!(email: 'jadson@hotmail.com', password: 'password', name: 'Jadson', code: '59641220004')
+>>>>>>> cea8837 (Adiciona estilo da tela de listagem de compras)
 
 # Categorias
 first_category = Category.create!(name: 'Eletrônicos', admin:, status: :active)
@@ -70,7 +76,7 @@ fifth_product.photos.attach(io: File.open(Rails.root.join('spec/support/files/pl
 Price.create!(admin: admin, product: fifth_product, start_date: Time.zone.today, end_date: 180.days.from_now,
 value: 140.00)
 
-#Promoções
+# Promoções
 first_promotion = Promotion.create!(name: 'BlackFriday', discount_percentual: 50, discount_max: 200, usage_limit: 100,
                                     start_date: 1.day.from_now, end_date: 1.month.from_now, admin:)
 
@@ -79,3 +85,17 @@ second_promotion = Promotion.create!(name: 'Dia das Mães', discount_percentual:
 
 third_promotion = Promotion.create!(name: 'Dia dos Namorados', discount_percentual: 20, discount_max: 60, usage_limit: 40,
                                     start_date: 1.day.from_now, end_date: 1.week.from_now, admin:)
+           
+# Promoções
+Promotion.create!(name: 'BlackFriday', discount_percentual: 50, discount_max: 200, usage_limit: 100,
+                  start_date: 1.day.from_now, end_date: 1.month.from_now, admin:)
+Promotion.create!(name: 'Dia das Mães', discount_percentual: 30, discount_max: 100, usage_limit: 50,
+                  start_date: 1.day.from_now, end_date: 1.week.from_now, admin:)
+Promotion.create!(name: 'Dia dos Namorados', discount_percentual: 20, discount_max: 60, usage_limit: 40,
+                  start_date: 1.day.from_now, end_date: 1.week.from_now, admin:)
+
+# Compras
+Purchase.create!(client: first_client, value: 2000, status: :approved, message: 'Aprovado com sucesso!')
+Purchase.create!(client: first_client, value: 3000, status: :approved, message: 'Aprovado com sucesso!')
+Purchase.create!(client: first_client, value: 10000, status: :rejected, message: 'Cliente sem Saldo!')
+Purchase.create!(client: first_client, value: 10000, status: :pending, message: 'Cliente sem Saldo!')
