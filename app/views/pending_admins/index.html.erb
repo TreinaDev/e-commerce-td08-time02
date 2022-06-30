@@ -1,9 +1,24 @@
-<h1>Cadastros de administradores pendentes</h1>
-<% @pending_admins.each do |admin| %>
-  <div id=<%= admin.id %>>
-    <p>Nome: <%= admin.name %></p>
-    <p>E-mail: <%= admin.email %></p>
-    <p>Status: <%= Admin.human_attribute_name("status.#{admin.status}") %></p>
-    <%= button_to "Aprovar Cadastro", approve_pending_admin_path(admin.id) %>
+<section class='list'>
+  <div><h1 class="title text-center">Cadastros de Administradores pendentes</h1></div>
+     <div class='flex flex-col items-center'>
+      <% @pending_admins.each do |admin| %>
+        <div id=<%= admin.id %> class="flex flex-col sm:flex-row card mb-2 w-[70%] min-w-[350px] p-5 bg-gray-100 sm:justify-between">
+        
+          <div class="flex flex-col items-center">
+            <p class="text-lg font-semibold">Nome</p>
+            <p><%= admin.name %></p>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <p class="text-lg font-semibold">E-mail</p>
+            <p><%= admin.email %></p>
+          </div>
+
+          <div class="flex flex-col sm:justify-center items-center">
+            <%= button_to "Aprovar Cadastro", approve_pending_admin_path(admin.id), class: 'btn-primary' %>
+          </div>
+
+        </div>
+      <% end %>
   </div>
-<% end %>
+</section>
