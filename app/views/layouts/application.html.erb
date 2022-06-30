@@ -20,7 +20,6 @@
         <ul class= 'md:flex text-white justify-between items-center space-x-2 hidden w-full'>
           <div class= 'flex font-semibold items-baseline space-x-2'>
             <li><%= link_to 'Página Inicial', root_path %></li>
-            <li><%= link_to 'Produtos', products_path %></li>
           </div>
           <div class= 'flex font-semibold space-x-2'>
             <% if client_signed_in? %>
@@ -74,7 +73,6 @@
       <ul class= 'flex flex-col text-white items-start space-y-2 w-full pb-8'>
           <div class= 'flex flex-col font-semibold items-baseline space-y-2'>
             <li><%= link_to 'Página Inicial', root_path %></li>
-            <li><%= link_to 'Produtos', products_path %></li>
           </div>
           <div class= 'flex flex-col font-semibold space-y-2'>
             <% if client_signed_in? %>

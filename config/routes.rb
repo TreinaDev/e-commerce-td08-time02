@@ -2,14 +2,14 @@ Rails.application.routes.draw do
   devise_for :clients
   devise_for :admins, path: 'admins'
 
-  root 'home#index'
+  root 'products#index'
 
   resources :promotions, only: %i[new create index show]
   resources :categories, only: %i[new create index show] do
     post 'activate', on: :member
     post 'deactivate', on: :member
   end
-  resources :products, only: %i[index new create show] do
+  resources :products, only: %i[new create show] do
     get 'search', on: :collection
     get 'filter', on: :collection
     post 'activate', on: :member
