@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   before_action :find_category, only: %i[show activate deactivate]
 
   def index
-    @categories = Category.where(category: nil)
+    @categories = Category.where(category: nil).order('name ASC')
   end
 
   def show

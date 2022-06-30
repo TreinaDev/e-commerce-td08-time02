@@ -98,7 +98,7 @@
                 <li><%= link_to 'Cadastros Pendentes', pending_admins_path %></li>
               </div>
               <div class= 'flex flex-col space-y-2'>
-                <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
+                <li><p class='text-md font-light'><%= current_admin.name %> (<%= current_admin.email %>)</p></li>
                 <li class= 'text-red-500'><%= button_to 'Sair', destroy_admin_session_path, method: :delete %></li>
               </div>
             <% end %>
