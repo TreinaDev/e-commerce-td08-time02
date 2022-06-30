@@ -15,9 +15,7 @@ describe 'Visitante vê todos os produtos' do
     create :price, product: product2, start_date: 2.days.from_now, end_date: 90.days.from_now, value: 40.00
 
     visit root_path
-    find('#menu-desktop').click_on 'Produtos'
 
-    expect(page).to have_current_path products_path
     expect(page).not_to have_link('Cadastrar Produto')
     within("##{product1.id}") do
       expect(page).to have_content('Monitor 8k')
@@ -35,7 +33,6 @@ describe 'Visitante vê todos os produtos' do
 
   it 'e não existem produtos cadastrados' do
     visit root_path
-    find('#menu-desktop').click_on 'Produtos'
 
     expect(page).to have_content 'Nenhum produto encontrado'
   end
@@ -48,7 +45,7 @@ describe 'Visitante vê todos os produtos' do
                                       status: :inactive
     create :price, product: second_product, value: 20.00
 
-    visit products_path
+    visit root_path
     within("##{first_product.id}") do
       expect(page).to have_content 'Monitor 8k'
       expect(page).to have_content 'LG'

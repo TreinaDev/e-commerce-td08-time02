@@ -4,9 +4,12 @@
       <%= form.text_field :query, placeholder: "Pesquisar", id: "Buscar", class:'rounded-lg h-8 max-w-[200px]'%>
       <%= form.submit "Buscar", class:'btn-second ml-2 mr-3' %>
     <% end %>
-    <div>
-      <%= link_to 'Cadastrar Produto', new_product_path, class:'btn-second ' if admin_signed_in? %>
-    </div>
+    <% if admin_signed_in? %>
+      <div>
+        <%= link_to 'Cadastrar Produto', new_product_path, class:'btn-second ml-3' %>
+        <%= link_to 'Cadastrar Cashback', new_cashback_path, class:'btn-second ml-3'%>
+      </div>
+    <% end %>
   </div>
 
   <div class='flex mt-8 w-full'>

@@ -1,0 +1,14 @@
+pt-BR:
+  review_created: Avaliação feita com Sucesso!
+  review_not_created: Não foi possível postar a Avaliação
+  activerecord:
+    models:
+      review:
+        one: Avaliação
+        other: Avaliações
+    attributes:
+      review:
+        rating: Nota
+        comment: Comentário
+        product: Produto Avaliado
+        client: Cliente Avaliador

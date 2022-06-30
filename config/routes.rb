@@ -2,14 +2,14 @@ Rails.application.routes.draw do
   devise_for :clients
   devise_for :admins, path: 'admins'
 
-  root 'home#index'
+  root 'products#index'
 
   resources :promotions, only: %i[new create index show]
   resources :categories, only: %i[new create index show] do
     post 'activate', on: :member
     post 'deactivate', on: :member
   end
-  resources :products, only: %i[index new create show] do
+  resources :products, only: %i[new create show] do
     get 'search', on: :collection
     get 'filter', on: :collection
     post 'activate', on: :member
@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     end
   end
   resources :prices, only: :create
+  resources :cashbacks, only: %i[new create]
 
   get 'shopping_cart', to: 'shopping_cart#index'
   resources :purchases, only: %i[index create]
@@ -31,6 +32,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :exchange_rates, only: %i[create]
+
+      post 'clients/update-balance', to: 'clients#update_balance'
     end
   end
 end

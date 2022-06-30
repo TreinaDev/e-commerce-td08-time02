@@ -20,18 +20,17 @@
         <ul class= 'md:flex text-white justify-between items-center space-x-2 hidden w-full'>
           <div class= 'flex font-semibold items-baseline space-x-2'>
             <li><%= link_to 'Página Inicial', root_path %></li>
-            <li><%= link_to 'Produtos', products_path %></li>
           </div>
           <div class= 'flex font-semibold space-x-2'>
             <% if client_signed_in? %>
               <div class= 'flex space-x-2'>
-                <li class= 'border px-2 rounded-full'><%= @balance %> Rubis</li>
+                <li class= 'border px-2 rounded-full'><%= number_with_precision(current_client.balance, precision: 2) %> Rubis</li>
                 <li><%= link_to 'Minhas Compras', purchases_path %></li>
                 <li><%= current_client.name %> (<%= current_client.email %>)</li>
                 <li class= 'text-red-500'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
               </div>
             <% end %>
-            <% if !admin_signed_in? && !client_signed_in? %>
+            <% unless admin_signed_in? || client_signed_in? %>
               <div class= 'flex space-x-2'>
                 <li class= 'border px-2 py-1 border-gray-400'><%= link_to "Entrar como Administrador", new_admin_session_path %></li>
                 <li class= 'border px-2 py-1 border-gray-400'><%= link_to "Entrar como Cliente", new_client_session_path %></li>
@@ -60,11 +59,11 @@
             </div>
           <% end %>
           <div class="-mr-2 flex items-center md:hidden ", id='btn-menu'>
-              <button type="button" class="bg-white rounded-md p-1 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brown1" aria-expanded="false">
-                <svg class="h-6 w-6 text-brown1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
+            <button type="button" class="bg-white rounded-md p-1 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brown1" aria-expanded="false">
+              <svg class="h-6 w-6 text-brown1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -74,18 +73,17 @@
       <ul class= 'flex flex-col text-white items-start space-y-2 w-full pb-8'>
           <div class= 'flex flex-col font-semibold items-baseline space-y-2'>
             <li><%= link_to 'Página Inicial', root_path %></li>
-            <li><%= link_to 'Produtos', products_path %></li>
           </div>
           <div class= 'flex flex-col font-semibold space-y-2'>
             <% if client_signed_in? %>
               <div class= 'flex flex-col space-y-2 '>
-                <li class= 'border px-2 rounded-full self-start align-center'><%= @balance %> Rubis</li>
+                <li class= 'border px-2 rounded-full self-start align-center'><%= number_with_precision(current_client.balance, precision: 2) %></li>
                 <li><%= current_client.name %> (<%= current_client.email %>)</li>
                 <li><%= link_to 'Minhas Compras', purchases_path %></li>
                 <li class= 'text-red-500'><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
               </div>
             <% end %>
-            <% if !admin_signed_in? && !client_signed_in? %>
+            <% unless admin_signed_in? || client_signed_in? %>
               <div class= 'flex space-y-2 flex-col'>
                 <li class= 'border px-2 py-1 border-gray-400'><%= link_to "Entrar como Administrador", new_admin_session_path %></li>
                 <li class= 'border px-2 py-1 border-gray-400 max-w-[175px]'><%= link_to "Entrar como Cliente", new_client_session_path %></li>
@@ -98,7 +96,7 @@
                 <li><%= link_to 'Cadastros Pendentes', pending_admins_path %></li>
               </div>
               <div class= 'flex flex-col space-y-2'>
-                <li><%= current_admin.name %> (<%= current_admin.email %>)</li>
+                <li><p class='text-md font-light'><%= current_admin.name %> (<%= current_admin.email %>)</p></li>
                 <li class= 'text-red-500'><%= button_to 'Sair', destroy_admin_session_path, method: :delete %></li>
               </div>
             <% end %>
@@ -107,15 +105,15 @@
     </nav>
 
     <div>
-      <% if notice%>
-      <div class="notice w-[98%] border-red-500 bg-green-500 p-1 mx-auto my-2 text-center">
-        <p><%= notice %></p>
-      </div>
+      <% if notice %>
+        <div class="notice w-[98%] border-red-500 bg-green-500 p-1 mx-auto my-2 text-center">
+          <p><%= notice %></p>
+        </div>
       <% end %>
-      <% if alert%>
-      <div class='alert w-[98%] bg-red-400 border-red-300 p-1 mx-auto my-2 opacity-90 text-center'>
-        <p><%= alert %></p>
-      </div>
+      <% if alert %>
+        <div class='alert w-[98%] bg-red-400 border-red-300 p-1 mx-auto my-2 opacity-90 text-center'>
+          <p><%= alert %></p>
+        </div>
       <% end %>
     </div>
     <%= yield %>

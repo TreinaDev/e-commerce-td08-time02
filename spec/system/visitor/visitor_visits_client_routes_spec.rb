@@ -13,7 +13,7 @@ describe 'Visitante não autenticado' do
     product = create(:product, name: 'Monitor 8k', status: :active)
     create(:price, product: product, admin: product.category.admin)
 
-    visit products_path
+    visit root_path
     click_on 'Monitor 8k'
     click_on 'Adicionar ao carrinho'
 

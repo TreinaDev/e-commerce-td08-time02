@@ -13,7 +13,6 @@ describe 'Visitante filtra produtos por categoria' do
     create :price, product: invisible_product
 
     visit root_path
-    find('#menu-desktop').click_on 'Produtos'
     click_on 'Roupas'
 
     expect(page).to have_content('Shorts vermelho')
@@ -30,7 +29,7 @@ describe 'Visitante filtra produtos por categoria' do
     visible_product = create :product, name: 'Shorts azul', category: subcategory
     create :price, product: visible_product
 
-    visit products_path
+    visit root_path
     click_on 'Shorts'
 
     expect(page).to have_content('Shorts azul')
@@ -40,7 +39,7 @@ describe 'Visitante filtra produtos por categoria' do
   it 'não vê categoria desativada' do
     create :category, name: 'Roupas', status: :disabled
 
-    visit products_path
+    visit root_path
 
     expect(page).not_to have_link('Roupas')
   end
@@ -53,7 +52,7 @@ describe 'Visitante filtra produtos por categoria' do
     invisible_product = create :product, name: 'Camisa vermelha', category: category, status: :inactive
     create :price, product: invisible_product
 
-    visit products_path
+    visit root_path
     click_on category.name
 
     expect(page).not_to have_content invisible_product.name
@@ -64,7 +63,7 @@ describe 'Visitante filtra produtos por categoria' do
     active_category = create :category, name: 'Roupas'
     inactive_category = create :category, name: 'Sapatos', status: :disabled
 
-    visit products_path
+    visit root_path
     click_on active_category.name
 
     expect(page).not_to have_content inactive_category.name
