@@ -12,6 +12,8 @@ RSpec.describe Purchase, type: :model do
 
     it { is_expected.to validate_numericality_of(:value).is_greater_than_or_equal_to(0.0) }
 
+    it { is_expected.to validate_presence_of(:code) }
+
     context 'valor de compra >= valor de cashback' do
       it 'false' do
         purchase = build :purchase, value: 0.11, cashback_value: 0.12

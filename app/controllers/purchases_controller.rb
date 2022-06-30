@@ -6,9 +6,7 @@ class PurchasesController < ApplicationController
   end
 
   def create
-    purchase = Purchase.new(purchase_params)
-    purchase.product_items = current_client.product_items
-    purchase.save
+    purchase = Purchase.create(purchase_params)
     response = PurchaseDataService.send(purchase)
     if response&.status == :created
       PurchaseDataService.change_purchase_status(purchase, response)
@@ -22,6 +20,7 @@ class PurchasesController < ApplicationController
   private
 
   def purchase_params
-    params.permit(:client_id, :value)
+    params.permit(:client_id, :value).merge(code: SecureRandom.alphanumeric(8).upcase,
+                                            product_items: current_client.product_items)
   end
 end

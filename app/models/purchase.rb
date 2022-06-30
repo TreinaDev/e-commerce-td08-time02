@@ -3,6 +3,7 @@ class Purchase < ApplicationRecord
   has_many :product_items, dependent: :nullify
   enum status: { pending: 0, approved: 5, rejected: 10 }
 
+  validates :code, presence: true
   validates :cashback_value, numericality: { greater_than_or_equal_to: 0.0 }
   validates :value, numericality: { greater_than_or_equal_to: 0.0 }
   validate :cashback_value_less_than_or_equal_to_value
