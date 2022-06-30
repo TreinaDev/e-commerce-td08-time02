@@ -85,4 +85,17 @@ describe 'Cliente vê carrinho' do
     expect(page).to have_current_path product_path(second_product)
     expect(page).to have_content 'Mouse'
   end
+
+  it 'e a compra não possui cashback' do
+    create :exchange_rate, value: 2.00
+    client = create :client
+    product = create :product
+    create :price, product: product
+    create :product_item, product: product, client: client
+
+    login_as client, scope: :client
+    visit shopping_cart_path
+
+    expect(page).not_to have_content 'Cashback Total'
+  end
 end
