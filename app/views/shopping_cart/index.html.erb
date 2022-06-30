@@ -1,6 +1,6 @@
 <section class='p-[2%] w-full max-w-5xl flex mt-5 m-auto bg-gray-100'>
   <div class='px-4 pb-10 w-full flex flex-col'>
-    <% unless @product_items.empty? %>      
+    <% unless @product_items.empty? %>
       <div class="w-full flex flex-col">
         <h2><%= t('my_cart') %></h2>
         <h4 class='text-xl font-semibold pb-1'>Produtos</h4>
@@ -21,11 +21,11 @@
                   <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
                 </div>
                 <div  class='flex items-center space-x-1'>
-                  <p>Subtotal: $<%= number_with_precision(item.define_product_total_price, precision: 2) %></p>
+                  <p>Subtotal: $<%= number_with_precision(item.total_price, precision: 2) %></p>
                   <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
                 </div>
                 <div  class='flex items-center space-x-1'>
-                  <p>Frete: $<%= number_with_precision(item.define_product_shipping_price, precision: 2) %></p>
+                  <p>Frete: $<%= number_with_precision(item.total_shipping_price, precision: 2) %></p>
                   <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
                 </div>
               </div>
@@ -43,33 +43,45 @@
                         2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
                       </path>
                     </svg>
-                  <%end%>  
-                </div>                    
+                  <%end%>
+                </div>
               </div>
             </div>
           </div>
         <% end %>
       </div>
 
-      <div class='w-full pt-12 '>        
+      <div class='w-full pt-12 '>
         <div class='bg-slate-50 py-4 px-6 shadow-md rounded-md w-full flex flex-col items-center'>
           <div class='space-y-3'>
             <h2>Resumo</h2>
+
             <div class='flex items-center space-x-1'>
               <p>Total produtos: <span class='text-lg font-semibold'>$<%= number_with_precision(@total_products, precision: 2) %></span> </p>
               <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
             </div>
-            <div  class='flex items-center space-x-1'>
+
+            <div class='flex items-center space-x-1'>
               <p>Total frete: <span class='text-lg font-semibold'>$<%= number_with_precision(@total_shipping, precision: 2)%></span> </p>
               <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
             </div>
-            <div  class='flex items-center space-x-1'>
+
+            <div class='flex items-center space-x-1'>
               <p>Total: <span class='text-2xl font-semibold'>$<%= number_with_precision(@total, precision: 2) %></span> </p>
               <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
             </div>
-            <div class='btn-primary  self-start'>
-              <%= button_to 'Confirmar Compra', purchases_path(client_id: current_client.id, value: @total), method: :post, class:'w-[200px]' %> 
-            </div>
+
+            <% if @cashback > 0 %>
+              <div class='flex items-center space-x-1'>
+                <p>Cashback Total: <span class='text-lg font-semibold text-green-500'>$<%= number_with_precision(@cashback, precision: 2) %></span> </p>
+                <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
+              </div>
+            <% end %>
+
+              <div class='btn-primary  self-start'>
+                <%= button_to 'Confirmar Compra', purchases_path(client_id: current_client.id, value: @total,
+                                                                cashback_value: @cashback), method: :post, class:'w-[200px]' %>
+              </div>
           </div>
         </div>
       </div>
