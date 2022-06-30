@@ -5,7 +5,7 @@ describe 'Administrador cria cashback' do
     admin = create :admin
 
     login_as admin, scope: :admin
-    visit root_path
+    visit cashbacks_path
     click_on 'Cadastrar Cashback'
     fill_in 'Data Inicial', with: 1.day.from_now
     fill_in 'Data Final', with: 1.month.from_now

@@ -4,6 +4,7 @@
     <div class="flex flex-col items-center w-full">
       <h2>Cashbacks Registrados</h2>
     </div>
+    <%= link_to 'Cadastrar Cashback', new_cashback_path, class:'btn-primary ml-3'%>
 
     <% if @cashbacks.any? %>
       <div class='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 m-auto'>
