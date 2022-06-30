@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :exchange_rates, only: %i[create]
+
+      post 'clients/update-balance', to: 'clients#update_balance'
     end
   end
 end

@@ -6,6 +6,8 @@ RSpec.describe Client, type: :model do
 
     it { is_expected.to validate_presence_of(:code) }
 
+    it { is_expected.to validate_numericality_of(:balance).is_greater_than_or_equal_to 0.0 }
+
     describe '.code_is_valid' do
       it 'verdadeiro se CPF é válido' do
         client = described_class.new(code: '510.808.180-49')

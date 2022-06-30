@@ -6,8 +6,9 @@ class Client < ApplicationRecord
 
   has_many :product_items, dependent: :nullify
   has_many :reviews, dependent: :nullify
-  
+
   validates :name, :code, presence: true
+  validates :balance, numericality: { greater_than_or_equal_to: 0.0 }
   validate :code_is_valid
 
   after_create :create_wallet
