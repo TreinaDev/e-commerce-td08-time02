@@ -4,9 +4,11 @@ describe 'Visitante vê detalhes de um produto' do
   it 'a partir da tela de produtos' do
     create :exchange_rate, value: 2.0
     category = create(:category, name: 'Eletrônicos')
+    cashback = create(:cashback, percentual: 10, start_date: Time.zone.today, end_date: 7.days.from_now)
     product = create(:product, name: 'Monitor 8k', brand: 'LG', description: 'Monitor de alta qualidade',
                                sku: 'MON8K-64792', height: 50, width: 100, depth: 12, weight: 12,
-                               shipping_price: 10.00, fragile: true, status: :active, category: category)
+                               shipping_price: 10.00, fragile: true, status: :active, category: category,
+                               cashback: cashback)
     product.photos.attach(io: File.open(Rails.root.join('spec/support/files/placeholder-image-1.png')),
                           filename: 'placeholder-image-1.png', content_type: 'image/png')
     create(:price, product: product, start_date: Time.zone.today, end_date: 7.days.from_now, value: 20.00)
@@ -25,8 +27,9 @@ describe 'Visitante vê detalhes de um produto' do
     expect(page).to have_content('Dimensões: 100,00 x 50,00 x 12,00')
     expect(page).to have_content('Peso: 12,00 kg')
     expect(page).to have_content('Frete: $5,00')
-    expect(page).to have_content('Frágil - Sim')
     expect(page).to have_content('$10,00')
+    expect(page).to have_content('Cashback de 10% | $ 1,00')
+    expect(page).to have_content('Frágil - Sim')
     expect(page).not_to have_content('Preço do Frete: R$ 10,00')
     expect(page).not_to have_content('Preço: R$ 20,00')
     expect(page).not_to have_content('Ativo')
