@@ -20,7 +20,6 @@ class PurchasesController < ApplicationController
   private
 
   def purchase_params
-    params.permit(:client_id, :value).merge(code: SecureRandom.alphanumeric(8).upcase,
-                                            product_items: current_client.product_items)
+    params.permit(:client_id, :value).merge(product_items: current_client.product_items)
   end
 end

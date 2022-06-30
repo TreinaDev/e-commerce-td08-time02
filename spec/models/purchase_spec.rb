@@ -12,7 +12,13 @@ RSpec.describe Purchase, type: :model do
 
     it { is_expected.to validate_numericality_of(:value).is_greater_than_or_equal_to(0.0) }
 
-    it { is_expected.to validate_presence_of(:code) }
+    it 'falso quando code já está em uso' do
+      client = create :client
+      create :purchase, code: 'S11EDJCY', client: client, value: 20.00
+      purchase = build :purchase, code: 'S11EDJCY'
+
+      expect(purchase).not_to be_valid
+    end
 
     context 'valor de compra >= valor de cashback' do
       it 'false' do
