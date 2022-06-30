@@ -19,20 +19,17 @@ describe 'Cliente visualiza compras realizadas' do
     find('#menu-desktop').click_on 'Minhas Compras'
 
     expect(page).to have_current_path purchases_path
-    within('#purchases') do
+    within('.list') do
       expect(page).to have_content 'Minhas Compras'
     end
     within("##{first_purchase.id}") do
-      expect(page).to have_content "Data: #{I18n.l(Time.zone.today)}"
-      expect(page).to have_content '1 x Monitor 8k'
-      expect(page).to have_content '1 x Celular i12'
-      expect(page).to have_content 'Valor Total: $45,00 rubis'
+      expect(page).to have_content "#{I18n.l(Time.zone.today)}"
+      expect(page).to have_content '$ 45,00'
       expect(page).to have_content 'Aprovada'
     end
     within("##{second_purchase.id}") do
-      expect(page).to have_content "Data: #{I18n.l(Time.zone.today)}"
-      expect(page).to have_content '2 x Monitor 8k'
-      expect(page).to have_content 'Valor Total: $30,00 rubis'
+      expect(page).to have_content "Data\n#{I18n.l(Time.zone.today)}"
+      expect(page).to have_content '$ 30,00'
       expect(page).to have_content 'Pendente'
     end
   end
