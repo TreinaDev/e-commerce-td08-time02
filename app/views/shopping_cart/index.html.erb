@@ -55,18 +55,27 @@
         <div class='bg-slate-50 py-4 px-6 shadow-md rounded-md w-full flex flex-col items-center'>
           <div class='space-y-3'>
             <h2>Resumo</h2>
+
             <div class='flex items-center space-x-1'>
               <p>Total produtos: <span class='text-lg font-semibold'>$<%= number_with_precision(@total_products, precision: 2) %></span> </p>
               <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
             </div>
-            <div  class='flex items-center space-x-1'>
+
+            <div class='flex items-center space-x-1'>
               <p>Total frete: <span class='text-lg font-semibold'>$<%= number_with_precision(@total_shipping, precision: 2)%></span> </p>
               <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
             </div>
-            <div  class='flex items-center space-x-1'>
+
+            <div class='flex items-center space-x-1'>
               <p>Total: <span class='text-2xl font-semibold'>$<%= number_with_precision(@total, precision: 2) %></span> </p>
               <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
             </div>
+
+            <div class='flex items-center space-x-1'>
+              <p>Cashback Total: <span class='text-lg font-semibold text-green-500'>$<%= number_with_precision(@cashback, precision: 2) %></span> </p>
+              <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
+            </div>
+
             <div class='btn-primary  self-start'>
               <%= button_to 'Confirmar Compra', purchases_path(client_id: current_client.id, value: @total,
                                                                cashback_value: @cashback), method: :post, class:'w-[200px]' %>
