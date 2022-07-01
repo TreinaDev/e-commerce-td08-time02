@@ -8,7 +8,7 @@ class Purchase < ApplicationRecord
   validates :value, numericality: { greater_than_or_equal_to: 0.0 }
   validate :cashback_value_less_than_or_equal_to_value
 
-  before_validation :generate_code
+  before_create :generate_code
 
   private
 
