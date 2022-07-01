@@ -64,4 +64,24 @@ describe 'Administrador visita o menu de compras dos clientes' do
     expect(page).not_to have_content 'Marquinhos'
     expect(page).to have_content 'Cliente não encontrado.'
   end
+
+  it 'e faz a busca sem dados' do
+    admin = create :admin
+    client = create :client, name: 'Marquinhos', code: '510.309.910-14'
+    create :exchange_rate, value: 2.0
+    product = create :product, name: 'Monitor 8k', shipping_price: 10.00
+    create :price, product: product, value: 20.00
+    purchase = create :purchase, client: client, status: :approved, value: 15.00
+    create :product_item, purchase: purchase, product: product, quantity: 1
+
+    login_as admin, scope: :admin
+    visit purchases_path
+    click_on 'Buscar'
+
+    expect(page).to have_content 'Cliente não encontrado.'
+    expect(page).not_to have_content 'Marquinhos (510.309.910-14)'
+    expect(page).not_to have_content "Data\n#{I18n.l(Time.zone.today)}"
+    expect(page).not_to have_content "Valor Total\n$ 15,00"
+    expect(page).not_to have_content 'Aprovada'
+  end
 end

@@ -21,7 +21,7 @@ class PurchasesController < ApplicationController
   end
 
   def search
-    @client = Client.find_by('name LIKE ? OR code = ?', "%#{params[:query]}%", params[:query])
+    @client = Client.find_by('name = ? OR code = ?', params[:query], params[:query])
     @purchases = Purchase.where(client: @client)
 
     @message = 'Cliente não encontrado.' unless @client
