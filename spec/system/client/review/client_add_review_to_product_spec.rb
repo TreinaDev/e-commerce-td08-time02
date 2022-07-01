@@ -11,12 +11,12 @@ describe 'Cliente adiciona uma avaliação' do
     visit products_path
     click_on 'Monitor 8k'
     click_on 'Faça sua avaliação'
-    fill_in 'Nota', with: 4
+    find("#one").choose()
     fill_in 'Comentário', with: 'Excelente produto. Recomendo!'
     click_on 'cadastrar'
 
     expect(Review.all.length).to eq 1
-    expect(Review.last.rating).to eq 4
+    expect(Review.last.rating).to eq 1
     expect(Review.last.comment).to eq 'Excelente produto. Recomendo!'
   end
 
@@ -30,7 +30,6 @@ describe 'Cliente adiciona uma avaliação' do
     visit products_path
     click_on 'Monitor 8k'
     click_on 'Faça sua avaliação'
-    fill_in 'Nota', with: ''
     fill_in 'Comentário', with: ''
     click_on 'cadastrar'
 

@@ -31,7 +31,6 @@ describe 'Administrador cadastra novo preço para produto' do
     fill_in 'Valor', with: 201.89
     click_on 'Cadastrar preço'
 
-
     expect(page).to have_current_path prices_path
     expect(page).to have_content 'Falha ao cadastrar preço'
     expect(page).to have_content 'Data inicial não pode ser maior que a data final'

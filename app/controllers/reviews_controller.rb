@@ -8,14 +8,14 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.new(review_params)
-    @review.product_id = @product.id
-    @review.client_id = current_client.id
+    @review.product = @product
+    @review.client = current_client
 
     if @review.save
       redirect_to @product, notice: t('review_created')
     else
 
-      flash.now[:notice] = t('review_not_created')
+      flash.now[:alert] = t('review_not_created')
       render :new
     end
   end
