@@ -29,15 +29,17 @@ class Client < ApplicationRecord
     product_items.sum(&:cashback_value)
   end
 
-  private
-
   def create_wallet
+    return if has_wallet?
+
     params = { client_wallet: { email: email, registered_number: code } }
     response = Faraday.post('http://localhost:4000/api/v1/client_wallets', params)
     update(has_wallet: true) if response.status.digits.last == 2 || response.body.include?('em uso')
   rescue Faraday::ConnectionFailed
     update(has_wallet: false)
   end
+
+  private
 
   def code_is_valid
     return unless code

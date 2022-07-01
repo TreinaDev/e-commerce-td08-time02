@@ -6,6 +6,7 @@ class PurchasesController < ApplicationController
   end
 
   def create
+    current_client.create_wallet unless current_client.has_wallet?
     purchase = Purchase.new(purchase_params)
     purchase.product_items = current_client.product_items
     purchase.save
