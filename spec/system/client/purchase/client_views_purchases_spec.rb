@@ -37,6 +37,27 @@ describe 'Cliente visualiza compras realizadas' do
     end
   end
 
+  it 'e vê uma compra rejeitada' do
+    client = create :client
+    create :exchange_rate, value: 2.0
+    product = create :product, name: 'Monitor 8k', shipping_price: 10.00
+    create :price, product: product, value: 20.00
+    purchase = create :purchase, client: client, status: :rejected,
+                                 value: 30.0, message: 'Saldo Insuficiente'
+    create :product_item, purchase: purchase, product: product, quantity: 2
+
+    login_as client, scope: :client
+    visit purchases_path
+
+    within("##{purchase.id}") do
+      expect(page).to have_content "Data: #{I18n.l(Time.zone.today)}"
+      expect(page).to have_content '2 x Monitor 8k'
+      expect(page).to have_content 'Valor Total: $30,00 rubis'
+      expect(page).to have_content 'Rejeitada'
+      expect(page).to have_content 'Motivo: Saldo Insuficiente'
+    end
+  end
+
   it 'e não há nenhuma' do
     client = create :client
 

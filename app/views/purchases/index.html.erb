@@ -11,6 +11,7 @@
           <% end %>
             <li>Valor Total: $<%= number_with_precision(purchase.value, precision: 2) %> rubis</li>
             <li><%= Purchase.human_attribute_name("status.#{purchase.status}") %></li>
+            <li><%= "Motivo: #{purchase.message}" if purchase.message %></li>
         </ul>
       </div>
     <% end %>
