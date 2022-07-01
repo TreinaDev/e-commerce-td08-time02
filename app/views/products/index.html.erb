@@ -1,13 +1,12 @@
 <section class='pt-5 px-[2%] w-full'>
-  <div class='flex'>
+  <div class='flex w-full flex-wrap'>
     <%= form_with url: search_products_path, method: :get, html: {class: 'flex items-center'} do |form| %>
-      <%= form.text_field :query, placeholder: "Pesquisar", id: "Buscar", class:'rounded-lg h-8'%>
-      <%= form.submit "Buscar", class:'btn-second ml-2' %>
+      <%= form.text_field :query, placeholder: "Pesquisar", id: "Buscar", class:'rounded-lg h-8 max-w-[200px]' %>
+      <%= form.submit "Buscar", class:'btn-second ml-2 mr-3' %>
     <% end %>
     <% if admin_signed_in? %>
       <div>
         <%= link_to 'Cadastrar Produto', new_product_path, class:'btn-second ml-3' %>
-        <%= link_to 'Cadastrar Cashback', new_cashback_path, class:'btn-second ml-3'%>
       </div>
     <% end %>
   </div>
@@ -22,13 +21,13 @@
       <% end %>
     </div>
 
-    <div class='flex flex-wrap justify-center w-full max-w-7xl'>
+    <div class='m-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
       <% if @products.any? %>
         <% @products.each do |product| %>
-        <div id=<%= product.id %> class='m-2 w-[250px] h-[280px] shadow-lg rounded-md overflow-hidden'>
-          <div class=''>            
-            <%= link_to(image_tag(product.photos.last), product_path(product)) if product.photos.attached? %>                
-            <div class='p-2 '>
+        <div id=<%= product.id %> class='m-2 max-w-[250px] h-[280px] shadow-lg rounded-md overflow-hidden'>
+          <div class=''>
+            <%= link_to(image_tag(product.photos.last), product_path(product)) if product.photos.attached? %>
+            <div class='p-2'>
               <h3 class='font-semibold'>Nome: <%= link_to product.name, product_path(product) %> </h3>
               <p>Marca: <%= product.brand %></p>
               <p><%= Product.human_attribute_name("status.#{product.status}") if admin_signed_in? %></p>
@@ -41,7 +40,8 @@
         </div>
         <% end %>
       <% else %>
-        <p>Nenhum produto encontrado</p>
+        <p class='col-start-2 pt-5'>Nenhum produto encontrado</p>
       <% end %>
     </div>
+  </div>
 </section>

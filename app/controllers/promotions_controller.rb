@@ -12,7 +12,7 @@ class PromotionsController < ApplicationController
     if @promotion.save
       redirect_to @promotion, notice: t('promotion_created')
     else
-      flash.now[:notice] = t('promotion_not_created')
+      flash.now[:alert] = t('promotion_not_created')
       render :new
     end
   end

@@ -12,6 +12,14 @@ RSpec.describe Purchase, type: :model do
 
     it { is_expected.to validate_numericality_of(:value).is_greater_than_or_equal_to(0.0) }
 
+    it 'falso quando code já está em uso' do
+      client = create :client
+      create :purchase, code: 'S11EDJCY', client: client, value: 20.00
+      purchase = build :purchase, code: 'S11EDJCY'
+
+      expect(purchase).not_to be_valid
+    end
+
     context 'valor de compra >= valor de cashback' do
       it 'false' do
         purchase = build :purchase, value: 0.11, cashback_value: 0.12
@@ -27,6 +35,15 @@ RSpec.describe Purchase, type: :model do
         purchase.valid?
 
         expect(purchase.errors.include?(:value)).to be false
+      end
+    end
+
+    describe 'Code é gerado automaticamente' do
+      it 'Ao criar um novo record' do
+        client = create :client
+        purchase = described_class.create(client: client, value: 20.0, cashback_value: 5.0)
+
+        expect(purchase.code).not_to be_nil
       end
     end
   end

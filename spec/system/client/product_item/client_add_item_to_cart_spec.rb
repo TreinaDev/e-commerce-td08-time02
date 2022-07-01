@@ -9,7 +9,7 @@ describe 'Cliente adiciona um item ao carrinho' do
                    end_date: 90.days.from_now, value: 1500.00)
 
     login_as client, scope: :client
-    visit products_path
+    visit root_path
     click_on 'Monitor 8k'
     click_on 'Adicionar ao carrinho'
 
@@ -25,7 +25,7 @@ describe 'Cliente adiciona um item ao carrinho' do
     allow(ProductItem).to receive(:new).and_raise(ActiveRecord::ActiveRecordError)
 
     login_as client, scope: :client
-    visit products_path
+    visit root_path
     click_on 'Monitor 8k'
     click_on 'Adicionar ao carrinho'
 

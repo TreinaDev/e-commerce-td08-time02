@@ -30,3 +30,7 @@ h2 {
     font-weight: bold;
     padding-bottom: 15px;
 }
+
+body {
+    width: 100%;
+}

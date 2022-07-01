@@ -1,0 +1,5 @@
+pt-BR:
+  undefined_code: CPF/CNPJ não encontrado
+  balance_updated: Saldo atualizado!
+  code_cant_be_blank: CPF/CNPJ não pode ficar em branco
+  balance_cant_be_blank: Saldo não pode ficar em branco

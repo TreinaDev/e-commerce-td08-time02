@@ -15,6 +15,10 @@
             <p class='text-2xl font-semibold'>$<%= number_with_precision(@product.current_price.rubies_value, precision: 2) %> </p>
             <%= image_tag('rubi', class: "img-responsive w-[20px] h-[20px]")%>
           </div>
+          <% unless @cashback.nil? %>
+            <p class='text-xs text-green-500'>Cashback de <%= "#{@cashback.percentual}% | #{number_to_currency(@cashback_value, unit: '$')} " %>
+            <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px] inline-block") %></p>
+          <% end %>
           <div class='flex space-x-1 items-center'>
             <p class='text-lg font-semibold'>Frete: $<%= number_with_precision(@product.rubies_shipping_price, precision: 2) %></p>
             <%= image_tag('rubi', class: "img-responsive w-[20px] h-[20px]") %>
@@ -30,9 +34,7 @@
       </div>
     </div>
     <h3 class="text-xl mt-6 mb-2 font-semibold">Informações do Produto</h3>
-    <% unless @product.cashback.nil? %> 
-      <p>Cashback: <%= @product.cashback.extended_description %></p>
-    <% end %>
+    
     <p>Descrição: <%= @product.description %></p>
     <p>SKU: <%= @product.sku %></p>
     <p>Avaliação: <%= number_with_precision(@rating_average,  precision: 1) %></p>

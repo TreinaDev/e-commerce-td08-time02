@@ -17,9 +17,6 @@ describe 'Visitante busca produtos' do
     create :price, product: fourth_product
 
     visit root_path
-    within('#menu-desktop') do
-      click_on 'Produtos'
-    end
     fill_in 'Buscar', with: 'Vermelha'
     click_on 'Buscar'
 
@@ -39,9 +36,6 @@ describe 'Visitante busca produtos' do
     create :price, product: third_product
 
     visit root_path
-    within('#menu-desktop') do
-      click_on 'Produtos'
-    end
     fill_in 'Buscar', with: '256mb'
     click_on 'Buscar'
 
@@ -55,12 +49,7 @@ describe 'Visitante busca produtos' do
     product = create :product, name: 'Galaxy S20', category: category, sku: 'MENP8KU-99999'
     create :price, product: product
 
-
     visit root_path
-    
-    within('#menu-desktop') do
-      click_on 'Produtos'
-    end
     fill_in 'Buscar', with: 'MENP8KU-99999'
     click_on 'Buscar'
 
@@ -77,9 +66,6 @@ describe 'Visitante busca produtos' do
     create :price, product: third_product
 
     visit root_path
-    within('#menu-desktop') do
-      click_on 'Produtos'
-    end
     fill_in 'Buscar', with: 'Televisão'
     click_on 'Buscar'
 
