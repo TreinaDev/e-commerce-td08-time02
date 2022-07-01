@@ -100,20 +100,26 @@
           <p><%= link_to 'Manual', @product.manual if @product.manual.attached? %></p> 
       </div>
     <% end %>
-    <div>
-      <h3>Avaliações</h3>
-      <p><%= link_to 'Faça sua avaliação', new_product_review_path(@product) unless admin_signed_in? %></p>
+    <div class="mt-5">
+      <h3 class="text-xl mt-6 mb-2 font-semibold">Avaliações</h3>
       <% if @reviews.empty? %>
         <p>Não há avaliação cadastrada</p>
       <% else %>
         <% @reviews.each do |review| %>
-          <div>
-            <p><%= review.client.name %> - <%= time_ago_in_words(review.created_at) %></p>
-            <p>Nota: <%= review.rating %></p>
-            <p>Comentario: <%= review.comment %></p>
+          <div class="mb-2 border-t-2 bg-gray-200 p-3 pl-6 rounded-lg">
+            <div class="flex">
+              <% review.rating.times do %>
+                  <%= image_tag('star', class: "img-responsive w-[30px] h-[30px]")%>
+              <% end %>
+            </div>
+            <p class="text-base font-semibold ml-3">
+              <%= review.client.name %> - Há <%= time_ago_in_words(review.created_at) %>
+            </p>   
+            <p class="ml-3 mt-2 mb-5"><%= review.comment %></p>
           </div>
         <% end %>
       <% end %>
     </div>
+      <p class="btn-second"><%= link_to 'Faça sua avaliação', new_product_review_path(@product) unless admin_signed_in? %></p>
   </div>
 </section>
