@@ -23,7 +23,7 @@ describe 'Cliente visualiza compras realizadas' do
       expect(page).to have_content 'Minhas Compras'
     end
     within("##{first_purchase.id}") do
-      expect(page).to have_content "#{I18n.l(Time.zone.today)}"
+      expect(page).to have_content I18n.l(Time.zone.today)
       expect(page).to have_content '$ 45,00'
       expect(page).to have_content 'Aprovada'
     end
@@ -47,9 +47,8 @@ describe 'Cliente visualiza compras realizadas' do
     visit purchases_path
 
     within("##{purchase.id}") do
-      expect(page).to have_content "Data: #{I18n.l(Time.zone.today)}"
-      expect(page).to have_content '2 x Monitor 8k'
-      expect(page).to have_content 'Valor Total: $30,00 rubis'
+      expect(page).to have_content "Data\n#{I18n.l(Time.zone.today)}"
+      expect(page).to have_content "Valor Total\n$ 30,00"
       expect(page).to have_content 'Rejeitada'
       expect(page).to have_content 'Motivo: Saldo Insuficiente'
     end

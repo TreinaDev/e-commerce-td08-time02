@@ -18,6 +18,7 @@
               <p class="text-center text-lg font-semibold">Status</p>
               <p class=<%= purchase.status == 'approved' ? 'text-green-500' : (purchase.status == 'pending' ? 'text-orange-500' : 'text-red-600') %>>
                 <%= Purchase.human_attribute_name("status.#{purchase.status}") %>
+                <li><%= "Motivo: #{purchase.message}" if purchase.message %></li> <!-- Essa linha vai para a show de purchases quando for criada -->
               </p>
             </div>
 
