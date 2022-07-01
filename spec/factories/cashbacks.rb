@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :cashback do
-    start_date { Date.today }
+    start_date { Time.zone.today }
     end_date { 1.week.from_now }
     percentual { 10 }
 
