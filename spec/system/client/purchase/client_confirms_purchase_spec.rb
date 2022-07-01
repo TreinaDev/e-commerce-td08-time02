@@ -11,11 +11,12 @@ describe 'Cliente confirma compra' do
     create :price, product: second_product, value: 10.00
     first_item = create :product_item, client: client, product: first_product, quantity: 1
     second_item = create :product_item, client: client, product: second_product, quantity: 1
-    purchase_data_sent = { transaction: { order: 1, registered_number: '510.309.910-14',
+    purchase_data_sent = { transaction: { order: 'DOK3KRGA', registered_number: '510.309.910-14',
                                           value: 3000, cashback: 100 } }.to_json
-    purchase_status_data = { transaction: { order: 1, registered_number: '510.309.910-14',
+    purchase_status_data = { transaction: { order: 'DOK3KRGA', registered_number: '510.309.910-14',
                                             status: 'accepted', message: nil } }.to_json
     purchase_response = instance_double Faraday::Response, status: :created, body: purchase_status_data
+    allow(SecureRandom).to receive(:alphanumeric).and_return('DOK3KRGA')
     allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/transactions', purchase_data_sent,
                                           content_type: 'application/json').and_return(purchase_response)
 
@@ -39,11 +40,12 @@ describe 'Cliente confirma compra' do
     product = create :product, shipping_price: 10.00
     create :price, product: product, value: 20.00
     item = create :product_item, client: client, product: product, quantity: 1
-    purchase_data_sent = { transaction: { order: 1, registered_number: '510.309.910-14',
+    purchase_data_sent = { transaction: { order: 'DOK3KRGA', registered_number: '510.309.910-14',
                                           value: 1500, cashback: 0 } }.to_json
-    purchase_status_data = { transaction: { order: 1, registered_number: '510.309.910-14',
+    purchase_status_data = { transaction: { order: 'DOK3KRGA', registered_number: '510.309.910-14',
                                             status: 'pending', message: nil } }.to_json
     purchase_response = instance_double Faraday::Response, status: :created, body: purchase_status_data
+    allow(SecureRandom).to receive(:alphanumeric).and_return('DOK3KRGA')
     allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/transactions', purchase_data_sent,
                                           content_type: 'application/json').and_return(purchase_response)
 
@@ -84,11 +86,12 @@ describe 'Cliente confirma compra' do
     product = create :product, shipping_price: 10.00
     create :price, product: product, value: 20.00
     create :product_item, client: client, product: product, quantity: 1
-    purchase_data_sent = { transaction: { order: 1, registered_number: '510.309.910-14',
+    purchase_data_sent = { transaction: { order: 'DOK3KRGA', registered_number: '510.309.910-14',
                                           value: 1500, cashback: 0 } }.to_json
-    purchase_status_data = { transaction: { order: 1, registered_number: '510.309.910-14',
+    purchase_status_data = { transaction: { order: 'DOK3KRGA', registered_number: '510.309.910-14',
                                             status: 'accepted', message: nil } }.to_json
     purchase_response = instance_double Faraday::Response, status: :created, body: purchase_status_data
+    allow(SecureRandom).to receive(:alphanumeric).and_return('DOK3KRGA')
     allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/transactions', purchase_data_sent,
                                           content_type: 'application/json').and_return(purchase_response)
 
