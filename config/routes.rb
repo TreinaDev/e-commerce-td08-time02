@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   resources :cashbacks, only: %i[index new create]
 
   get 'shopping_cart', to: 'shopping_cart#index'
+  post 'apply_coupon', to: 'shopping_cart#apply_coupon'
+
   resources :purchases, only: %i[index create] do
     get 'search', on: :collection
   end
