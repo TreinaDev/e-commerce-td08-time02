@@ -1,4 +1,4 @@
-<section class='p-[2%] w-full max-w-5xl flex mt-5 m-auto bg-gray-100'>
+<section class='p-[2%] w-full max-w-5xl flex-row mt-5 m-auto bg-gray-100'>
   <div class='px-4 w-full'>
     <div class="md:flex-row flex-col w-full flex md:space-x-8 items-center">
       <div class="md:w-[65%] w-full">
@@ -9,14 +9,14 @@
           <% end %>
         <% end %>
       </div>
-      <div class="flex-col md:w-[35%] w-full flex">
+      <div class="flex-col md:w-[35%] w-full flex md:pl-8">
         <div id="rubis_prices" class="mt-5 w-full">
           <div class='flex space-x-1 items-center'>
             <p class='text-2xl font-semibold'>$<%= number_with_precision(@product.current_price.rubies_value, precision: 2) %> </p>
             <%= image_tag('rubi', class: "img-responsive w-[20px] h-[20px]")%>
           </div>
           <% unless @cashback.nil? %>
-            <p class='text-xs text-green-500'>Cashback de <%= "#{@cashback.percentual}% | #{number_to_currency(@cashback_value, unit: '$')} " %>
+            <p class='text-base text-green-500'>Cashback de <%= "#{@cashback.percentual}% | #{number_to_currency(@cashback_value, unit: '$')} " %>
             <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px] inline-block") %></p>
           <% end %>
 
@@ -42,7 +42,6 @@
       </div>
     </div>
     <h3 class="text-xl mt-6 mb-2 font-semibold">Informações do Produto</h3>
-
     <p>Descrição: <%= @product.description %></p>
     <p>SKU: <%= @product.sku %></p>
     <p>Avaliação: <%= number_with_precision(@rating_average,  precision: 1) %></p>
@@ -55,24 +54,31 @@
     <p>Frágil - <%= @product.fragile? ? 'Sim' : 'Não' %></p>
     <% if admin_signed_in? %>
       <p>Status: <%= Product.human_attribute_name("status.#{@product.status}") %></p>
-      <% @product.prices.each do |price| %>
-        <p>
-          <%= "Preço para #{I18n.l(price.start_date)} - #{I18n.l(price.end_date)}:
-          #{number_to_currency(price.value, unit: "R$ ")} - Cadastrado por: #{price.admin.name}"%>
-        </p>
-      <% end %>
 
       <div class='flex'>
         <% if @product.inactive? %>
           <%= button_to 'Ativar', activate_product_path(@product), class:'btn-activate' %>
         <% else %>
           <%= button_to 'Desativar', deactivate_product_path(@product), class:'btn-deactivate' %>
+        <% end %> 
+        <% if @product.manual.attached? %>
+          <div class='flex justify-center btn-second w-[120px] ml-2'>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+            <p><%= link_to 'Manual', @product.manual %></p> 
+          </div>
         <% end %>
-        <div class='flex justify-center btn-second w-[120px] ml-2'>
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-          <p><%= link_to 'Manual', @product.manual if @product.manual.attached? %></p>
-        </div>
       </div>
+      <h3 class='pt-4 pb-3 text-lg font-semibold'>Preços</h3>
+      <% @product.prices.each do |price| %>
+        <p class="flex flex-row mb-1">
+          <div>
+            <strong class=""><%= "#{number_to_currency(price.value, unit: "R$" )}"%></strong> - Cadastrado por <%= "#{price.admin.name}" %>
+          </div>
+          <div>
+            <%= "#{I18n.l(price.start_date)}" %> até <%= "#{I18n.l(price.end_date)}" %>
+          </div>
+        </p>
+      <% end %>
 
       <h3 class='pt-4 pb-3 text-lg font-semibold'>Cadastrar novo preço:</h3>
       <%= form_with model: @price do |f| %>
@@ -99,8 +105,6 @@
         <%= f.submit 'Cadastrar preço', class:'btn-primary mb-4' %>
       <% end %>
       </div>
-
-
     <% end %>
     <% unless admin_signed_in? %>
       <div class='flex justify-center btn-second w-[120px]'>
@@ -108,20 +112,28 @@
           <p><%= link_to 'Manual', @product.manual if @product.manual.attached? %></p>
       </div>
     <% end %>
-    <div>
-      <h3>Avaliações</h3>
-      <p><%= link_to 'Faça sua avaliação', new_product_review_path(@product) unless admin_signed_in? %></p>
-      <% if @reviews.empty? %>
-        <p>Não há avaliação cadastrada</p>
-      <% else %>
-        <% @reviews.each do |review| %>
-          <div>
-            <p><%= review.client.name %> - <%= time_ago_in_words(review.created_at) %></p>
-            <p>Nota: <%= review.rating %></p>
-            <p>Comentario: <%= review.comment %></p>
+  </div>
+  <div id="rating" class="mt-5 pl-4">
+    <h3 class="text-xl mt-6 mb-2 font-semibold">Avaliações</h3>
+    <% if @reviews.empty? %>
+      <p>Não há avaliação cadastrada</p>
+    <% else %>
+      <% @reviews.each do |review| %>
+        <div class="mb-2 border-t-2 bg-gray-200 p-3 pl-6 pt-5 rounded-lg">
+          <div class="flex">
+            <% review.rating.times do %>
+                <%= image_tag('star2', class: "img-responsive w-[30px] h-[30px]")%>
+            <% end %>
           </div>
-        <% end %>
+          <p class="text-base font-semibold ml-1">
+            <%= review.client.name %> - Há <%= time_ago_in_words(review.created_at) %>
+          </p>
+          <p class="mt-2 mb-5 ml-1"><%= review.comment %></p>
+        </div>
       <% end %>
-    </div>
+    <% end %>
+    <% if !admin_signed_in? %>
+      <div><%= link_to 'Faça sua avaliação', new_product_review_path(@product), class: "btn-second" %></div>
+    <% end %>
   </div>
 </section>
