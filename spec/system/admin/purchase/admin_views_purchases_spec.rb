@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Administrador visita o menu de compras dos clientes' do
   it 'e busca compras de um cliente por nome' do
     client = create :client, name: 'Marquinhos', code: '510.309.910-14'
+    create :client, :another_email, name: 'Marquinhos José', code: '61.887.261/0001-60'
     create :exchange_rate, value: 2.0
     product = create :product, name: 'Monitor 8k', shipping_price: 10.00
     create :price, product: product, value: 20.00
@@ -33,6 +34,7 @@ describe 'Administrador visita o menu de compras dos clientes' do
 
   it 'e busca compras de um cliente por CPF' do
     client = create :client, name: 'Marquinhos', code: '510.309.910-14'
+    create :client, :another_email, name: 'Marquinhos José', code: '61.887.261/0001-60'
     create :exchange_rate, value: 2.0
     product = create :product, name: 'Monitor 8k', shipping_price: 10.00
     create :price, product: product, value: 20.00
@@ -45,6 +47,7 @@ describe 'Administrador visita o menu de compras dos clientes' do
     click_on 'Buscar'
 
     expect(page).to have_content 'Marquinhos (510.309.910-14)'
+    expect(page).not_to have_content 'Cliente não encontrado.'
     within("##{purchase.id}") do
       expect(page).to have_content "Data\n#{I18n.l(Time.zone.today)}"
       expect(page).to have_content "Valor Total\n$ 15,00"
