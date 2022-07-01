@@ -1,7 +1,7 @@
 class PurchaseDataService
   def self.send(purchase)
     json_data = {
-      transaction: { order: purchase.id, registered_number: purchase.client.code,
+      transaction: { order: purchase.code, registered_number: purchase.client.code,
                      value: (purchase.value * 100).to_i, cashback: (purchase.cashback_value * 100).to_i }
     }.to_json
     Faraday.post('http://localhost:4000/api/v1/transactions', json_data, content_type: 'application/json')

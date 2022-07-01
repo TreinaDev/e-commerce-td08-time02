@@ -31,6 +31,13 @@ describe 'Visitante não autenticado tenta acessar' do
     expect(page).to have_content 'Para continuar, faça login ou registre-se.'
   end
 
+  it 'a tela de listagem de cashbacks' do
+    visit cashbacks_path
+
+    expect(page).to have_current_path new_admin_session_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se.'
+  end
+
   it 'a tela de cadastro de novo cashback' do
     visit new_cashback_path
 
