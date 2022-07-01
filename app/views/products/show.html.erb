@@ -123,9 +123,9 @@
           <p class="mt-2 mb-5 ml-1"><%= review.comment %></p>
         </div>
       <% end %>
-      <% unless admin_signed_in? %>
-        <p class="btn-second"><%= link_to 'Faça sua avaliação', new_product_review_path(@product) %></p>
-      <% end %>
+    <% end %>
+    <% if !admin_signed_in? %>
+      <div><%= link_to 'Faça sua avaliação', new_product_review_path(@product), class: "btn-second" %></div>
     <% end %>
   </div>
 </section>

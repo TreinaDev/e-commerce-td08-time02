@@ -14,10 +14,9 @@ describe 'Administrador cadastra novo preço para produto' do
 
     expect(page).to have_current_path product_path(product)
     expect(page).to have_content 'Preço cadastrado com sucesso'
-    expect(page).to have_content(
-      "Preço para #{I18n.l((old_price.end_date + 1).to_date)} - " \
-      "#{I18n.l(2.weeks.from_now.to_date)}: R$ 201,89 - Cadastrado por: #{product.category.admin.name}"
-    )
+    expect(page).to have_content("R$ 201,89 - " \
+                                 "Cadastrado por #{product.category.admin.name}\n" \
+                                 "#{I18n.l(old_price.end_date.tomorrow.to_date)} até #{I18n.l(2.weeks.from_now.to_date)}")
   end
 
   it 'com data final menor que a data inicial' do
