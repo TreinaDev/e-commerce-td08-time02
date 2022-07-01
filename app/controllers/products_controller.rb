@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[show activate deactivate]
+  before_action :set_product, only: %i[show activate deactivate update_cashback]
   before_action :authenticate_admin!, only: %i[new create activate deactivate]
 
   def index
@@ -76,6 +76,12 @@ class ProductsController < ApplicationController
     redirect_to @product, notice: t('product_deactivation_succeeded')
   end
 
+  def update_cashback
+    @product.update(cashback_id: params[:product][:cashback_id])
+
+    redirect_to @product, notice: t('cashback_updated')
+  end
+
   private
 
   def product_params
@@ -93,6 +99,7 @@ class ProductsController < ApplicationController
   def set_cashback
     return unless @product.cashback
 
+    @cashbacks = Cashback.all
     @cashback = @product.cashback
     @cashback_value = @product.current_price.rubies_value / @cashback.percentual
   end
