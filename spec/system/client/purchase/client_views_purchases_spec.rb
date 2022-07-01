@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Cliente visualiza compras realizadas' do
   it 'com sucesso' do
-    client = create :client
+    client = create :client, name: 'Marquinhos', code: '510.309.910-14'
     create :exchange_rate, value: 2.0
     first_product = create :product, name: 'Monitor 8k', shipping_price: 10.00
     create :price, product: first_product, value: 20.00
@@ -16,11 +16,11 @@ describe 'Cliente visualiza compras realizadas' do
 
     login_as client, scope: :client
     visit root_path
-    find('#menu-desktop').click_on 'Minhas Compras'
+    find('#menu-desktop').click_on 'Compras'
 
     expect(page).to have_current_path purchases_path
     within('.list') do
-      expect(page).to have_content 'Minhas Compras'
+      expect(page).to have_content 'Compras'
     end
     within("##{first_purchase.id}") do
       expect(page).to have_content I18n.l(Time.zone.today)
@@ -39,8 +39,7 @@ describe 'Cliente visualiza compras realizadas' do
     create :exchange_rate, value: 2.0
     product = create :product, name: 'Monitor 8k', shipping_price: 10.00
     create :price, product: product, value: 20.00
-    purchase = create :purchase, client: client, status: :rejected,
-                                 value: 30.0, message: 'Saldo Insuficiente'
+    purchase = create :purchase, client: client, status: :rejected, value: 30.0
     create :product_item, purchase: purchase, product: product, quantity: 2
 
     login_as client, scope: :client
@@ -50,7 +49,6 @@ describe 'Cliente visualiza compras realizadas' do
       expect(page).to have_content "Data\n#{I18n.l(Time.zone.today)}"
       expect(page).to have_content "Valor Total\n$ 30,00"
       expect(page).to have_content 'Rejeitada'
-      expect(page).to have_content 'Motivo: Saldo Insuficiente'
     end
   end
 
@@ -60,6 +58,6 @@ describe 'Cliente visualiza compras realizadas' do
     login_as client, scope: :client
     visit purchases_path
 
-    expect(page).to have_content 'Você ainda não realizou nenhuma compra.'
+    expect(page).to have_content 'Nenhuma compra realizada.'
   end
 end

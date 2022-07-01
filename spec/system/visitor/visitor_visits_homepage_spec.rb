@@ -18,7 +18,7 @@ describe 'Visitante visita a app' do
   it 'e não encontra links restritos a clientes' do
     visit root_path
 
-    expect(page).not_to have_link 'Minhas Compras'
+    expect(page).not_to have_link 'Compras'
   end
 
   it 'e volta para a tela inicial' do

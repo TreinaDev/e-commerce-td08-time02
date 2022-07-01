@@ -11,7 +11,7 @@ class PurchaseDataService
 
   def self.change_purchase_status(purchase, response)
     response_body = JSON.parse(response.body)
-    purchase.approved! if response_body['transaction']['status'] == 'accepted'
+    purchase.approved! if response_body['status'] == 'accepted'
     purchase.client.product_items.clear
   end
 

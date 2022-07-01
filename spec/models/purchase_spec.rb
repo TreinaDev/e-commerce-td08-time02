@@ -14,7 +14,8 @@ RSpec.describe Purchase, type: :model do
 
     it 'falso quando code já está em uso' do
       client = create :client
-      create :purchase, code: 'S11EDJCY', client: client, value: 20.00
+      allow(SecureRandom).to receive(:alphanumeric).and_return('S11EDJCY')
+      create :purchase, client: client, value: 20.00
       purchase = build :purchase, code: 'S11EDJCY'
 
       expect(purchase).not_to be_valid
