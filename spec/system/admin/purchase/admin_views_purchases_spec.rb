@@ -20,15 +20,13 @@ describe 'Administrador visita o menu de compras dos clientes' do
     expect(page).to have_content 'Marquinhos (510.309.910-14)'
     expect(page).not_to have_content 'Cliente não encontrado.'
     within("##{purchase1.id}") do
-      expect(page).to have_content "Data: #{I18n.l(Time.zone.today)}"
-      expect(page).to have_content '1 x Monitor 8k'
-      expect(page).to have_content 'Valor Total: $15,00 rubis'
+      expect(page).to have_content "Data\n#{I18n.l(Time.zone.today)}"
+      expect(page).to have_content "Valor Total\n$ 15,00"
       expect(page).to have_content 'Aprovada'
     end
     within("##{purchase2.id}") do
-      expect(page).to have_content "Data: #{I18n.l(Time.zone.today)}"
-      expect(page).to have_content '2 x Monitor 8k'
-      expect(page).to have_content 'Valor Total: $30,00 rubis'
+      expect(page).to have_content "Data\n#{I18n.l(Time.zone.today)}"
+      expect(page).to have_content "Valor Total\n$ 30,00"
       expect(page).to have_content 'Pendente'
     end
   end
@@ -48,9 +46,8 @@ describe 'Administrador visita o menu de compras dos clientes' do
 
     expect(page).to have_content 'Marquinhos (510.309.910-14)'
     within("##{purchase.id}") do
-      expect(page).to have_content "Data: #{I18n.l(Time.zone.today)}"
-      expect(page).to have_content '1 x Monitor 8k'
-      expect(page).to have_content 'Valor Total: $15,00 rubis'
+      expect(page).to have_content "Data\n#{I18n.l(Time.zone.today)}"
+      expect(page).to have_content "Valor Total\n$ 15,00"
       expect(page).to have_content 'Aprovada'
     end
   end

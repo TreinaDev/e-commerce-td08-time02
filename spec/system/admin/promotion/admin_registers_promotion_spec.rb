@@ -14,7 +14,7 @@ describe 'Administrador cria promoção' do
     fill_in 'Limite de uso', with: '20'
     fill_in 'Data Inicial', with: 1.day.from_now
     fill_in 'Data Final', with: 1.week.from_now
-    click_on 'cadastrar'
+    click_on 'Cadastrar'
 
     expect(page).to have_content('Promoção cadastrada com sucesso')
     expect(page).to have_content('Nome: BlackFriday')
@@ -38,7 +38,7 @@ describe 'Administrador cria promoção' do
     fill_in 'Limite de uso', with: ''
     fill_in 'Data Inicial', with: ''
     fill_in 'Data Final', with: ''
-    click_on 'cadastrar'
+    click_on 'Cadastrar'
 
     expect(page).to have_current_path promotions_path
     expect(page).to have_content('Não foi possível cadastrar a promoção')

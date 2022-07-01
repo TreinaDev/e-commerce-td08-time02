@@ -7,27 +7,43 @@
   </section>
 <% end %>
 
-<%= @message if @message %>
-
-<% if @client %>
-  <div><h1><%= "#{@client.name} (#{@client.code})" %></h1></div>
-
-  <div id='purchases'>
+<section class="list">
+  <div><h1 class="title text-center pl-8">Compras</h1></div>
+    <% if admin_signed_in? %>
+      <p class="title text-center pl-8"><%= @message if @message %></p>
+      <h1 class="title text-center pl-8"><%= "#{@client.name} (#{@client.code})" if @client %></h1>
+    <% end %>
+  <div class='flex-row'>
     <% if @purchases.any? %>
-      <% @purchases.each do |purchase| %>
-        <div id=<%= purchase.id %> >
-          <ul>
-            <li>Data: <%= I18n.l(purchase.created_at.to_date) %></li>
-            <% purchase.product_items.each do |item| %>
-              <li><%= "#{item.quantity} x #{item.product.name}" %></li>
-            <% end %>
-              <li>Valor Total: $<%= number_with_precision(purchase.value, precision: 2) %> rubis</li>
-              <li><%= Purchase.human_attribute_name("status.#{purchase.status}") %></li>
-          </ul>
-        </div>
-      <% end %>
+        <% @purchases.each do |purchase| %>
+          <%= link_to root_path do %>
+            <div class="flex card mb-2 h-[100px] p-5 bg-gray-100 justify-between" id=<%= purchase.id %> >
+
+              <div class="flex-row">
+                <p class="text-left text-lg font-semibold">Valor Total</p>
+                <div class="flex space-x-2">
+                  <p>$ <%= number_with_precision(purchase.value, precision: 2) %></p>
+                  <%= image_tag('rubi', class: "img-responsive w-[23px] h-[23px]") %>
+                </div>
+              </div>
+
+              <div class="flex-row">
+                <p class="text-center text-lg font-semibold">Status</p>
+                <p class=<%= purchase.status == 'approved' ? 'text-green-500' : (purchase.status == 'pending' ? 'text-orange-500' : 'text-red-600') %> >
+                  <%= Purchase.human_attribute_name("status.#{purchase.status}") %>
+                </p>
+              </div>
+
+              <div class="flex-row">
+                <p class="text-center text-lg font-semibold">Data</p>
+                <p><%= I18n.l(purchase.created_at.to_date) %></p>
+              </div>
+
+            </div>
+          <% end %>
+        <% end %>
     <% else %>
-      <p> Nenhuma compra realizada. </p>
+      <p class="text-center pl-8">  Nenhuma compra realizada. </p>
     <% end %>
   </div>
-<% end %>
+</section>

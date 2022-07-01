@@ -1,20 +1,19 @@
-<section class='pt-5 px-[2%] w-full'>
-  <div class='flex'>
+<section class='list'>
+  <div class='flex w-full flex-wrap'>
     <%= form_with url: search_products_path, method: :get, html: {class: 'flex items-center'} do |form| %>
-      <%= form.text_field :query, placeholder: "Pesquisar", id: "Buscar", class:'rounded-lg h-8'%>
-      <%= form.submit "Buscar", class:'btn-second ml-2' %>
+      <%= form.text_field :query, placeholder: "Pesquisar", id: "Buscar", class:'rounded-lg h-8 max-w-[200px]' %>
+      <%= form.submit "Buscar", class:'btn-second ml-2 mr-3' %>
     <% end %>
     <% if admin_signed_in? %>
       <div>
         <%= link_to 'Cadastrar Produto', new_product_path, class:'btn-second ml-3' %>
-        <%= link_to 'Cadastrar Cashback', new_cashback_path, class:'btn-second ml-3'%>
       </div>
     <% end %>
   </div>
 
   <div class='flex mt-8 w-full'>
-    <div class='mr-5 w-[85px]'>
-      <h1 class='text-lg font-semibold pb-2'>Categorias</h1>
+    <div class='mr-5'>
+      <h1 class='title'>Categorias</h1>
       <% @categories.each do |category| %>
         <div>
           <p><%= link_to category.name, filter_products_path(category.id) %></p>
@@ -22,11 +21,10 @@
       <% end %>
     </div>
 
-    <div class='flex flex-wrap justify-center w-full max-w-7xl'>
+    <div class='grid-list'>
       <% if @products.any? %>
         <% @products.each do |product| %>
-        <div id=<%= product.id %> class='m-2 w-[250px] h-[280px] shadow-lg rounded-md overflow-hidden'>
-          <div class=''>            
+          <div id=<%= product.id %> class='card m-2 max-w-[250px] h-[280px]'>          
             <%= link_to(image_tag(product.photos.last), product_path(product)) if product.photos.attached? %>                
             <div class='p-2 '>
               <h3 class='font-semibold'>Nome: <%= link_to product.name, product_path(product) %> </h3>
@@ -38,10 +36,12 @@
               </div>
             </div>
           </div>
-        </div>
         <% end %>
       <% else %>
-        <p>Nenhum produto encontrado</p>
+        <div class="col-span-4">
+          <p class='col-start-2 pt-5'>Nenhum produto encontrado</p>
+        </div>
       <% end %>
     </div>
+  </div>
 </section>

@@ -4,7 +4,8 @@ describe 'Cliente vê carrinho' do
   it 'e vê produtos adicionados ao carrinho' do
     create :exchange_rate, value: 2.00
     client = create :client
-    first_product = create :product, name: 'Mouse', shipping_price: 10.00
+    cashback = create :cashback, percentual: 10
+    first_product = create :product, name: 'Mouse', shipping_price: 10.00, cashback: cashback
     create :price, product: first_product, value: 10.00
     second_product = create :product, category: first_product.category, name: 'Monitor 8k',
                                       shipping_price: 20.00
@@ -36,6 +37,7 @@ describe 'Cliente vê carrinho' do
     expect(page).to have_content 'Total frete: $25,00'
     expect(page).to have_content 'Total produtos: $25,00'
     expect(page).to have_content 'Total: $50,00'
+    expect(page).to have_content 'Cashback Total: $0,50'
   end
 
   it 'e não há produtos duplicados' do
@@ -82,5 +84,18 @@ describe 'Cliente vê carrinho' do
 
     expect(page).to have_current_path product_path(second_product)
     expect(page).to have_content 'Mouse'
+  end
+
+  it 'e a compra não possui cashback' do
+    create :exchange_rate, value: 2.00
+    client = create :client
+    product = create :product
+    create :price, product: product
+    create :product_item, product: product, client: client
+
+    login_as client, scope: :client
+    visit shopping_cart_path
+
+    expect(page).not_to have_content 'Cashback Total'
   end
 end
