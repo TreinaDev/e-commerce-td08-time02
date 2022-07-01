@@ -37,5 +37,14 @@ RSpec.describe Purchase, type: :model do
         expect(purchase.errors.include?(:value)).to be false
       end
     end
+
+    describe 'Code é gerado automaticamente' do
+      it 'Ao criar um novo record' do
+        client = create :client
+        purchase = described_class.create(client: client, value: 20.0, cashback_value: 5.0)
+
+        expect(purchase.code).not_to be_nil
+      end
+    end
   end
 end
