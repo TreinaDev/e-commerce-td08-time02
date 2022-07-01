@@ -40,6 +40,18 @@
               </div>
 
             </div>
+
+            <div class="flex-row">
+              <p class="text-center text-lg font-semibold">Status</p>
+              <p class=<%= purchase.status == 'approved' ? 'text-green-500' : (purchase.status == 'pending' ? 'text-orange-500' : 'text-red-600') %>>
+                <%= Purchase.human_attribute_name("status.#{purchase.status}") %>
+              </p>
+            </div>
+
+            <div class="flex-row">
+              <p class="text-center text-lg font-semibold">Data</p>
+              <p><%= I18n.l(purchase.created_at.to_date) %></p>
+            </div>
           <% end %>
         <% end %>
     <% else %>
