@@ -8,8 +8,8 @@ describe 'Cliente visualiza compras realizadas' do
     create :price, product: first_product, value: 20.00
     second_product = create :product, name: 'Celular i12', shipping_price: 20.00
     create :price, product: second_product, value: 40.00
-    first_purchase = create :purchase, code: 'CUMNPNQL', client: client, status: :approved, value: 45.00
-    second_purchase = create :purchase, code: 'A6EUHQQP', client: client, status: :pending, value: 30.00
+    first_purchase = create :purchase, client: client, status: :approved, value: 45.00
+    second_purchase = create :purchase, client: client, status: :pending, value: 30.00
     create :product_item, purchase: first_purchase, product: first_product, quantity: 1
     create :product_item, purchase: first_purchase, product: second_product, quantity: 1
     create :product_item, purchase: second_purchase, product: first_product, quantity: 2
