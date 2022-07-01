@@ -9,9 +9,10 @@ class PurchasesController < ApplicationController
   end
 
   def create
+    current_client.create_wallet unless current_client.has_wallet?
     purchase = Purchase.create(purchase_params)
     response = PurchaseDataService.send(purchase)
-    if response&.status == :created
+    if response&.status == 201
       PurchaseDataService.change_purchase_status(purchase, response)
       return redirect_to root_path, notice: PurchaseDataService.status_notice(purchase)
     end
