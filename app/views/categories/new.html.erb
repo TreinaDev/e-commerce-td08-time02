@@ -1,12 +1,12 @@
 <section class="h-[450px]">
   <%= form_with model: @category, html: { class:  'form'} do |form| %>
     <div>
-      <h2>Registrar Categoria</h2>
+      <h1 class="title">Registrar Categoria</h1>
         <div class="field py-3">
           <%= form.label :name %>
           <%= form.text_field :name %>
           <% if @category.errors.any?%>
-            <p class=' text-red-600'><%= @category.errors.full_messages_for(:name).first %></p>
+            <p class='text-red-600'><%= @category.errors.full_messages_for(:name).first %></p>
           <% end %>
         </div>
         <div class="field py-3">
