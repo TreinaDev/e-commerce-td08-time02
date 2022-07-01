@@ -39,6 +39,8 @@ Rails.application.routes.draw do
       resources :exchange_rates, only: %i[create]
 
       post 'clients/update-balance', to: 'clients#update_balance'
+
+      post 'purchases/update-status', to: 'purchases#update_status'
     end
   end
 end
