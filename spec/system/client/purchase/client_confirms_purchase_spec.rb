@@ -103,33 +103,55 @@ describe 'Cliente confirma compra' do
     expect(page).to have_content 'Não há produtos no carrinho'
   end
 
-  it 'e cria uma carteira em Pagamentos' do
-    client = create :client, email: 'cliente@cliente.com', code: '510.309.910-14', has_wallet: false
-    create :exchange_rate, value: 2.0
-    product = create :product, shipping_price: 10.00
-    create :price, product: product, value: 20.00
-    create :product_item, client: client, product: product, quantity: 1
-    client_data = { client_wallet: { email: 'cliente@cliente.com', registered_number: '510.309.910-14' } }
-    wallet_response = instance_double Faraday::Response, status: 201, body: ''
-    allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/client_wallets',
-                                          client_data).and_return wallet_response
-    purchase_data_sent = { transaction: { order: 'DOK3KRGA', registered_number: '510.309.910-14',
-                                          value: 1500, cashback: 0 } }.to_json
-    purchase_status_data = { transaction: { order: 'DOK3KRGA', registered_number: '510.309.910-14',
-                                            status: 'pending', message: nil } }.to_json
-    purchase_response = instance_double Faraday::Response, status: :created, body: purchase_status_data
-    allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/transactions', purchase_data_sent,
-                                          content_type: 'application/json').and_return(purchase_response)
-    allow(SecureRandom).to receive(:alphanumeric).and_return('DOK3KRGA')
+  context 'e tenta criar carteira em Pagamentos' do
+    it 'com sucesso' do
+      client = create :client, email: 'cliente@cliente.com', code: '510.309.910-14', has_wallet: false
+      create :exchange_rate, value: 2.0
+      product = create :product, shipping_price: 10.00
+      create :price, product: product, value: 20.00
+      create :product_item, client: client, product: product, quantity: 1
+      client_data = { client_wallet: { email: 'cliente@cliente.com', registered_number: '510.309.910-14' } }
+      wallet_response = instance_double Faraday::Response, status: 201, body: ''
+      allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/client_wallets',
+                                            client_data).and_return wallet_response
+      purchase_data_sent = { transaction: { order: 'DOK3KRGA', registered_number: '510.309.910-14',
+                                            value: 1500, cashback: 0 } }.to_json
+      purchase_status_data = { transaction: { order: 'DOK3KRGA', registered_number: '510.309.910-14',
+                                              status: 'pending', message: nil } }.to_json
+      purchase_response = instance_double Faraday::Response, status: :created, body: purchase_status_data
+      allow(Faraday).to receive(:post).with('http://localhost:4000/api/v1/transactions', purchase_data_sent,
+                                            content_type: 'application/json').and_return(purchase_response)
+      allow(SecureRandom).to receive(:alphanumeric).and_return('DOK3KRGA')
 
-    login_as client, scope: :client
-    visit shopping_cart_path
-    click_on 'Confirmar Compra'
-    client.reload
+      login_as client, scope: :client
+      visit shopping_cart_path
+      click_on 'Confirmar Compra'
+      client.reload
 
-    expect(client.has_wallet).to be true
-    expect(Purchase.count).to eq 1
-    expect(Purchase.last).to be_pending
-    expect(page).to have_content 'Compra pendente de aprovação'
+      expect(client.has_wallet).to be true
+      expect(Purchase.count).to eq 1
+      expect(Purchase.last).to be_pending
+      expect(page).to have_content 'Compra pendente de aprovação'
+    end
+
+    it 'e API está fora do ar' do
+      client = create :client, has_wallet: false
+      create :exchange_rate
+      product = create :product
+      create :price, product: product
+      item = create :product_item, client: client, product: product
+      allow(SecureRandom).to receive(:alphanumeric).and_return('DOK3KRGA')
+
+      login_as client, scope: :client
+      visit shopping_cart_path
+      click_on 'Confirmar Compra'
+      client.reload
+
+      expect(client.has_wallet).to be false
+      expect(page).to have_current_path shopping_cart_path
+      expect(page).to have_content 'Falha na confirmação. Tente novamente mais tarde'
+      expect(Purchase.count).to eq 0
+      expect(client.product_items).to include item
+    end
   end
 end
