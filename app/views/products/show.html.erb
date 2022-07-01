@@ -37,6 +37,7 @@
     
     <p>Descrição: <%= @product.description %></p>
     <p>SKU: <%= @product.sku %></p>
+    <p>Avaliação: <%= number_with_precision(@rating_average,  precision: 1) %></p>
     <p>Marca: <%= @product.brand %></p>
     <p>Categoria: <%= @product.category.name %></p>
     <p>Dimensões: <%= number_with_precision(@product.width, precision: 2) %> x
@@ -99,5 +100,20 @@
           <p><%= link_to 'Manual', @product.manual if @product.manual.attached? %></p> 
       </div>
     <% end %>
+    <div>
+      <h3>Avaliações</h3>
+      <p><%= link_to 'Faça sua avaliação', new_product_review_path(@product) unless admin_signed_in? %></p>
+      <% if @reviews.empty? %>
+        <p>Não há avaliação cadastrada</p>
+      <% else %>
+        <% @reviews.each do |review| %>
+          <div>
+            <p><%= review.client.name %> - <%= time_ago_in_words(review.created_at) %></p>
+            <p>Nota: <%= review.rating %></p>
+            <p>Comentario: <%= review.comment %></p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </section>

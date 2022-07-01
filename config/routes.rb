@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       patch 'sum_quantity', on: :member
       patch 'dec_quantity', on: :member
     end
+    resources :reviews, only: %i[new create]
   end
   resources :prices, only: :create
   resources :cashbacks, only: %i[index new create]

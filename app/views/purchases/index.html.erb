@@ -1,21 +1,36 @@
-<div id='purchases'>
-  <div><h1>Minhas Compras</h1></div>
-
+<section class="list">
+  <div><h1 class="title text-center pl-8">Minhas Compras</h1></div>
+  <div class='flex-row'>
   <% if @purchases.any? %>
-    <% @purchases.each do |purchase| %>
-      <div id=<%= purchase.id %> >
-        <ul>
-          <li>Data: <%= I18n.l(purchase.created_at.to_date) %></li>
-          <% purchase.product_items.each do |item| %>
-            <li><%= "#{item.quantity} x #{item.product.name}" %></li>
-          <% end %>
-            <li>Valor Total: $<%= number_with_precision(purchase.value, precision: 2) %> rubis</li>
-            <li><%= Purchase.human_attribute_name("status.#{purchase.status}") %></li>
-            <li><%= "Motivo: #{purchase.message}" if purchase.message %></li>
-        </ul>
-      </div>
-    <% end %>
+      <% @purchases.each do |purchase| %>
+        <%= link_to root_path do %>
+          <div class="flex card mb-2 h-[100px] p-5 bg-gray-100 justify-between" id=<%= purchase.id %> >
+
+            <div class="flex-row">
+              <p class="text-left text-lg font-semibold">Valor Total</p>
+              <div class="flex space-x-2">
+                <p>$ <%= number_with_precision(purchase.value, precision: 2) %></p>
+                <%= image_tag('rubi', class: "img-responsive w-[23px] h-[23px]") %>
+              </div>
+            </div>
+
+            <div class="flex-row">
+              <p class="text-center text-lg font-semibold">Status</p>
+              <p class=<%= purchase.status == 'approved' ? 'text-green-500' : (purchase.status == 'pending' ? 'text-orange-500' : 'text-red-600') %>>
+                <%= Purchase.human_attribute_name("status.#{purchase.status}") %>
+              </p>
+            </div>
+
+            <div class="flex-row">
+              <p class="text-center text-lg font-semibold">Data</p>
+              <p><%= I18n.l(purchase.created_at.to_date) %></p>
+            </div>
+
+          </div>
+        <% end %>
+      <% end %>
   <% else %>
-    <p> Você ainda não realizou nenhuma compra. </p>
+    <p class="text-center pl-8"> Você ainda não realizou nenhuma compra. </p>
   <% end %>
-</div>
+  </div>
+</section>
