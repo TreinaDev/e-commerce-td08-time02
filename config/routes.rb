@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   resources :cashbacks, only: %i[index new create]
 
   get 'shopping_cart', to: 'shopping_cart#index'
-  resources :purchases, only: %i[index create]
+  resources :purchases, only: %i[index create show]
 
   resources :pending_admins, only: %i[index] do
     post 'approve', on: :member
