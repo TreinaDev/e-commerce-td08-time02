@@ -27,7 +27,7 @@
       <%= label_tag(:shipping_company, "4") %>
       <%= form.radio_button :rating, 5, id: "five" %>
       <%= label_tag(:shipping_company, "5") %>
-      <p><%= @review.errors.full_messages_for(:rating).first if @review.errors.any? %></p>
+      <p ><%= @review.errors.full_messages_for(:rating).first if @review.errors.any? %></p>
     </div>
     <div>
       <%= form.label :comment %>
