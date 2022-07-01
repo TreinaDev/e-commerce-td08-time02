@@ -1,0 +1,41 @@
+<h1>Avaliação</h1>
+
+  <% if(@review.errors.any?) %>
+    <p>Verifique os erros abaixo:</p>
+    <ul>
+      <% @review.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if @product.photos.attached? %>
+      <%= image_tag @product.photos.first %>
+  <% end %>
+  <p>Marca: <%= @product.brand %></p>
+  <p>Name: <%= @product.name %></p>
+<div>
+  <%= form_for([@product, @review]) do |form| %>
+    <div>
+      <%= form.radio_button :rating, 1, id: "one" %>
+      <%= label_tag(:shipping_company, "1") %>
+      <%= form.radio_button :rating, 2, id: "two" %>
+      <%= label_tag(:shipping_company, "2") %>
+      <%= form.radio_button :rating, 3, id: "three" %>
+      <%= label_tag(:shipping_company, "3") %>
+      <%= form.radio_button :rating, 4, id: "four" %>
+      <%= label_tag(:shipping_company, "4") %>
+      <%= form.radio_button :rating, 5, id: "five" %>
+      <%= label_tag(:shipping_company, "5") %>
+      <p><%= @review.errors.full_messages_for(:rating).first if @review.errors.any? %></p>
+    </div>
+    <div>
+      <%= form.label :comment %>
+      <%= form.text_area :comment %>
+      <p><%= @review.errors.full_messages_for(:comment).first if @review.errors.any? %></p>
+    </div>
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>
