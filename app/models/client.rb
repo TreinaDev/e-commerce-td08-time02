@@ -30,11 +30,11 @@ class Client < ApplicationRecord
   end
 
   def create_wallet
-    return if has_wallet?
-
-    params = { client_wallet: { email: email, registered_number: code } }
-    response = Faraday.post('http://localhost:4000/api/v1/client_wallets', params)
-    update(has_wallet: true) if response.status.digits.last == 2 || response.body.include?('em uso')
+    unless has_wallet?
+      params = { client_wallet: { email: email, registered_number: code } }
+      response = Faraday.post('http://localhost:4000/api/v1/client_wallets', params)
+      update(has_wallet: true) if response.status == 201 || response.body.include?('em uso')
+    end
   rescue Faraday::ConnectionFailed
     update(has_wallet: false)
   end
