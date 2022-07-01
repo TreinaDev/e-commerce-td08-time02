@@ -19,6 +19,14 @@
             <p class='text-base text-green-500'>Cashback de <%= "#{@cashback.percentual}% | #{number_to_currency(@cashback_value, unit: '$')} " %>
             <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px] inline-block") %></p>
           <% end %>
+
+          <% if admin_signed_in? && @cashbacks %>
+            <%= form_with model: @product, url: update_cashback_product_path do |form| %>
+              <%= form.collection_select :cashback_id, @cashbacks, :id, :percentual %>
+              <%= form.submit 'Redefinir cashback' %>
+            <% end %>
+          <% end %>
+
           <div class='flex space-x-1 items-center'>
             <p class='text-lg font-semibold'>Frete: $<%= number_with_precision(@product.rubies_shipping_price, precision: 2) %></p>
             <%= image_tag('rubi', class: "img-responsive w-[20px] h-[20px]") %>
@@ -79,19 +87,19 @@
         <div class='flex space-x-2 w-full'>
           <div class='flex flex-col'>
             <%= f.label :start_date %>
-            <%= f.date_field :start_date, value: @start_date, readonly: true, class:'max-w-[120px]' %>       
+            <%= f.date_field :start_date, value: @start_date, readonly: true, class:'max-w-[120px]' %>
           </div>
           <div class='flex flex-col'>
             <%= f.label :end_date %>
-            <%= f.date_field :end_date %>     
-          </div>     
+            <%= f.date_field :end_date %>
+          </div>
         </div>
         <p class=' text-red-600'><%= @price.errors.full_messages_for(:start_date).first if @price.errors.any? %></p>
         <p class=' text-red-600'><%= @price.errors.full_messages_for(:end_date).first if @price.errors.any? %></p>
         <div class='flex flex-col'>
           <%= f.label :value %>
           <%= f.number_field :value, class:'max-w-[150px]' %>
-        </div> 
+        </div>
         <p class=' text-red-600'><%= @price.errors.full_messages_for(:value).first if @price.errors.any? %></p>
 
         <%= f.submit 'Cadastrar preço', class:'btn-primary mb-4' %>
@@ -101,7 +109,7 @@
     <% unless admin_signed_in? %>
       <div class='flex justify-center btn-second w-[120px]'>
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-          <p><%= link_to 'Manual', @product.manual if @product.manual.attached? %></p> 
+          <p><%= link_to 'Manual', @product.manual if @product.manual.attached? %></p>
       </div>
     <% end %>
   </div>
