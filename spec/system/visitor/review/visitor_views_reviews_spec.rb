@@ -8,9 +8,6 @@ describe 'Visitante vê todas avaliações cadastradas' do
     review = create :review, product: product, rating:3
 
     visit root_path
-    within('#menu-desktop') do
-      click_on 'Produtos'
-    end
     click_on 'TV 45'
 
     expect(page).to have_current_path product_path(product)
@@ -26,9 +23,6 @@ describe 'Visitante vê todas avaliações cadastradas' do
                                value: 35.00
 
     visit root_path
-    within('#menu-desktop') do
-      click_on 'Produtos'
-    end
     click_on 'TV 45'
 
     expect(page).to have_content 'Não há avaliação cadastrada'

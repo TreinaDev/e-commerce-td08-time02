@@ -8,7 +8,7 @@ describe 'Cliente adiciona uma avaliação' do
                    end_date: 90.days.from_now, value: 1500.00)
 
     login_as client, scope: :client
-    visit products_path
+    visit root_path
     click_on 'Monitor 8k'
     click_on 'Faça sua avaliação'
     find("#one").choose()
@@ -27,7 +27,7 @@ describe 'Cliente adiciona uma avaliação' do
                    end_date: 90.days.from_now, value: 1500.00)
 
     login_as client, scope: :client
-    visit products_path
+    visit root_path
     click_on 'Monitor 8k'
     click_on 'Faça sua avaliação'
     fill_in 'Comentário', with: ''
