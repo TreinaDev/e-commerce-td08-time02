@@ -25,15 +25,19 @@
       <% if @products.any? %>
         <% @products.each do |product| %>
           <div id=<%= product.id %> class='card m-2 max-w-[250px] h-[280px]'>          
-            <%= link_to(image_tag(product.photos.last), product_path(product)) if product.photos.attached? %>                
+            <%= link_to(image_tag(product.photos.last, style: 'height:50%;width:100%;object-fit:cover;'), product_path(product)) if product.photos.attached? %>                
             <div class='p-2 '>
-              <h3 class='font-semibold'>Nome: <%= link_to product.name, product_path(product) %> </h3>
-              <p>Marca: <%= product.brand %></p>
+              <h3 class='font-semibold'><%= link_to product.name, product_path(product) %> </h3>
+              <p><%= product.brand %></p>
               <p><%= Product.human_attribute_name("status.#{product.status}") if admin_signed_in? %></p>
-              <div class="flex space-x-1 items-center">
-                <p>$<%= number_with_precision(product.current_price.rubies_value, precision: 2) %></p>
-                <%= image_tag('rubi', class: "img-responsive w-[20px] h-[20px]") %>
-              </div>
+              <% if product.current_price %>
+                <div class="flex space-x-1 items-center">
+                  <p>$<%= number_with_precision(product.current_price.rubies_value, precision: 2) %></p>
+                  <%= image_tag('rubi', class: "img-responsive w-[20px] h-[20px]") %>
+                </div>
+              <% else %>
+                <p>Sem preço</p>
+              <% end %>
             </div>
           </div>
         <% end %>
