@@ -1,6 +1,6 @@
 <section class='list'>
   <div><h1 class="title text-center">Cadastros de Administradores pendentes</h1></div>
-     <div class='flex flex-col items-center'>
+    <div class='flex flex-col items-center'>
       <% @pending_admins.each do |admin| %>
         <div id=<%= admin.id %> class="flex flex-col sm:flex-row card mb-2 w-[70%] min-w-[350px] p-5 bg-gray-100 sm:justify-between">
         
@@ -20,5 +20,6 @@
 
         </div>
       <% end %>
+    </div>
   </div>
 </section>
