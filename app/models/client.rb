@@ -18,8 +18,8 @@ class Client < ApplicationRecord
     code.split('-').join.split('.').join.split('/').join
   end
 
-  def purchase_value(discount = 0)
-    product_items.sum { |item| item.total_price(discount) }
+  def purchase_value
+    product_items.sum(&:total_price)
   end
 
   def purchase_shipping_value
