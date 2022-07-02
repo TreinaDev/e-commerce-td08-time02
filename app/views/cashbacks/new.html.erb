@@ -1,19 +1,30 @@
-<div>
-  <%= form_with model: @cashback do |form| %>
-    <div>
-      <%= form.label :start_date %>
-      <%= form.date_field :start_date %>
+<section class="h-[450px]">
+  <%= form_with model: @cashback, html: { class: 'form'} do |form| %>
+  <div class="flex flex-row items-center bg-gray-100 w-[400px]">
+    <div class="flex flex-row field">
+        <%= form.label :start_date, class: 'max-w-[185px]' %>
+        <%= form.date_field :start_date, class: 'w-full max-w-[185px]' %>
     </div>
-    <div>
-      <%= form.label :end_date %>
-      <%= form.date_field :end_date %>
+    <% if @cashback.errors.any?%>
+      <div class=' text-red-600'><%= @cashback.errors.full_messages_for(:start_date).first %></div>
+    <% end %>
+    <div class="field py-3">
+      <%= form.label :end_date, class: 'max-w-[185px]' %>
+      <%= form.date_field :end_date, class: 'w-full max-w-[185px]' %>
     </div>
-    <div>
-      <%= form.label :percentual %>
-      <%= form.number_field :percentual %>
+    <% if @cashback.errors.any?%>
+      <div class=' text-red-600'><%= @cashback.errors.full_messages_for(:end_date).first %></div>
+    <% end %>
+    <div class="field py-3 items-center">
+      <%= form.label :percentual, class: 'max-w-[185px]'  %>
+      <%= form.number_field :percentual, class: 'w-full max-w-[185px]' %>
     </div>
-    <div>
+    <% if @cashback.errors.any?%>
+      <div class=' text-red-600'><%= @cashback.errors.full_messages_for(:percentual).first %></div>
+    <% end %>
+    <div class="btn-primary actions w-full max-w-[250px]">
       <%= form.submit %>
     </div>
+  </div>
   <% end %>
-</div>
+</section>

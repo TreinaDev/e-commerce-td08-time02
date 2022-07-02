@@ -11,14 +11,13 @@ describe 'Administrador vê os cadastros de administradores pendentes' do
     visit root_path
     find('#menu-desktop').click_on 'Cadastros Pendentes'
 
-    expect(page).to have_content 'Cadastros de administradores pendentes'
-    expect(page).to have_content 'Nome: José'
-    expect(page).to have_content 'Status: Pendente'
-    expect(page).to have_content 'E-mail: jose@mercadores.com.br'
-    expect(page).to have_content 'Nome: Maria'
-    expect(page).to have_content 'E-mail: maria@mercadores.com.br'
-    expect(page).not_to have_content 'Nome: Fernando'
-    expect(page).not_to have_content 'E-mail: fernando@mercadores.com.br'
+    expect(page).to have_content 'Cadastros de Administradores pendentes'
+    expect(page).to have_content "Nome\nJosé"
+    expect(page).to have_content "E-mail\njose@mercadores.com.br"
+    expect(page).to have_content "Nome\nMaria"
+    expect(page).to have_content "E-mail\nmaria@mercadores.com.br"
+    expect(page).not_to have_content "Nome\nFernando"
+    expect(page).not_to have_content "E-mail\nfernando@mercadores.com.br"
   end
 
   it 'e aprova o cadastro de outro admin' do
@@ -33,9 +32,9 @@ describe 'Administrador vê os cadastros de administradores pendentes' do
 
     expect(page).to have_content('Administrador aprovado com sucesso.')
     expect(first_pending_admin.approved?).to be true
-    expect(page).not_to have_content 'Nome: José'
-    expect(page).not_to have_content 'E-mail: jose@mercadores.com.br'
-    expect(page).to have_content 'Nome: Maria'
-    expect(page).to have_content 'E-mail: maria@mercadores.com.br'
+    expect(page).not_to have_content "Nome\nJosé"
+    expect(page).not_to have_content "E-mail\njose@mercadores.com.br"
+    expect(page).to have_content "Nome\nMaria"
+    expect(page).to have_content "E-mail\nmaria@mercadores.com.br"
   end
 end

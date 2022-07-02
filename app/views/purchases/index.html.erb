@@ -1,49 +1,35 @@
 <% if admin_signed_in? %>
-  <section id='search_form'>
-    <%= form_with url: search_purchases_path, method: :get do |form| %>
-      <%= form.text_field :query, placeholder: 'Nome ou CPF/CNPJ do cliente' %>
-      <%= form.submit 'Buscar' %>
+  <section class='flex-col'>
+    <%= form_with url: search_purchases_path, method: :get, class: 'flex flex-row justify-center' do |form| %>
+      <div class="field py-3 flex-col">
+        <%= form.text_field :query, placeholder: 'Nome ou CPF/CNPJ do cliente' %>
+        <%= form.submit 'Buscar', class:'btn-second ml-2 mr-3 '%>
+      </div>
     <% end %>
   </section>
 <% end %>
 
 <section class="list">
-  <div><h1 class="title text-center pl-8">Compras</h1></div>
+  <div><h1 class="title text-center">Compras</h1></div>
     <% if admin_signed_in? %>
-      <p class="title text-center pl-8"><%= @message if @message %></p>
-      <h1 class="title text-center pl-8"><%= "#{@client.name} (#{@client.code})" if @client %></h1>
+      <p class="title text-center"><%= @message if @message %></p>
+      <h1 class="title text-center"><%= "#{@client.name} (#{@client.code})" if @client %></h1>
     <% end %>
   <div class='flex-row'>
     <% if @purchases.any? %>
         <% @purchases.each do |purchase| %>
-          <%= link_to root_path do %>
-            <div class="flex card mb-2 h-[100px] p-5 bg-gray-100 justify-between" id=<%= purchase.id %> >
-
-              <div class="flex-row">
-                <p class="text-left text-lg font-semibold">Valor Total</p>
-                <div class="flex space-x-2">
-                  <p>$ <%= number_with_precision(purchase.value, precision: 2) %></p>
-                  <%= image_tag('rubi', class: "img-responsive w-[23px] h-[23px]") %>
-                </div>
+          <div class="flex card mb-2 h-[100px] p-5 bg-gray-100 justify-between" id=<%= purchase.id %> >
+            <div class="flex-row">
+              <p class="text-left text-lg font-semibold">Valor Total</p>
+              <div class="flex space-x-2">
+                <p>$ <%= number_with_precision(purchase.value, precision: 2) %></p>
+                <%= image_tag('rubi', class: "img-responsive w-[23px] h-[23px]") %>
               </div>
-
-              <div class="flex-row">
-                <p class="text-center text-lg font-semibold">Status</p>
-                <p class=<%= purchase.status == 'approved' ? 'text-green-500' : (purchase.status == 'pending' ? 'text-orange-500' : 'text-red-600') %> >
-                  <%= Purchase.human_attribute_name("status.#{purchase.status}") %>
-                </p>
-              </div>
-
-              <div class="flex-row">
-                <p class="text-center text-lg font-semibold">Data</p>
-                <p><%= I18n.l(purchase.created_at.to_date) %></p>
-              </div>
-
             </div>
 
             <div class="flex-row">
               <p class="text-center text-lg font-semibold">Status</p>
-              <p class=<%= purchase.status == 'approved' ? 'text-green-500' : (purchase.status == 'pending' ? 'text-orange-500' : 'text-red-600') %>>
+              <p class=<%= purchase.status == 'approved' ? 'text-green-500' : (purchase.status == 'pending' ? 'text-orange-500' : 'text-red-600') %> >
                 <%= Purchase.human_attribute_name("status.#{purchase.status}") %>
               </p>
             </div>
@@ -52,10 +38,10 @@
               <p class="text-center text-lg font-semibold">Data</p>
               <p><%= I18n.l(purchase.created_at.to_date) %></p>
             </div>
-          <% end %>
+          </div>
         <% end %>
     <% else %>
-      <p class="text-center pl-8">  Nenhuma compra realizada. </p>
+      <p class="text-center">  Nenhuma compra realizada. </p>
     <% end %>
   </div>
 </section>
