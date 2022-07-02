@@ -1,24 +1,43 @@
-# README
+# E-comerce
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Este projeto foi desenvolvido para funcionar junto com [Pagamentos](https://github.com/TreinaDev/pagamentos-td08-time02).
 
-Things you may want to cover:
+Na aplicação podem existir três tipos de usuário, administradores(devem ter o domínio do email: @mercadores.com.rb), clientes e visitantes que apenas acessam as aplicações sem se cadastrar. Na plataforma os produtos só podem ser comprados com rubis que podem ser adicionados ao saldo do cliente por meio de api na app de pagamentos.
+## Como executar o projeto
 
-* Ruby version
+com o git já instalado use o comando:
 
-* System dependencies
+```text
+git clone git@github.com:TreinaDev/e-commerce-td08-time02.git
+```
 
-* Configuration
+em seguida:
 
-* Database creation
+```text
+bin/setup
+```
 
-* Database initialization
+para popular o banco:
 
-* How to run the test suite
+```text
+rails db:seed
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+para rodar os testes:
 
-* Deployment instructions
+```text
+rspec
+```
 
-* ...
+para rodar a aplicação em sua máquina:
+
+```text
+bin/dev
+```
+
+acesse em seu navegador:
+<http://localhost:3000/>
+
+## Dependencias do sistema
+
+- ruby 3.1.0
