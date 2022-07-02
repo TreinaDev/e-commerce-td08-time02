@@ -93,3 +93,10 @@ Purchase.create!(client: first_client, value: 2000, status: :approved, message: 
 Purchase.create!(client: first_client, value: 3000, status: :approved, message: 'Aprovado com sucesso!')
 Purchase.create!(client: first_client, value: 10000, status: :rejected, message: 'Cliente sem Saldo!')
 Purchase.create!(client: first_client, value: 10000, status: :pending, message: 'Cliente sem Saldo!')
+
+
+# Avaliações
+Review.create!(product: first_product, client: first_client, rating: 4, comment: 'Boa qualidade de imagem, mas custo benefício ruim.')
+Review.create!(product: second_product, client: second_client, rating: 5, comment: 'Casaco Brilha mais que um arco-iris. Tecido altamente resistente, quase um kvlar.')
+Review.create!(product: third_product, client: third_client, rating: 3, comment: 'Celular não trava, mas a bateria acaba muito rápido.')
+Review.create!(product: fourth_product, client: first_client, rating: 1, comment: 'Camiseta de baixa qualidade, tecido esfarelando e estampa tambem.')

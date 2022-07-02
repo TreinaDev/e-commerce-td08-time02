@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get 'filter', on: :collection
     post 'activate', on: :member
     post 'deactivate', on: :member
+    patch 'update_cashback', on: :member
     resources :product_items, only: %i[create destroy] do
       patch 'sum_quantity', on: :member
       patch 'dec_quantity', on: :member
@@ -37,6 +38,8 @@ Rails.application.routes.draw do
       resources :exchange_rates, only: %i[create]
 
       post 'clients/update-balance', to: 'clients#update_balance'
+
+      post 'purchases/update-status', to: 'purchases#update_status'
     end
   end
 end
