@@ -30,7 +30,7 @@ RSpec.describe Cashback, type: :model do
   end
 
   it 'false se data inicial for anterior à data atual' do
-    cashback = described_class.new(start_date: 1.day.ago)
+    cashback = described_class.new(start_date: Date.today-1)
 
     cashback.valid?
 
