@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   def index
     @categories = Category.active
     Product.active.each do |product|
-      product.inactive! if product.prices.last.end_date < Time.zone.today
+      product.inactive! if product.prices.empty? || product.prices.last.end_date < Time.zone.today
     end
     @products = admin_signed_in? ? Product.all : Product.active
   end
@@ -39,7 +39,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product.inactive! if @product.prices.last.end_date < Time.zone.today
+    @product.inactive! if @product.prices.empty? || @product.prices.last.end_date < Time.zone.today
     unless @product.active? || admin_signed_in?
       return redirect_to root_path, notice: t('inactive_or_inexistent_product')
     end
@@ -101,11 +101,11 @@ class ProductsController < ApplicationController
 
     @cashbacks = Cashback.all
     @cashback = @product.cashback
-    @cashback_value = @product.current_price.rubies_value / @cashback.percentual
+    @cashback_value = @product.current_price.rubies_value *  @cashback.percentual/100.0
   end
 
   def set_new_price
     @price = Price.new
-    @start_date = @product.prices.last.end_date + 1
+    @start_date = @product.prices.empty? ? @start_date = Time.zone.today : @product.prices.last.end_date + 1
   end
 end
