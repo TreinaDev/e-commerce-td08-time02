@@ -14,7 +14,7 @@ class Cashback < ApplicationRecord
   end
 
   def start_date_greater_than_today
-    return unless start_date && start_date < Time.zone.today
+    return unless start_date && start_date < Date.today
 
     errors.add :start_date, message: 'não pode ser anterior a hoje'
   end
