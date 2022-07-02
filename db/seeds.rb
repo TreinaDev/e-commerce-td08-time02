@@ -1,13 +1,3 @@
-#vamos precisar de 
-#um cliente sem saldo(ou sem registro previo) para realizar uma compra e ser negada
-    #uma purchase para esse cliente
-#um cliente com com saldo suficiente para fazer uma compra e ser aprovada
-    #uma purchase para esse cliente
-
-#uma categoria com um parente para filtrar produtos desta categoria e encontrar os de filhas da mesma
-    #uma categoria filha  para procurar produtos desta categoria e encontrar somente produtos
-
-
 # Admins
 admin = Admin.create!(email: 'arthur@mercadores.com.br', password: 'password', name: 'Arthur', status: :approved)
 Admin.create!(email: 'marco@mercadores.com.br', password: 'password', name: 'Marco')
