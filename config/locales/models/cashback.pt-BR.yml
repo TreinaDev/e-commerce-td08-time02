@@ -1,4 +1,5 @@
 pt-BR:
+  cashback_updated: Cashback Atualizado!
   cashback_created: Cashback Cadastrado com Sucesso!
   cashback_not_created: Não foi possível cadastrar o cashback
   activerecord:

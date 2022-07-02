@@ -44,12 +44,15 @@ describe 'Administrador acessa detalhes do produto' do
     expect(page).to have_content('$10,00')
     expect(page).to have_content('Preço (em reais): R$ 20,00')
     expect(page).to have_content('Ativo')
-    expect(page).to have_content("Preço para #{I18n.l(Time.zone.today)} - " \
-                                 "#{I18n.l(7.days.from_now.to_date)}: " \
-                                 "R$ 20,00 - Cadastrado por: #{admin.name}")
-    expect(page).to have_content("Preço para #{I18n.l(8.days.from_now.to_date)} - " \
-                                 "#{I18n.l(90.days.from_now.to_date)}: " \
-                                 "R$ 100,00 - Cadastrado por: #{admin.name}")
+    expect(page).to have_content("R$ 20,00 - " \
+                                 "Cadastrado por #{admin.name}\n" \
+                                 "#{I18n.l(Time.zone.today.to_date)} até #{I18n.l(7.days.from_now.to_date)}")
+    expect(page).to have_content("R$ 100,00 - " \
+                                 "Cadastrado por #{admin.name}\n" \
+                                 "#{I18n.l(8.days.from_now.to_date)} até #{I18n.l(90.days.from_now.to_date)}")
+    # expect(page).to have_content("Preço para #{I18n.l(8.days.from_now.to_date)} - " \
+    #                              "#{I18n.l(90.days.from_now.to_date)}: " \
+    #                              "R$ 100,00 - Cadastrado por: #{admin.name}")
     expect(page).not_to have_button 'Adicionar ao Carrinho'
   end
 
