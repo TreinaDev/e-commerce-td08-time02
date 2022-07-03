@@ -10,7 +10,7 @@ Um _cliente_ (usuário comum cadastrado na plataforma) pode ver todo o catálogo
 
 _Visitantes_ podem ver todo o catálogo de produtos ativos, mas não podem realizar compras.
 
-A partir do momento em que o cliente confirma uma compra, a mesma é processada pelo App [Pagamentos](https://github.com/TreinaDev/pagamentos-td08-time02), retornando a aprovação ou não aprovação de uma compra.
+Quando um cliente confirma uma compra, a mesma é processada pela aplicação de [Pagamentos](https://github.com/TreinaDev/pagamentos-td08-time02), que informa se ela foi aprovada ou não.
 
 </br>
 
