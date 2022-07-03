@@ -2,7 +2,7 @@
 
 Este projeto foi desenvolvido para funcionar junto com [Pagamentos](https://github.com/TreinaDev/pagamentos-td08-time02).
 
-O projeto **E-commerce** foi pensado para funcionar como uma plataforma de _e-commerce_ focada em usuários participantes de programas de pontos, como os de cartões de crédito. Os clientes podem utilizar seu saldo <span style="color:red">**Rubis**</span> <img src="https://cdn.emojidex.com/emoji/seal/Ruby.png" width="10px"> para adquirir diversos produtos.
+O projeto **E-commerce** foi pensado para funcionar como uma plataforma de _e-commerce_ focada em usuários participantes de programas de pontos, como os de cartões de crédito. Os clientes podem utilizar seu saldo de <span style="color:red">**rubis**</span> <img src="https://cdn.emojidex.com/emoji/seal/Ruby.png" width="10px"> para adquirir diversos produtos.
 
 Os _administradores_(usuários cadastrados com e-mail do domínio @mercadores.com.br) são responsáveis por gerir produtos, categorias, promoções e cashbacks. Podendo, por exemplo, cadastrar cashbacks para algum produto específico e promoções para categorias inteiras de produtos.
 
