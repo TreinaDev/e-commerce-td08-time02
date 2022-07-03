@@ -20,10 +20,19 @@
                   <p>Preço Unitário: $<%= number_with_precision(item.product.current_price.rubies_value, precision: 2) %></p>
                   <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
                 </div>
+                
                 <div  class='flex items-center space-x-1'>
                   <p>Subtotal: $<%= number_with_precision(item.total_price, precision: 2) %></p>
                   <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
                 </div>
+
+                <% if @promotion %>
+                  <div class='flex items-center space-x-1'>
+                    <p>Desconto: $<%= number_with_precision(item.discount_value(@promotion.discount_percentual), precision: 2) %></p>
+                    <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
+                  </div>
+                <% end %>
+
                 <div  class='flex items-center space-x-1'>
                   <p>Frete: $<%= number_with_precision(item.total_shipping_price, precision: 2) %></p>
                   <%= image_tag('rubi', class: "img-responsive w-[16px] h-[16px]")%>
@@ -48,6 +57,13 @@
               </div>
             </div>
           </div>
+        <% end %>
+      </div>
+
+      <div>
+        <%= form_with url: apply_coupon_path do |form| %>
+          <%= form.text_field :coupon, id: 'Cupom promocional', placeholder:'Insira um cupom', class:'rounded-lg h-8 max-w-[200px]' %>
+          <%= form.submit "Aplicar cupom", class:'btn-second ml-2 mr-3' %>
         <% end %>
       </div>
 

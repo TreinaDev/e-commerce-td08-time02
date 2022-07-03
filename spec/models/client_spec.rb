@@ -49,12 +49,29 @@ RSpec.describe Client, type: :model do
     it 'retorna valor total dos itens comprados em rubis' do
       create :exchange_rate, value: 2.0
       client = create :client
-      first_product = create :product, name: 'Monitor 8k'
+      first_product = create :product
       create :price, product: first_product, value: 10.00
-      second_product = create :product, name: 'Mouse', category: first_product.category
+      second_product = create :product, category: first_product.category
       create :price, product: second_product, value: 20.00
       create :product_item, client: client, product: first_product
       create :product_item, client: client, product: second_product, quantity: 2
+
+      expect(client.purchase_value).to eq 25.00
+    end
+
+    it 'retorna valor total - desconto quando há promoção ativa' do
+      client = create :client
+      create :exchange_rate, value: 2.0
+      promotion1 = create :promotion, start_date: Time.zone.today, end_date: 1.day.from_now, discount_percentual: 10
+      category1 = create :category, promotion: promotion1
+      product1 = create :product, category: category1
+      create :price, product: product1, value: 20.00
+      promotion2 = create :promotion, start_date: Time.zone.today, end_date: 1.day.from_now, discount_percentual: 20
+      category2 = create :category, promotion: promotion2
+      product2 = create :product, category: category2
+      create :price, product: product2, value: 20.00
+      create :product_item, client: client, product: product1, quantity: 1
+      create :product_item, client: client, product: product2, quantity: 2
 
       expect(client.purchase_value).to eq 25.00
     end
