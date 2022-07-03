@@ -6,7 +6,7 @@ O projeto **E-commerce** foi pensado para funcionar como uma plataforma de _e-co
 
 Os _administradores_ (usuários cadastrados com e-mail do domínio @mercadores.com.br) são responsáveis por gerir produtos, categorias, promoções e cashbacks, podendo, por exemplo, cadastrar cashbacks para algum produto específico e promoções para categorias inteiras de produtos.
 
-Um _cliente_(usuário comum cadastrado na plataforma) pode ver todo o catálogo de produtos ativos, sendo possível filtrá-los por categorias ou buscá-los por nome, código ou descrição. Para realizar uma compra, o cliente pode adicionar produtos ao seu carrinho de compras e confirmar a compra.
+Um _cliente_ (usuário comum cadastrado na plataforma) pode ver todo o catálogo de produtos ativos, filtrá-los por categorias ou buscá-los por nome, código ou descrição. Para realizar uma compra, o cliente pode adicionar produtos ao seu carrinho de compras e confirmar a compra.
 
 _Visitantes_ podem ver todo o catálogo de produtos ativos, mas não podem realizar compras.
 
