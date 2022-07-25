@@ -12,9 +12,11 @@ class Product < ApplicationRecord
   has_many :reviews, dependent: :nullify
   accepts_nested_attributes_for :prices
   has_one_attached :manual
+  has_one :stock_product
   has_many_attached :photos
 
   before_create :set_rubies_shipping_price
+  after_create :create_stock
 
   def set_rubies_shipping_price
     return unless shipping_price && ExchangeRate.last
@@ -24,5 +26,11 @@ class Product < ApplicationRecord
 
   def current_price
     prices.find_by('start_date <= current_date AND end_date >= current_date', current_date: Time.zone.today)
+  end
+
+  private
+
+  def create_stock
+    StockProduct.create!(product: self, quantity: 0)
   end
 end

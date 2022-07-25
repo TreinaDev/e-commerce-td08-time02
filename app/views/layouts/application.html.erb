@@ -38,6 +38,7 @@
             <% end %>
             <% if admin_signed_in? %>
               <div class= 'flex space-x-2'>
+                <li><%= link_to 'Estoque', stock_products_path %></li>
                 <li><%= link_to 'Promoções', promotions_path %></li>
                 <li><%= link_to 'Cashbacks', cashbacks_path %></li>
                 <li><%= link_to 'Categorias', categories_path %></li>
