@@ -55,4 +55,12 @@ RSpec.describe Product, type: :model do
       expect(product.rubies_shipping_price).to be_nil
     end
   end
+
+  describe '#create_stock' do
+    it 'Cria um estoque ao criar um produto' do
+      product = create :product
+    
+      expect(product.stock_product).not_to be_nil
+    end
+  end
 end

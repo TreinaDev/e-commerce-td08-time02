@@ -28,8 +28,6 @@ class Product < ApplicationRecord
     prices.find_by('start_date <= current_date AND end_date >= current_date', current_date: Time.zone.today)
   end
 
-  private
-
   def create_stock
     StockProduct.create!(product: self, quantity: 0)
   end
