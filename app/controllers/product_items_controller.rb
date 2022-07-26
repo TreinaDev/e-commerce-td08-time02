@@ -5,7 +5,8 @@ class ProductItemsController < ApplicationController
 
   def create
     @product = Product.find(params[:product_id])
-
+    return if @product.stock_product.quantity === 0 && redirect_to(@product, notice: "#{@product.name} acabou!")
+    
     unless IncrementItemService.new(@product, current_client).edit_quantity
       ProductItem.create(client: current_client, product: @product)
     end

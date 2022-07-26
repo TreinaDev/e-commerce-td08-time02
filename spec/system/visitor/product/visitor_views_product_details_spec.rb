@@ -19,6 +19,7 @@ describe 'Visitante vê detalhes de um produto' do
 
     expect(page).to have_current_path product_path(Product.last)
     expect(page).to have_content('Monitor 8k')
+    expect(page).to have_content('0 disponiveis')
     expect(page).to have_css("img[src*='placeholder-image-1.png']")
     expect(page).to have_content('Categoria: Eletrônicos')
     expect(page).to have_content('Marca: LG')

@@ -44,6 +44,9 @@
             <p>Não há preço para esse produto</p>
           <% end %>
         <% end %>
+        <div>
+          <%= @product.stock_product.quantity %> disponiveis
+        </div>
         <% unless admin_signed_in? %>
           <%= button_to 'Adicionar ao carrinho ', product_product_items_path(@product.id), method: 'post', class: 'btn-second mt-1' %>
         <% end %>

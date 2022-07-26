@@ -10,6 +10,9 @@ describe 'Cliente vê carrinho' do
     second_product = create :product, category: first_product.category, name: 'Monitor 8k',
                                       shipping_price: 20.00
     create :price, product: second_product, value: 20.00
+    StockProduct.destroy_all
+    create :stock_product, product: first_product, quantity: 10
+    create :stock_product, product: second_product, quantity: 10
 
     login_as client, scope: :client
     visit product_path(first_product)
@@ -45,6 +48,8 @@ describe 'Cliente vê carrinho' do
     client = create :client
     product = create :product, name: 'Mouse'
     create :price, product: product
+    StockProduct.destroy_all
+    create :stock_product, product: product, quantity: 10
 
     login_as client, scope: :client
     visit product_path(product)

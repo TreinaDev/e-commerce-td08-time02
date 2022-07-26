@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :stock_product do
-    quantity { 1 }
-    product { nil }
+    quantity { 10 }
+    product
   end
 end
