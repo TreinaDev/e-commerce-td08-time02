@@ -13,11 +13,10 @@ describe 'Cliente edita' do
     login_as client, scope: :client
     visit shopping_cart_path
     click_on '+'
-    product.reload
 
     item = ProductItem.last
     expect(item.quantity).to eq 2
-    expect(product.stock_product.quantity).to eq 9
+    expect(item.product.stock_product.quantity).to eq 9
   end
 
   it 'diminuindo quantidade do item' do
@@ -32,11 +31,10 @@ describe 'Cliente edita' do
     login_as client, scope: :client
     visit shopping_cart_path
     click_on '-'
-    product.reload
 
     item = ProductItem.last
     expect(item.quantity).to eq 1
-    expect(product.stock_product.quantity).to eq 11
+    expect(item.product.stock_product.quantity).to eq 11
   end
 
   it 'e botão diminuir some quando quantidade for 1' do
