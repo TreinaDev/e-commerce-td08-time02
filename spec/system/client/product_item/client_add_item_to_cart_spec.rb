@@ -14,8 +14,11 @@ describe 'Cliente adiciona um item ao carrinho' do
     visit root_path
     click_on 'Monitor 8k'
     click_on 'Adicionar ao carrinho'
+    product.reload
 
     expect(page).to have_content 'Monitor 8k adicionado ao carrinho!'
+    expect(ProductItem.count).to eq 1
+    expect(product.stock_product.quantity).to eq 9
   end
 
   it 'e não tem o produto escolhido' do
@@ -31,10 +34,6 @@ describe 'Cliente adiciona um item ao carrinho' do
 
     expect(page).to have_content 'Monitor 8k acabou!'
     expect(ProductItem.count).to eq 0
-  end
-
-  it 'e diminui valor de estoque' do
-    
   end
 
   it 'com falha' do

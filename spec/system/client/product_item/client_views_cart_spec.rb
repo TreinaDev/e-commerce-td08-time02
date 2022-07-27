@@ -56,10 +56,12 @@ describe 'Cliente vê carrinho' do
     click_on 'Adicionar ao carrinho'
     click_on 'Adicionar ao carrinho'
     click_on 'Carrinho'
+    product.reload
 
     within("##{product.id}") do
       expect(page).to have_content 'Mouse'
       expect(page).to have_content '2'
+      expect(product.stock_product.quantity).to eq 8
     end
     expect(ProductItem.count).to eq 1
   end
