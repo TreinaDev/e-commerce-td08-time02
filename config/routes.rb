@@ -33,6 +33,10 @@ Rails.application.routes.draw do
     post 'approve', on: :member
   end
 
+  resources :stock_products, only: %i[index] do
+    patch 'change', on: :member
+  end
+
   namespace :api do
     namespace :v1 do
       resources :exchange_rates, only: %i[create]

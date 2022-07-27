@@ -1,0 +1,10 @@
+<section class='container'>
+  <%= @products.each do |stock_product| %>
+    <h3><%= stock_product.product.name %></h3>
+    <%= form_with url: change_stock_product_path(stock_product), method: :patch do |f| %>
+      <%= f.number_field 'value'%>
+      <%= f.submit 'Alterar'%>
+    <% end %>
+    <%= stock_product.quantity %>
+  <% end %>
+</section>

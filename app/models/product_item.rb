@@ -16,4 +16,10 @@ class ProductItem < ApplicationRecord
 
     total_price / product.cashback.percentual
   end
+
+  def change_stock(product, quantity)
+    stock = StockProduct.find_by(product: product)
+    stock.quantity += quantity
+    stock.save
+  end
 end

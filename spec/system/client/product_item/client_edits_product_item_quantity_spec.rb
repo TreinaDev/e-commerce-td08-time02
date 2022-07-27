@@ -5,6 +5,8 @@ describe 'Cliente edita' do
     create :exchange_rate
     client = create :client
     product = create :product
+    StockProduct.destroy_all
+    create :stock_product, product: product, quantity: 10
     create(:price, product:)
     create(:product_item, product: product, client: client)
 
@@ -14,12 +16,15 @@ describe 'Cliente edita' do
 
     item = ProductItem.last
     expect(item.quantity).to eq 2
+    expect(item.product.stock_product.quantity).to eq 9
   end
 
   it 'diminuindo quantidade do item' do
     create :exchange_rate
     client = create :client
     product = create :product
+    StockProduct.destroy_all
+    create :stock_product, product: product, quantity: 10
     create(:price, product:)
     create(:product_item, product: product, client: client, quantity: 2)
 
@@ -29,6 +34,7 @@ describe 'Cliente edita' do
 
     item = ProductItem.last
     expect(item.quantity).to eq 1
+    expect(item.product.stock_product.quantity).to eq 11
   end
 
   it 'e botão diminuir some quando quantidade for 1' do
